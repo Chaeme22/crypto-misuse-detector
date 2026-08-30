@@ -22,7 +22,7 @@ $ python -m rag_app.cli analyze https://github.com/javamelody/javamelody --out r
 > 근거: 암호 알고리즘 및 키 길이 이용 안내서(KISA, 2018), 표 4
 > 수정 제안: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다.
 
-"이거 위험해요"가 아니라 **"표준 문서 몇 쪽 어느 표에 따르면 이 값은 기준 미달"**을 말한다.
+단순히 위험하다고 알리는 데 그치지 않고, **표준 문서의 어느 표에 따라 어떤 기준에 미달하는지**를 제시한다.
 
 ## 표준 근거 지식층 — 이 시스템의 심장
 
@@ -96,7 +96,7 @@ python -m pytest tests/unit -q
 python tools/benchmark.py /path/to/CryptoAPI-Bench
 ```
 
-파싱 결과물과 검색 DB(`data/`)가 저장소에 포함돼 있어 바로 돌아간다. 원본 PDF는
+파싱 결과물과 검색 DB(`data/`)가 저장소에 포함돼 있어 별도 준비 없이 실행된다. 원본 PDF는
 용량 문제로 제외했다 — [KISA 암호이용활성화](https://seed.kisa.or.kr)와
 [NIST CSRC](https://csrc.nist.gov/publications)에서 공개 배포되며, 문서를
 추가·개정할 때만 필요하다(절차는 `development_document/인수인계.md` 5절).
