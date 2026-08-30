@@ -10,12 +10,20 @@ chardet>=5.2.0
 
 # Document Parsers
 pymupdf>=1.23.0        # PyMuPDF for PDF text & page extraction
+pypdf>=4.0.0            # PDF parsing fallback when PyMuPDF fails
 python-docx>=1.1.0      # Word document parser
 openpyxl>=3.1.0         # Excel document parser
 python-pptx>=0.6.23     # PowerPoint document parser
+markdown>=3.5.0         # Markdown parser (registry)
+
+# OCR (scanned documents)
+httpx>=0.26.0           # OCR service HTTP client
+pytesseract>=0.3.10     # Local Tesseract OCR fallback (requires tesseract binary + kor/eng data)
+pillow>=10.2.0          # Page image handling for OCR
 
 # Vector Database
 qdrant-client>=1.7.0
+portalocker>=2.8.0      # Local Qdrant storage lock handling
 
 # AI & Embedding Models
 torch>=2.1.0

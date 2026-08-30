@@ -297,7 +297,12 @@ class QdrantStore:
                         size=self.vector_dim,
                         distance=rest_models.Distance.COSINE,
                     )
-                }
+                },
+                # 어휘 검색용 희소 벡터. 표준문서 인용은 알고리즘명과 키 길이가 정확히
+                # 맞아야 하고, 밀집 벡터만으로는 `ARIA-192`와 `ARIA-256`이 갈리지 않는다.
+                sparse_vectors_config={
+                    "sparse": rest_models.SparseVectorParams()
+                },
             )
             
             indexed_fields = [
@@ -323,6 +328,11 @@ class QdrantStore:
             return True
         
         if self.client is None:
+            # 메모리 목 저장소는 테스트용이다. 실환경에서 이 경로를 타면 색인이 프로세스와
+            # 함께 사라지는데 성공으로 보고된다.
+            if self.config.environment != "test":
+                raise VectorStoreError(
+                    f"Qdrant에 연결하지 못해 색인할 수 없다: {QdrantStore._init_error_msg}")
             logger.warning("qdrant_stage_mock", f"Mock staging {len(chunks)} chunks")
             QdrantStore._mock_storage[self.collection_name].extend(chunks)
             return True
@@ -332,9 +342,15 @@ class QdrantStore:
             
             points = []
             for chunk in chunks:
+                vector = {"dense": chunk.embedding}
+                if chunk.sparse_embedding:
+                    vector["sparse"] = rest_models.SparseVector(
+                        indices=[int(i) for i in chunk.sparse_embedding],
+                        values=[float(v) for v in chunk.sparse_embedding.values()],
+                    )
                 points.append(rest_models.PointStruct(
                     id=str(chunk.chunk_id),
-                    vector={"dense": chunk.embedding},
+                    vector=vector,
                     payload={
                         "document_id": str(chunk.document_id),
                         "version_id": str(chunk.version_id),
@@ -345,8 +361,10 @@ class QdrantStore:
                         "sheet_name": chunk.sheet_name,
                         "slide_number": chunk.slide_number,
                         "section_title": chunk.section_title,
+                        "section_path": list(chunk.section_path),
                         "language": chunk.language,
                         "token_count": chunk.token_count,
+                        "needs_review": chunk.needs_review,
                         "source_path": chunk.source_path,
                         "file_name": chunk.file_name,
                         "file_type": chunk.file_type,
@@ -370,8 +388,11 @@ class QdrantStore:
         Perform vector similarity search against Qdrant collection.
         """
         if self.client is None:
-            if QdrantStore._init_error_msg and self.config.environment != "test":
-                logger.error("qdrant_search_disabled", f"Qdrant vector search unavailable: {QdrantStore._init_error_msg}")
+            # 목 검색은 점수를 0.90으로 지어낸다. 그 결과가 SARIF 인용과 신뢰도로 나가면
+            # 근거 없는 보고서가 된다. 테스트 밖에서는 멈춘다.
+            if self.config.environment != "test":
+                raise VectorStoreError(
+                    f"Qdrant 벡터 검색을 쓸 수 없다: {QdrantStore._init_error_msg}")
             
             # Mock search: return SearchHits from in-memory mock storage
             stored_chunks = QdrantStore._mock_storage.get(self.collection_name, [])
@@ -410,16 +431,43 @@ class QdrantStore:
                     ))
                 query_filter = rest_models.Filter(must=must_conditions)
 
-            # qdrant-client >= 1.12: use query_points (search was removed)
-            response = self.client.query_points(
-                collection_name=self.collection_name,
-                query=query.query_embedding,
-                using="dense",
-                limit=query.candidate_count,
-                score_threshold=query.minimum_score,
-                query_filter=query_filter,
-                with_payload=True,
-            )
+            # 희소 벡터가 있으면 두 검색을 각각 돌리고 RRF로 합친다. 밀집은 뜻이 비슷한
+            # 문단을, 희소는 식별자가 일치하는 문단을 가져온다. 어느 쪽도 혼자서는
+            # 표준문서 인용에 충분하지 않았다.
+            if query.query_sparse:
+                response = self.client.query_points(
+                    collection_name=self.collection_name,
+                    prefetch=[
+                        rest_models.Prefetch(
+                            query=query.query_embedding,
+                            using="dense",
+                            limit=query.candidate_count,
+                        ),
+                        rest_models.Prefetch(
+                            query=rest_models.SparseVector(
+                                indices=[int(i) for i in query.query_sparse],
+                                values=[float(v) for v in query.query_sparse.values()],
+                            ),
+                            using="sparse",
+                            limit=query.candidate_count,
+                        ),
+                    ],
+                    query=rest_models.FusionQuery(fusion=rest_models.Fusion.RRF),
+                    limit=query.candidate_count,
+                    query_filter=query_filter,
+                    with_payload=True,
+                )
+            else:
+                # qdrant-client >= 1.12: use query_points (search was removed)
+                response = self.client.query_points(
+                    collection_name=self.collection_name,
+                    query=query.query_embedding,
+                    using="dense",
+                    limit=query.candidate_count,
+                    score_threshold=query.minimum_score,
+                    query_filter=query_filter,
+                    with_payload=True,
+                )
 
             hits = []
             for res in response.points:
@@ -436,10 +484,12 @@ class QdrantStore:
                     sheet_name=payload.get("sheet_name"),
                     slide_number=payload.get("slide_number"),
                     section_title=payload.get("section_title"),
+                    section_path=tuple(payload.get("section_path") or ()),
                     source_path=payload.get("source_path", ""),
                     file_name=payload.get("file_name", ""),
                     file_type=payload.get("file_type", ""),
                     language=payload.get("language", "ko"),
+                    needs_review=bool(payload.get("needs_review", False)),
                 ))
             return hits
 

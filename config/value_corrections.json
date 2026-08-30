@@ -1,0 +1,23 @@
+[
+  {
+    "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+    "page": 7,
+    "wrong": "SHA3-284",
+    "right": "SHA3-384",
+    "evidence": "원문 <표 3> 국내 열은 SHA3-224 / SHA3-256 / SHA3-384 / SHA3-512다. 284는 존재하지 않는 출력 길이. 2026-08-18 원문 이미지 대조."
+  },
+  {
+    "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+    "page": 8,
+    "wrong": "SHA-3824",
+    "right": "SHA-384",
+    "evidence": "원문 <표 4> 112비트 이상 행에는 SHA-384가 있고 3824는 존재하지 않는 출력 길이. 2026-08-18 원문 이미지 대조."
+  },
+  {
+    "document": "Recommendation for Key Management",
+    "page": 69,
+    "wrong": "SHA-174",
+    "right": "SHA-1",
+    "evidence": "원문 Table 3의 ≤80 행은 SHA-1이고 74는 각주 번호다. 텍스트 레이어가 윗주를 값에 붙여 뽑았다. 2026-08-18 확인."
+  }
+]

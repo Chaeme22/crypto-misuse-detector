@@ -82,11 +82,20 @@ class EmbeddedChunk:
     sheet_name: Optional[str] = None
     slide_number: Optional[int] = None
     section_title: Optional[str] = None
+    # 조항 전체 경로. SARIF에 근거 조항을 인용할 때 `제3장 제2절 대칭키 암호`처럼 상위까지
+    # 밝혀야 한다. 마지막 조각만으로는 어느 장의 제2절인지 알 수 없다.
+    section_path: tuple[str, ...] = ()
     language: str = "ko"
     embedding: list[float] = field(default_factory=list)
+    # 어휘 가중치. 밀집 벡터가 구별하지 못하는 희귀 식별자(`ARIA-192` 대 `ARIA-256`)를
+    # 가리기 위해 함께 넣는다. 비어 있으면 밀집 전용으로 색인된 청크다.
+    sparse_embedding: dict = field(default_factory=dict)
     embedding_model: str = "BAAI/bge-m3"
     token_count: int = 0
     indexed_at: datetime = field(default_factory=datetime.now)
+    # 원문 대조가 필요한 블록에서 나온 청크인지. OCR 판독이 어긋난 자리가 어느 청크로
+    # 들어갔는지 색인 뒤에도 알아야 한다. 색인한 다음에 붙이려면 전체를 다시 넣어야 한다.
+    needs_review: bool = False
     # Source file metadata for citations
     source_path: str = ""
     file_name: str = ""
@@ -122,10 +131,12 @@ class SearchHit:
     sheet_name: Optional[str] = None
     slide_number: Optional[int] = None
     section_title: Optional[str] = None
+    section_path: tuple[str, ...] = ()
     source_path: str = ""
     file_name: str = ""
     file_type: str = ""
     language: str = "ko"
+    needs_review: bool = False
     rerank_score: Optional[float] = None
     
     def __post_init__(self):
@@ -165,6 +176,7 @@ class SearchQuery:
     """Search query with embedding and filters."""
     query_text: str
     query_embedding: list[float]
+    query_sparse: dict = field(default_factory=dict)
     candidate_count: int = 30
     final_top_k: int = 5
     minimum_score: float = 0.25

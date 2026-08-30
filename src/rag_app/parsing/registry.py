@@ -19,7 +19,7 @@ from ..domain.exceptions import (
     ParsingError, PDFParseError, DOCXParseError, TextParseError, MarkdownParseError,
     ZipBombError, XXEAttackError, OCRRequiredError
 )
-from ..ingestion.hasher import ZipBombDetector
+from .zip_safety import ZipBombDetector
 from ..observability.logging import get_logger, get_current_job_id
 
 

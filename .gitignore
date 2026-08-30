@@ -2,3 +2,8 @@
 /document
 /main.py
 /todo.md
+__pycache__/
+*.pyc
+data/logs/
+data/*.log
+암호가이드라인/암호 가이드라인/

@@ -4,7 +4,7 @@ Semantic chunking with token-aware sizing, overlap, and structure preservation.
 
 import re
 import hashlib
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime
 from typing import List, Optional, Tuple
 from uuid import UUID
@@ -214,10 +214,33 @@ class Chunker:
         return block
     
     def _group_by_boundary(self, blocks: List[ParsedBlock]) -> List[List[ParsedBlock]]:
-        """Group blocks by page boundary if configured."""
+        """
+        Group blocks by page boundary if configured, else by section path.
+
+        조항으로 묶는 쪽이 기본이다. 인용 단위가 조항이고, 페이지 경계는 조항 가운데를
+        가른다. 다만 조항 하나가 목표 크기보다 작은 경우가 많아(문서별 중앙값 54~1110토큰)
+        조항마다 끊으면 조각 청크가 쏟아진다. 그래서 목표 크기에 닿기 전까지는 다음 조항을
+        이어 붙이고, 넘어선 뒤에 오는 조항 경계에서 끊는다.
+        """
         if not self.config.preserve_page_boundary:
-            return [blocks]
-        
+            groups: List[List[ParsedBlock]] = []
+            current: List[ParsedBlock] = []
+            current_key = None
+            current_tokens = 0
+
+            for block in blocks:
+                key = block.section_path
+                if current and key != current_key and current_tokens >= self.config.target_tokens:
+                    groups.append(current)
+                    current, current_tokens = [], 0
+                current.append(block)
+                current_tokens += self.token_counter.count(block.text)
+                current_key = key
+
+            if current:
+                groups.append(current)
+            return groups
+
         groups = []
         current_group = []
         current_page = None
@@ -359,6 +382,8 @@ class Chunker:
         sheet_name = sheet_names[0] if sheet_names else None
         slide_number = slide_numbers[0] if slide_numbers else None
         section_title = section_paths[-1][-1] if section_paths else None
+        # 인용에 쓸 전체 경로. 청크 안에서 마지막으로 확정된 조항을 쓴다.
+        section_path = tuple(section_paths[-1]) if section_paths else ()
         
         # Generate deterministic chunk ID
         chunk_id = EmbeddedChunk.generate_chunk_id(document_id, version_id, chunk_index)
@@ -374,9 +399,12 @@ class Chunker:
             sheet_name=sheet_name,
             slide_number=slide_number,
             section_title=section_title,
+            section_path=section_path,
             language=sentences[0].metadata.get("language", "ko") if sentences[0].metadata else "ko",
             embedding=[0.0],
             token_count=token_count,
+            # 청크를 이룬 블록 중 하나라도 검수 대상이면 청크도 검수 대상이다.
+            needs_review=any(s.metadata.get("needs_review") for s in sentences if s.metadata),
         )
     
     def _post_process(self, chunks: List[EmbeddedChunk]) -> List[EmbeddedChunk]:
@@ -394,26 +422,12 @@ class Chunker:
                 seen_hashes.add(content_hash)
                 unique_chunks.append(chunk)
         
-        # Re-index chunk indices
+        # Re-index chunk indices.
+        # 필드를 나열해 새로 만들지 않는다. 나열에서 빠진 필드가 조용히 사라진다. 실제로
+        # 조항 전체 경로와 검수 표시가 이 자리에서 유실됐고, 색인 결과를 보고서야 알았다.
         for idx, chunk in enumerate(unique_chunks):
-            unique_chunks[idx] = EmbeddedChunk(
-                chunk_id=chunk.chunk_id,
-                document_id=chunk.document_id,
-                version_id=chunk.version_id,
-                index_profile_id=chunk.index_profile_id,
-                content=chunk.content,
-                chunk_index=idx,
-                page_number=chunk.page_number,
-                sheet_name=chunk.sheet_name,
-                slide_number=chunk.slide_number,
-                section_title=chunk.section_title,
-                language=chunk.language,
-                embedding=chunk.embedding,
-                embedding_model=chunk.embedding_model,
-                token_count=chunk.token_count,
-                indexed_at=chunk.indexed_at,
-            )
-        
+            unique_chunks[idx] = replace(chunk, chunk_index=idx)
+
         return unique_chunks
 
 

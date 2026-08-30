@@ -1,0 +1,1461 @@
+{
+  "note": "임계값을 뽑을 표를 사람이 블록 단위로 지정한다. 표마다 열의 뜻과 적용 목적이 달라 자동으로 가릴 수 없다. 전부 섞어 최대값을 취했더니 RSA가 256비트 보안강도를 만족하고 SHA-256이 전자서명용 256비트를 만족한다는 행이 나왔다. 페이지만으로도 부족하다. 8쪽에는 표3의 꼬리와 표4의 머리가 함께 있다. 그래서 블록의 시작 문구까지 적는다.",
+  "policy": {
+    "minimum_security_strength": 112,
+    "recommended_security_strength": 128,
+    "basis_document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+    "basis_page": 10,
+    "basis_table": "〈표 6〉 보안강도별 암호 알고리즘 비교표",
+    "basis": "112비트 보안강도는 2011년에서 2030년까지 유효하고 128비트 이상은 2030년 이후에도 유효하다.",
+    "note": "위반은 112비트 미달로 판정한다. 112비트는 만족하되 128비트에 못 미치는 것은 2030년 만료를 알리는 데 그친다. 이 기준을 어디에 둘지는 정책이라 표에서 뽑을 수 없다. 그래서 근거 문서와 쪽수를 함께 적어 어디서 온 숫자인지 되짚을 수 있게 한다."
+  },
+  "tables_used": [
+    {
+      "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+      "page": 5,
+      "rows": 27
+    },
+    {
+      "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+      "page": 6,
+      "rows": 27
+    },
+    {
+      "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+      "page": 7,
+      "rows": 144
+    },
+    {
+      "table": "단순해시·전자서명용 해시함수 (표 4)",
+      "page": 8,
+      "rows": 80
+    },
+    {
+      "table": "단순해시·전자서명용 해시함수 (표 4)",
+      "page": 9,
+      "rows": 28
+    },
+    {
+      "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+      "page": 9,
+      "rows": 16
+    }
+  ],
+  "blocks_missing": [],
+  "excluded": [
+    {
+      "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+      "page": 8,
+      "reason": "표 3의 256비트 행. 4개 열이 뒤섞여 어느 기관 목록인지 복원할 수 없고 `SHA-shake128`처럼 오탈자도 있다. 표 4 범위로 잘못 들어가 SHA-256이 전자서명용 256비트를 만족한다는 행을 만들었다. 메시지인증용 256비트 기준이 비게 되지만 우리 규칙은 SHA-1·MD5 같은 약한 해시를 보므로 7쪽의 112·128 행으로 충분하다.",
+      "affects": "hash_mac/classical 에 256비트 행이 없다. 메시지인증용 해시의 최고 강도가 192로 보인다. SHA-1·MD5 판정에는 영향이 없다."
+    },
+    {
+      "document": "양자컴퓨팅 환경에서의 암호기술 이용 안내서_2017",
+      "page": 23,
+      "reason": "양자 환경 권장 키길이. `권장 키 사이즈` 열이 여러 행에 걸친 병합 셀인데 평탄화되면서 어느 행의 값인지 사라졌다. `SEED 128 HIGHT 128 사용불가`에서 사용불가가 둘 다인지 HIGHT만인지 알 수 없다. 손으로 채우면 표에서 뽑는 의미가 없어 뺀다.",
+      "affects": "양자 환경 대칭키 권장 키길이가 없다. 양자 관련 규칙은 아직 없다."
+    },
+    {
+      "document": "양자컴퓨팅 환경에서의 암호기술 이용 안내서_2017",
+      "page": 23,
+      "reason": "양자 환경 해시 권장 출력값. 위와 같은 병합 셀 문제.",
+      "affects": "양자 환경 해시 권장 출력값이 없다. 양자 관련 규칙은 아직 없다."
+    }
+  ],
+  "rows": [
+    {
+      "algorithm": "HAS-160",
+      "family": "HAS",
+      "key_bits": 160,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-1",
+      "family": "SHA",
+      "key_bits": null,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-224",
+      "family": "BLAKE",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-256",
+      "family": "BLAKE",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-384",
+      "family": "BLAKE",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-512",
+      "family": "BLAKE",
+      "key_bits": 512,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-224",
+      "family": "LSH",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-256",
+      "family": "LSH",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-384",
+      "family": "LSH",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512",
+      "family": "LSH",
+      "key_bits": 512,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512-224",
+      "family": "LSH",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512-256",
+      "family": "LSH",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-224",
+      "family": "SHA",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-256",
+      "family": "SHA",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-384",
+      "family": "SHA",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512",
+      "family": "SHA",
+      "key_bits": 512,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512/224",
+      "family": "SHA",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512/256",
+      "family": "SHA",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-224",
+      "family": "SHA3",
+      "key_bits": 224,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-256",
+      "family": "SHA3",
+      "key_bits": 256,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-384",
+      "family": "SHA3",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-512",
+      "family": "SHA3",
+      "key_bits": 512,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-SHAKE128",
+      "family": "SHA3",
+      "key_bits": null,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-SHAKE256",
+      "family": "SHA3",
+      "key_bits": null,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "WHIRLPOOL-512",
+      "family": "WHIRLPOOL",
+      "key_bits": 512,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_mac",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 7,
+        "table": "메시지인증·키유도·난수생성용 해시함수 (표 3)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-224",
+      "family": "BLAKE",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-224",
+      "family": "LSH",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512-224",
+      "family": "LSH",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-224",
+      "family": "SHA",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512/224",
+      "family": "SHA",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-224",
+      "family": "SHA3",
+      "key_bits": 224,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-256",
+      "family": "BLAKE",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-256",
+      "family": "LSH",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512-256",
+      "family": "LSH",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-256",
+      "family": "SHA",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512/256",
+      "family": "SHA",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-256",
+      "family": "SHA3",
+      "key_bits": 256,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-SHAKE128",
+      "family": "SHA3",
+      "key_bits": null,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 8,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-384",
+      "family": "BLAKE",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-384",
+      "family": "LSH",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-384",
+      "family": "SHA",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-384",
+      "family": "SHA3",
+      "key_bits": 384,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "BLAKE-512",
+      "family": "BLAKE",
+      "key_bits": 512,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LSH-512",
+      "family": "LSH",
+      "key_bits": 512,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA-512",
+      "family": "SHA",
+      "key_bits": 512,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-512",
+      "family": "SHA3",
+      "key_bits": 512,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SHA3-SHAKE256",
+      "family": "SHA3",
+      "key_bits": null,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "WHIRLPOOL-512",
+      "family": "WHIRLPOOL",
+      "key_bits": 512,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "hash_signature",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "단순해시·전자서명용 해시함수 (표 4)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH",
+      "family": "DH",
+      "min_key_bits": 2048,
+      "security_strength": 112,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH_PRIVATE",
+      "family": "DH_PRIVATE",
+      "min_key_bits": 224,
+      "security_strength": 112,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ECC",
+      "family": "ECC",
+      "min_key_bits": 224,
+      "security_strength": 112,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "RSA",
+      "family": "RSA",
+      "min_key_bits": 2048,
+      "security_strength": 112,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH",
+      "family": "DH",
+      "min_key_bits": 3072,
+      "security_strength": 128,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH_PRIVATE",
+      "family": "DH_PRIVATE",
+      "min_key_bits": 256,
+      "security_strength": 128,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ECC",
+      "family": "ECC",
+      "min_key_bits": 256,
+      "security_strength": 128,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "RSA",
+      "family": "RSA",
+      "min_key_bits": 3072,
+      "security_strength": 128,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH",
+      "family": "DH",
+      "min_key_bits": 7680,
+      "security_strength": 192,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH_PRIVATE",
+      "family": "DH_PRIVATE",
+      "min_key_bits": 384,
+      "security_strength": 192,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ECC",
+      "family": "ECC",
+      "min_key_bits": 384,
+      "security_strength": 192,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "RSA",
+      "family": "RSA",
+      "min_key_bits": 7680,
+      "security_strength": 192,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH",
+      "family": "DH",
+      "min_key_bits": 15360,
+      "security_strength": 256,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "DH_PRIVATE",
+      "family": "DH_PRIVATE",
+      "min_key_bits": 512,
+      "security_strength": 256,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ECC",
+      "family": "ECC",
+      "min_key_bits": 512,
+      "security_strength": 256,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "RSA",
+      "family": "RSA",
+      "min_key_bits": 15360,
+      "security_strength": 256,
+      "kind": "key_length",
+      "purpose": "public_key",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 9,
+        "table": "보안강도에 따른 공개키 암호 알고리즘 키 길이 (표 6)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "3TDEA",
+      "family": "3TDEA",
+      "key_bits": null,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ARIA-128",
+      "family": "ARIA",
+      "key_bits": 128,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ARIA-192",
+      "family": "ARIA",
+      "key_bits": 192,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "CAMELLIA-128",
+      "family": "CAMELLIA",
+      "key_bits": 128,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "CAMELLIA-192",
+      "family": "CAMELLIA",
+      "key_bits": 192,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "HIGHT",
+      "family": "HIGHT",
+      "key_bits": null,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LEA-128",
+      "family": "LEA",
+      "key_bits": 128,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LEA-192",
+      "family": "LEA",
+      "key_bits": 192,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SEED",
+      "family": "SEED",
+      "key_bits": null,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SERPENT-128",
+      "family": "SERPENT",
+      "key_bits": 128,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SERPENT-192",
+      "family": "SERPENT",
+      "key_bits": 192,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "SERPENT-256",
+      "family": "SERPENT",
+      "key_bits": 256,
+      "security_strength": 112,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 5,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "AES-128",
+      "family": "AES",
+      "key_bits": 128,
+      "security_strength": 128,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "AES-192",
+      "family": "AES",
+      "key_bits": 192,
+      "security_strength": 192,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "AES-256",
+      "family": "AES",
+      "key_bits": 256,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "ARIA-256",
+      "family": "ARIA",
+      "key_bits": 256,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "CAMELLIA-256",
+      "family": "CAMELLIA",
+      "key_bits": 256,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    },
+    {
+      "algorithm": "LEA-256",
+      "family": "LEA",
+      "key_bits": 256,
+      "security_strength": 256,
+      "kind": "membership",
+      "purpose": "symmetric_cipher",
+      "context": "classical",
+      "verdict": "allowed",
+      "source": {
+        "document": "암호 알고리즘 및 키 길이 이용 안내서_2018",
+        "page": 6,
+        "table": "보안강도에 따른 대칭키 암호 알고리즘 (표 2)",
+        "needs_review": false,
+        "verified": "2026-08-24 원문 대조"
+      }
+    }
+  ]
+}

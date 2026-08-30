@@ -1,0 +1,95 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CryptoMisuse-OSS",
+          "version": "0.1.0",
+          "informationUri": "https://github.com/",
+          "rules": [
+            {
+              "id": "CRYPTO-HASH-WEAK",
+              "name": "WeakHashFunction",
+              "shortDescription": {
+                "text": "충돌 저항성이 깨진 해시 함수 사용"
+              },
+              "fullDescription": {
+                "text": "MD5와 SHA-1은 충돌 저항성이 깨져 무결성·서명 용도로 쓸 수 없다. 국내 안내서는 보안강도 112비트 이상을 요구하며 그 목록에 MD5가 없다."
+              },
+              "help": {
+                "text": "SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "cryptography",
+                  "CWE-328"
+                ],
+                "cwe": "CWE-328"
+              }
+            }
+          ]
+        }
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///home/aivlab/rag-tst/"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CRYPTO-HASH-WEAK",
+          "level": "error",
+          "message": {
+            "text": "`hashlib.md5` 호출을 확인했다. 충돌 저항성이 깨진 해시 함수 사용에 해당한다. 호출 자체는 확실하나 용도(보안 통제인지 단순 지문인지)는 코드 문맥을 읽어야 확정된다.\n근거: 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 7쪽 — [메시지인증/키유도/난수생성]용 해시함수; 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 6쪽 — [메시지인증/키유도/난수생성]용 해시함수\n수정 제안: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/rag_app/processing/chunker.py"
+                },
+                "region": {
+                  "startLine": 420,
+                  "startColumn": 28,
+                  "snippet": {
+                    "text": "content_hash = hashlib.md5(chunk.content.encode()).hexdigest()"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": 0.6,
+            "api": "hashlib.md5",
+            "citations": [
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 7,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "[Row 1] 보안강도 | 151(미국) | CRYPTREC(2/#) | | ECRYPT(#2) | 국내\n[Row 2] 112 비트 이상 | SHA-1” SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 | SHA-256 SHA-384 SHA-512 | SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 SHA3-shake1 28 SHA3-shake256 Whirlpool-512 BLAKE-224 BLAKE-256 BLAKE-384 BLAKE-512 | HAS-160” SHA~1 SH",
+                "needsReview": true
+              },
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 6,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "2) 해시함수\n해시함수는 사용 목적에 따라 메시지인증/키유도/단수생성용과 단순해시(메시지 압축)/전자 서명용으로 나뉘지며, 사용 목적과 보안강도에 따라 〈표 3〉, 〈표 4〉와 같이 분류된다.\n[메시지인증/키유도/난수생성]용 해시함수\n메시지 인증용 : 메시지의 위 · 변조를 확인하기 위해 해시함수 이용 키유도/난수생성용 : 안전한 키와 랜덤한 난수를 생성하기 위해 해시함수 이용\n||||| 〈표 3〉보안강도에 따른 메시지인증/키유도/난수생성용 해시함수 분류\n보안강도 NIST(미국) CRYPTREC(일본) ECRYPT(유럽) 국내 112 비트 이상 SHA-1 1) SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 ",
+                "needsReview": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

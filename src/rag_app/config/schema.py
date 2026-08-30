@@ -99,12 +99,25 @@ class ModelsConfig(BaseModel):
 
 
 class OCRConfig(BaseModel):
-    """OCR configuration for local/on-premise Unlimited OCR service."""
+    """
+    OCR configuration.
+
+    `engine`은 잘라낸 조각의 글자를 읽는 인식기다. 표준문서에서 뽑은 값이 그대로 탐지
+    규칙의 임계값이 되므로 인식 정확도가 곧 도구의 신뢰도이며, 어느 엔진이 나은지는
+    `tools/ocr_bench.py`로 우리 문서에 대해 재고 정한다.
+
+    사용할 수 없는 엔진을 조용히 다른 것으로 바꾸지 않는다. 어떤 엔진으로 읽은 값인지가
+    증거 추적에 남아야 하기 때문이다.
+    """
     enabled: bool = False
-    provider: Literal["unlimited_ocr"] = "unlimited_ocr"
+    provider: Literal["unlimited_ocr", "tesseract"] = "unlimited_ocr"
+    engine: Literal["tesseract", "easyocr", "paddleocr", "surya",
+                    "tesseract+easyocr", "surya+tesseract"] = "tesseract"
+    device: Literal["auto", "cpu", "cuda"] = "auto"
     endpoint: str = "http://localhost:8000/v1/ocr"
     api_key_env: Optional[str] = "UNLIMITED_OCR_API_KEY"
     languages: list[str] = Field(default=["ko", "ja", "en"])
+    render_dpi: int = Field(default=400, ge=150, le=1200)
     timeout_seconds: int = Field(default=120, ge=10, le=600)
 
 

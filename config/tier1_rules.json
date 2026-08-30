@@ -1,0 +1,183 @@
+[
+  {
+    "rule_id": "CRYPTO-HASH-WEAK",
+    "name": "WeakHashFunction",
+    "cwe": "CWE-328",
+    "level": "error",
+    "summary": "충돌 저항성이 깨진 해시 함수 사용",
+    "detail": "MD5와 SHA-1은 충돌 저항성이 깨져 무결성·서명 용도로 쓸 수 없다. 국내 안내서는 보안강도 112비트 이상을 요구하며 그 목록에 MD5가 없다.",
+    "remediation": "SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다.",
+    "clause_query": "SHA-1을 해시 함수로 사용해도 되는지 보안강도 기준",
+    "api_triggers": [
+      "hashlib.md5",
+      "hashlib.sha1",
+      "MessageDigest.getInstance",
+      "crypto.createHash",
+      "Crypto.Hash.MD5.new",
+      "Crypto.Hash.SHA1.new"
+    ],
+    "literal_triggers": [
+      "MD5",
+      "SHA-1",
+      "SHA1",
+      "md5",
+      "sha1"
+    ],
+    "table_decides": true,
+    "table_measures": true,
+    "table_purposes": [
+      "hash_signature",
+      "hash_mac"
+    ]
+  },
+  {
+    "rule_id": "CRYPTO-MODE-ECB",
+    "name": "EcbBlockCipherMode",
+    "cwe": "CWE-327",
+    "level": "error",
+    "summary": "ECB 운영모드 사용",
+    "detail": "ECB는 같은 평문 블록을 같은 암호문 블록으로 바꾸므로 평문의 구조가 드러난다. 안내서가 권고하는 운영모드에 ECB는 포함되지 않는다.",
+    "remediation": "CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다.",
+    "clause_query": "ECB 운영모드의 문제와 권고되는 블록암호 운영모드",
+    "api_triggers": [
+      "Cipher.getInstance",
+      "AES.new",
+      "DES.new",
+      "ARC4.new"
+    ],
+    "literal_triggers": [
+      "MODE_ECB",
+      "AES/ECB",
+      "DES/ECB",
+      "SEED/ECB",
+      "ARIA/ECB",
+      "/ECB/"
+    ],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": []
+  },
+  {
+    "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+    "name": "ObsoleteBlockCipher",
+    "cwe": "CWE-327",
+    "level": "error",
+    "summary": "폐기된 블록암호 알고리즘 사용",
+    "detail": "DES는 키 길이 56비트로 전수 탐색이 가능하고 2TDEA와 3DES도 보안강도 112비트를 만족하지 못하는 구성이 있다. 권고 목록은 AES와 국내 알고리즘(SEED, ARIA, LEA)이다.",
+    "remediation": "AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다.",
+    "clause_query": "국내에서 권고하는 대칭키 암호 알고리즘 목록과 키 길이",
+    "api_triggers": [
+      "DES.new",
+      "DES3.new",
+      "ARC4.new",
+      "Blowfish.new"
+    ],
+    "literal_triggers": [
+      "DES/",
+      "DESede",
+      "TripleDES",
+      "3DES",
+      "Blowfish",
+      "RC4",
+      "ARCFOUR",
+      "DESede/",
+      "Blowfish/"
+    ],
+    "table_decides": true,
+    "table_measures": true,
+    "table_purposes": [
+      "symmetric_cipher"
+    ]
+  },
+  {
+    "rule_id": "CRYPTO-KEYSIZE-SHORT",
+    "name": "InsufficientKeyLength",
+    "cwe": "CWE-326",
+    "level": "error",
+    "summary": "보안강도 112비트에 미달하는 키 길이",
+    "detail": "공개키 알고리즘은 RSA 2048비트 이상이어야 보안강도 112비트를 만족한다. 대칭키는 128비트 이상을 쓴다. 양자컴퓨팅 환경을 고려하면 대칭키는 256비트 이상이 권장된다.",
+    "remediation": "RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상.",
+    "clause_query": "공개키 암호 알고리즘 보안강도별 권고 키 길이 RSA 2048",
+    "api_triggers": [
+      "RSA.generate",
+      "rsa.generate_private_key",
+      "KeyPairGenerator.getInstance",
+      "dsa.generate_private_key"
+    ],
+    "literal_triggers": [
+      "RSA-1024",
+      "RSA-512",
+      "DH-1024"
+    ],
+    "table_decides": true,
+    "table_measures": true,
+    "table_purposes": [
+      "public_key"
+    ]
+  },
+  {
+    "rule_id": "CRYPTO-RNG-INSECURE",
+    "name": "InsecureRandom",
+    "cwe": "CWE-338",
+    "level": "error",
+    "summary": "암호 용도에 부적합한 난수 생성기",
+    "detail": "일반 난수 함수는 예측 가능한 수열을 낸다. 암호 키와 IV, 시드는 안전한 난수발생기(RBG)로 만들어야 한다.",
+    "remediation": "Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다.",
+    "clause_query": "암호 키 생성에 사용할 안전한 난수발생기 요구사항",
+    "api_triggers": [
+      "random.random",
+      "random.randint",
+      "random.choice",
+      "random.randrange",
+      "random.getrandbits",
+      "random.sample",
+      "random.shuffle",
+      "Math.random",
+      "Random",
+      "new Random"
+    ],
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": []
+  },
+  {
+    "rule_id": "CRYPTO-KEY-HARDCODED",
+    "name": "HardcodedKeyMaterial",
+    "cwe": "CWE-798",
+    "level": "error",
+    "summary": "키 또는 IV가 소스에 박혀 있음",
+    "detail": "소스에 박힌 키는 저장소를 읽을 수 있는 모든 사람에게 노출되고 교체가 불가능하다. 키는 생성·분배·보관 절차를 따라야 한다.",
+    "remediation": "키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다. IV는 매 암호화마다 새로 만든다.",
+    "clause_query": "저장중인 암호 키를 보호하기 위해 보장해야 하는 기능",
+    "api_triggers": [
+      "SecretKeySpec",
+      "IvParameterSpec"
+    ],
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": []
+  },
+  {
+    "rule_id": "CRYPTO-KDF-WEAK",
+    "name": "WeakKeyDerivation",
+    "cwe": "CWE-916",
+    "level": "warning",
+    "summary": "패스워드에서 키를 유도하는 방식이 취약",
+    "detail": "패스워드를 해시 한 번으로 키로 쓰면 사전 공격에 약하다. 키 유도는 표준 키 유도 함수와 충분한 반복 횟수, 임의 솔트를 써야 한다.",
+    "remediation": "PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다.",
+    "clause_query": "미리 공유된 키로부터 대칭키를 유도할 때 쓰는 키 유도 함수 표준",
+    "api_triggers": [
+      "hashlib.pbkdf2_hmac",
+      "SecretKeyFactory.getInstance"
+    ],
+    "literal_triggers": [
+      "PBKDF2WithHmacSHA1",
+      "PBKDF2WithHmacMD5"
+    ],
+    "table_decides": false,
+    "table_measures": true,
+    "table_purposes": []
+  }
+]

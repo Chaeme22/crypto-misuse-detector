@@ -7,7 +7,7 @@ and preserves paragraph boundaries for downstream chunking.
 
 import re
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import List, Optional
 from pathlib import Path
 
@@ -74,20 +74,8 @@ class TextNormalizer:
             if normalized_block is not None:
                 normalized_blocks.append(normalized_block)
         
-        return ParsedDocument(
-            document_id=document.document_id,
-            source_path=document.source_path,
-            file_name=document.file_name,
-            file_type=document.file_type,
-            file_size=document.file_size,
-            md5_hash=document.md5_hash,
-            modified_at=document.modified_at,
-            blocks=tuple(normalized_blocks),
-            parser_version=document.parser_version,
-            language=document.language,
-            ocr_status=document.ocr_status,
-            ocr_pages=document.ocr_pages,
-        )
+        # 필드를 나열해 새로 만들지 않는다. 나열에서 빠진 필드가 조용히 사라진다.
+        return replace(document, blocks=tuple(normalized_blocks))
     
     def _normalize_block(self, block: ParsedBlock) -> Optional[ParsedBlock]:
         """Normalize a single block's text."""

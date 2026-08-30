@@ -102,6 +102,109 @@ SYSTEM_PROMPT_TEMPLATE = """당신은 신뢰할 수 있고 엄격한 문서 Q&A 
 """
 
 
+def _load_backbone(model_id: str, kwargs: dict):
+    """
+    모델을 적재한다. 돌려주는 것은 (토크나이저 또는 프로세서, 모델, 그림 모델인지).
+
+    텍스트 모델을 먼저 시도하고 실패하면 그림까지 받는 모델로 본다. 조용히 다른 모델로
+    바꾸지 않으며, 둘 다 실패하면 예외를 그대로 낸다.
+    """
+    from transformers import (AutoModelForCausalLM, AutoModelForImageTextToText,
+                              AutoProcessor, AutoTokenizer)
+
+    try:
+        model = AutoModelForCausalLM.from_pretrained(model_id, **kwargs)
+        return AutoTokenizer.from_pretrained(model_id), model, False
+    except (ValueError, OSError, KeyError) as text_error:
+        logger.info("text_backbone_unavailable",
+                    f"{model_id}: 텍스트 모델로 못 열어 그림 모델로 시도한다 ({text_error})")
+        model = AutoModelForImageTextToText.from_pretrained(model_id, **kwargs)
+        return AutoProcessor.from_pretrained(model_id), model, True
+
+
+class LocalTransformersLLM:
+    """
+    로컬 가중치로 도는 판정용 모델.
+
+    Ollama가 없는 환경을 위해 둔다. 판정은 짧은 JSON 하나를 받는 일이라 서버를 띄울 이유가
+    없고, 같은 입력에 같은 출력이 나와야 보고서를 비교할 수 있어 표본추출을 끈다.
+
+    텍스트 모델과 그림까지 받는 모델을 모두 다룬다. 판정에는 글자만 쓰지만, 코드 특화
+    모델(Qwen2.5-Coder)과 캐시에 있던 VL 모델을 같은 자리에 꽂아 비교해야 한다.
+    """
+
+    def __init__(self, config: AppConfig,
+                 model_id: str = "Qwen/Qwen2.5-Coder-7B-Instruct",
+                 device: str = "cuda", load_in_4bit: bool = False):
+        import torch
+
+        self.config = config
+        self.model_id = model_id
+        self.max_output_tokens = config.models.llm.max_output_tokens
+        self.injection_detector = PromptInjectionDetector()
+        self._is_dummy = False
+
+        if device == "cuda" and not torch.cuda.is_available():
+            device = "cpu"
+        self.device = device
+
+        kwargs = {"device_map": device}
+        if load_in_4bit and device == "cuda":
+            from transformers import BitsAndBytesConfig
+            # 4비트면 7B가 6GB쯤이라 임베딩·재순위 모델과 같이 올라간다. bf16이면 셋을
+            # 합쳐 20GB로, 24GB 카드에서 여유가 3GB뿐이다.
+            kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16,
+                bnb_4bit_use_double_quant=True,
+            )
+        else:
+            kwargs["dtype"] = torch.bfloat16 if device == "cuda" else torch.float32
+
+        self.processor, self.model, self.is_vision = _load_backbone(model_id, kwargs)
+        self.model.eval()
+        logger.info("local_llm_loaded",
+                    f"Loaded {model_id} on {device.upper()} "
+                    f"({'4bit' if load_in_4bit else 'bf16'}, "
+                    f"{'vision' if self.is_vision else 'text'})")
+
+    def generate(self, request: GenerationRequest) -> GenerationResult:
+        import time
+
+        import torch
+
+        started = time.time()
+        content = ([{"type": "text", "text": request.question}] if self.is_vision
+                   else request.question)
+        text = self.processor.apply_chat_template(
+            [{"role": "user", "content": content}],
+            tokenize=False, add_generation_prompt=True)
+        if self.is_vision:
+            inputs = self.processor(text=[text], return_tensors="pt").to(self.model.device)
+        else:
+            inputs = self.processor([text], return_tensors="pt").to(self.model.device)
+
+        with torch.no_grad():
+            generated = self.model.generate(
+                **inputs,
+                max_new_tokens=min(request.max_tokens, self.max_output_tokens),
+                do_sample=False,          # 표본추출을 끈다. 판정이 흔들리면 보고서가 흔들린다.
+            )
+        prompt_length = inputs["input_ids"].shape[1]
+        answer = self.processor.batch_decode(
+            generated[:, prompt_length:], skip_special_tokens=True)[0].strip()
+
+        return GenerationResult(
+            answer=answer,
+            model_id=self.model_id,
+            prompt_tokens=int(prompt_length),
+            completion_tokens=int(generated.shape[1] - prompt_length),
+            finish_reason="stop",
+            latency_ms=(time.time() - started) * 1000,
+        )
+
+
 class OllamaLLM:
     """
     Ollama Gateway for Qwen models

@@ -2,6 +2,7 @@
 Reranker model provider using Cross-Encoder or BAAI/bge-reranker-v2-m3.
 """
 
+from dataclasses import replace
 from typing import Protocol, List, Optional
 
 # Transformers compatibility patch for XLMRobertaTokenizer in FlagReranker
@@ -88,17 +89,20 @@ class BgeReranker:
 
     def _init_model(self) -> None:
         """Initialize reranker model."""
-        # Use GPU for reranker (RTX 3080 x2 available)
         import os
-        import torch
-        
-        # Check GPU availability
-        if torch.cuda.is_available():
-            gpu_device = "cuda"
-            logger.info("gpu_available", f"CUDA available: {torch.cuda.device_count()} GPU(s)")
-        else:
-            gpu_device = "cpu"
-            logger.warning("gpu_not_available", "CUDA not available, falling back to CPU")
+
+        # Check GPU availability. torch 자체가 없으면 아래 백엔드 로드도 실패하므로
+        # 여기서 예외를 내지 않고 폴백 경로로 흘려보낸다.
+        gpu_device = "cpu"
+        try:
+            import torch
+            if torch.cuda.is_available():
+                gpu_device = "cuda"
+                logger.info("gpu_available", f"CUDA available: {torch.cuda.device_count()} GPU(s)")
+            else:
+                logger.warning("gpu_not_available", "CUDA not available, falling back to CPU")
+        except ImportError:
+            logger.warning("torch_not_available", "torch not installed, reranker will fall back")
         
         # Try CrossEncoder first (no multiprocessing pool issues)
         try:
@@ -197,25 +201,10 @@ class BgeReranker:
                 else:
                     float_score = float(score)
                 # Create a new SearchHit with rerank_score
-                new_hit = SearchHit(
-                    chunk_id=hit.chunk_id,
-                    document_id=hit.document_id,
-                    version_id=hit.version_id,
-                    index_profile_id=hit.index_profile_id,
-                    chunk_index=hit.chunk_index,
-                    content=hit.content,
-                    source_path=hit.source_path,
-                    file_name=hit.file_name,
-                    file_type=hit.file_type,
-                    page_number=hit.page_number,
-                    sheet_name=hit.sheet_name,
-                    slide_number=hit.slide_number,
-                    section_title=hit.section_title,
-                    language=hit.language,
-                    score=hit.score,
-                    rerank_score=float_score,
-                )
-                scored_hits.append(new_hit)
+                # 필드를 나열해 새로 만들지 않는다. 나열에서 빠진 필드가 조용히 사라진다.
+                # 실제로 조항 전체 경로와 검수 표시가 이 자리에서 유실돼 SARIF 인용이
+                # 조항 없이 나갔다.
+                scored_hits.append(replace(hit, rerank_score=float_score))
 
             scored_hits.sort(key=lambda h: (h.rerank_score if h.rerank_score is not None else h.score), reverse=True)
             logger.info("rerank_completed", f"Reranked {len(hits)} candidates to top {limit}")

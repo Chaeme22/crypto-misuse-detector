@@ -1,5 +1,9 @@
 """
-CLI interface for Document RAG System (ask, scan, status, rebuild, validate-config).
+CryptoMisuse-OSS CLI.
+
+저장소를 검사해 SARIF 보고서를 만드는 것이 이 도구의 일이다(analyze). 예전에는
+문서 질의응답 챗봇 명령(ask/scan/status/rebuild)도 있었으나, 시스템이 검사 도구로
+방향을 바꾸면서 그 부품(generation/ingestion/persistence/retrieval)과 함께 걷어냈다.
 """
 
 import sys
@@ -8,12 +12,6 @@ from pathlib import Path
 from typing import Optional
 
 from .config.loader import load_config
-from .config.schema import AppConfig
-from .generation.answer_service import AnswerService
-from .ingestion.coordinator import IndexCoordinator
-from .indexing.qdrant_store import QdrantStore
-from .persistence.sqlite import get_database_manager
-from .persistence.repositories import MetadataRepository
 from .observability.logging import setup_logging, get_logger
 
 logger = get_logger(__name__)
@@ -31,154 +29,34 @@ def create_parser() -> argparse.ArgumentParser:
 
     parser = argparse.ArgumentParser(
         prog="rag_app",
-        description="Document RAG System - High Precision Document Search & Q&A CLI",
+        description="CryptoMisuse-OSS - 저장소의 암호 오용을 검사해 SARIF로 보고",
         parents=[parent_parser],
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    # Command: ask
-    ask_parser = subparsers.add_parser("ask", help="Ask a question against indexed documents", parents=[parent_parser])
-    ask_parser.add_argument("question", type=str, help="User question string")
+    # 저장소를 검사해 SARIF 보고서를 만든다. 이 도구의 본래 출력이다.
+    analyze_parser = subparsers.add_parser(
+        "analyze", help="저장소나 프로젝트 경로를 검사해 SARIF 보고서를 만든다",
+        parents=[parent_parser])
+    analyze_parser.add_argument("target", type=str, help="GitHub URL 또는 로컬 경로")
+    analyze_parser.add_argument("--out", type=Path, default=Path("data/report.sarif"),
+                                help="SARIF 출력 경로 (기본 data/report.sarif)")
+    analyze_parser.add_argument("--llm", action="store_true",
+                                help="판정에 LLM을 쓴다. 기본은 정적 신호만 쓰는 대조군.")
+    analyze_parser.add_argument("--llm-backend", choices=("local", "ollama"), default="local",
+                                help="판정 모델을 어디서 돌릴지. local은 로컬 가중치를 쓴다.")
+    analyze_parser.add_argument("--llm-model", type=str,
+                                default="Qwen/Qwen2.5-Coder-7B-Instruct",
+                                help="local 백엔드가 쓸 모델 이름")
+    analyze_parser.add_argument("--llm-4bit", action="store_true",
+                                help="판정 모델을 4비트로 올린다. 임베딩·재순위와 같이 쓸 때.")
+    analyze_parser.add_argument("--no-clauses", action="store_true",
+                                help="Tier-2 조항 인용을 붙이지 않는다. 색인 없이 빠르게 볼 때.")
 
-    # Command: scan
-    subparsers.add_parser("scan", help="Run an immediate manual document scan & indexing job", parents=[parent_parser])
-
-    # Command: status
-    subparsers.add_parser("status", help="Show system indexing and database status", parents=[parent_parser])
-
-    # Command: rebuild
-    rebuild_parser = subparsers.add_parser("rebuild", help="Rebuild entire vector index from scratch", parents=[parent_parser])
-    rebuild_parser.add_argument("--force", action="store_true", help="Force rebuild without confirmation prompt")
-
-    # Command: validate-config
     subparsers.add_parser("validate-config", help="Validate JSON configuration file syntax and security rules", parents=[parent_parser])
 
     return parser
-
-
-def handle_ask(config: AppConfig, question: str) -> int:
-    """Handle 'ask' subcommand."""
-    print(f"\n[질문]: {question}\n")
-    print("검색 및 답변 생성 중...")
-
-    # Early check: is Qdrant accessible before loading heavy ML models?
-    is_available, err_msg = QdrantStore.check_availability(config)
-    if not is_available:
-        print("\n" + "=" * 60)
-        print("답변:")
-        print("벡터 저장소에 접근할 수 없어 검색이 불가능합니다.")
-        print("=" * 60)
-        print(f"\n[벡터 저장소 연결 실패]:")
-        print(f"  {err_msg}")
-        print("=" * 60 + "\n")
-        return 1
-
-    service = AnswerService(config)
-    result = service.answer_question(question)
-
-    print("\n" + "=" * 60)
-    print(f"답변:\n{result.answer}")
-    print("=" * 60)
-
-    if result.citations:
-        print("\n출처:")
-        for c in result.citations:
-            print(f"  {c.format_citation()}")
-    elif result.sources:
-        print("\n참조 문서 후보:")
-        for idx, s in enumerate(result.sources, start=1):
-            loc = f"{s.page_number}페이지" if s.page_number else (s.sheet_name or "본문")
-            # 파일명 추출 (경로에서 파일명만)
-            file_name = s.file_name or s.source_path.split("\\")[-1].split("/")[-1]
-            print(f"  [{idx}] {file_name} ({loc}) - \"{s.section_title or '본문'}\"")
-    else:
-        print("\n출처: 없음 (검색된 문서 근거가 부족합니다)")
-        init_err = QdrantStore._init_error_msg
-        if init_err:
-            print(f"\n[벡터 저장소 상태 경고]:")
-            print(f"  {init_err}")
-
-    print(f"\n처리 시간:")
-    print(
-        f"  검색: {result.retrieval_time_ms / 1000.0:.2f}초 | "
-        f"리랭킹: {result.rerank_time_ms / 1000.0:.2f}초 | "
-        f"생성: {result.generation_time_ms / 1000.0:.2f}초 | "
-        f"전체: {result.total_time_ms / 1000.0:.2f}초"
-    )
-    print("=" * 60 + "\n")
-    return 0
-
-
-def handle_scan(config: AppConfig) -> int:
-    """Handle 'scan' subcommand."""
-    print("\n수동 문서 스캔 및 인덱싱을 시작합니다...")
-    db_mgr = get_database_manager(config)
-    coordinator = IndexCoordinator(config=config, db_manager=db_mgr)
-    
-    summary = coordinator.run_indexing_job(job_type="manual_scan")
-    
-    print("\n[스캔 결과 요약]:")
-    print(f"  - 탐색된 파일 수: {summary.get('discovered', 0)}")
-    print(f"  - 신규 파일 수:   {summary.get('new', 0)}")
-    print(f"  - 변경 파일 수:   {summary.get('changed', 0)}")
-    print(f"  - 삭제 파일 수:   {summary.get('deleted', 0)}")
-    print(f"  - 미변경 파일 수: {summary.get('unchanged', 0)}")
-    print(f"  - 성공 건수:     {summary.get('success_count', 0)}")
-    print(f"  - 실패 건수:     {summary.get('failed_count', 0)}")
-    print("\n스캔 작업이 완료되었습니다.\n")
-    return 0
-
-
-def handle_status(config: AppConfig) -> int:
-    """Handle 'status' subcommand."""
-    print("\n=== Document RAG System Status ===")
-    print(f"환경 (Environment): {config.environment}")
-    print(f"문서 루트 경로:      {config.paths.document_root.resolve()}")
-    print(f"메타데이터 DB 경로:  {config.paths.metadata_db.resolve()}")
-    print(f"Qdrant 컬렉션:      {config.qdrant.collection} ({config.qdrant.url})")
-
-    db_mgr = get_database_manager(config)
-    meta_repo = MetadataRepository(db_mgr)
-    stats = meta_repo.get_stats()
-
-    print("\n[문서 및 청크 통계]:")
-    print(f"  - 총 문서 수:       {meta_repo.documents.count()}")
-    print(f"  - 활성 문서 수:     {meta_repo.documents.count(status=None)}")
-    print(f"  - 저장된 총 청크 수: {stats.get('total_chunks', 0)}")
-    print(f"  - 인덱싱 작업 횟수: {stats.get('total_jobs', 0)}")
-
-    doc_stats = stats.get("documents_by_status", {})
-    if doc_stats:
-        print("  - 문서 상태 분포:   " + ", ".join(f"{k}: {v}" for k, v in doc_stats.items()))
-
-    print("\n시스템 상태가 정상입니다.\n")
-    return 0
-
-
-def handle_rebuild(config: AppConfig, force: bool = False) -> int:
-    """Handle 'rebuild' subcommand."""
-    if not force:
-        confirm = input("\n모든 벡터 인덱스를 초기화하고 전체 재색인을 진행하시겠습니까? (y/N): ")
-        if confirm.lower() != "y":
-            print("전체 재구축 작업이 취소되었습니다.")
-            return 0
-
-    print("\n전체 인덱스 재구축을 시작합니다...")
-    store = QdrantStore(config)
-    store.clear_collection()
-
-    db_mgr = get_database_manager(config)
-    with db_mgr.transaction() as conn:
-        conn.execute("DELETE FROM file_versions")
-        conn.execute("DELETE FROM documents")
-        conn.execute("DELETE FROM index_jobs")
-
-    coordinator = IndexCoordinator(config=config, db_manager=db_mgr)
-    summary = coordinator.run_indexing_job(job_type="rebuild")
-
-    print(f"\n재구축 완료: 성공 {summary.get('success_count', 0)}개 문서, 실패 {summary.get('failed_count', 0)}개 문서\n")
-    return 0
 
 
 def handle_validate_config(config_path: Optional[str]) -> int:
@@ -192,6 +70,69 @@ def handle_validate_config(config_path: Optional[str]) -> int:
     print(f"  - Document Root: {config.paths.document_root.resolve()}")
     print(f"  - Embedding Model: {config.models.embedding.model_id}")
     print(f"  - LLM Model: {config.models.llm.model_id}\n")
+    return 0
+
+
+def handle_analyze(config, target: str, out_path: Path, use_llm: bool,
+                   with_clauses: bool, llm_backend: str = "local",
+                   llm_model: str = "Qwen/Qwen2.5-Coder-7B-Instruct",
+                   llm_4bit: bool = False) -> int:
+    """
+    저장소를 검사해 SARIF를 쓴다.
+
+    LLM은 판정만 한다. 위치와 규칙 번호와 인용 조항은 각각 정적 추출, 규칙표, 조항 검색이
+    이미 아는 값이라 LLM에게 옮겨 적게 하지 않는다. SARIF 문서 자체는 코드가 만든다.
+    """
+    from rag_app.analysis import pipeline
+    from rag_app.analysis.verdict import LlmVerdict, StaticVerdict
+
+    provider = StaticVerdict()
+    if use_llm:
+        if llm_backend == "ollama":
+            from rag_app.models.llm import OllamaLLM
+            provider = LlmVerdict(OllamaLLM(config))
+        else:
+            from rag_app.models.llm import LocalTransformersLLM
+            provider = LlmVerdict(LocalTransformersLLM(
+                config, model_id=llm_model, load_in_4bit=llm_4bit))
+
+    document, state = pipeline.run(target, out_path, config, provider=provider,
+                                   with_clauses=with_clauses)
+    results = document["runs"][0]["results"]
+    violations = [r for r in results if r["kind"] == "fail"]
+    reviews = [r for r in results if r["kind"] == "review"]
+    clean = len(state.findings) - len(results)
+
+    print(f"검사 대상: {state.root}")
+    if state.provenance:
+        where = state.provenance.get("branch", "")
+        print(f"커밋: {state.provenance['revisionId'][:12]}"
+              + (f" ({where})" if where else ""))
+    else:
+        print("커밋: git 저장소가 아니라 스냅샷 없음")
+    if state.dependencies:
+        print(f"선언된 의존성: {len(state.dependencies)}개")
+    print(f"판정 방식: {provider.name}"
+          + ("" if with_clauses else " (조항 인용 없음)"))
+    tests = sum(1 for f in state.findings if f.site.is_test)
+    print(f"사용 지점 {len(state.sites)}건 → 위반 {len(violations)}건, "
+          f"확인 필요 {len(reviews)}건, 문제없음 {clean}건"
+          + (f" (그중 테스트 소스 {tests}건 제외)" if tests else ""))
+    for result in results:
+        location = result["locations"][0]["physicalLocation"]
+        properties = result["properties"]
+        mark = "위반  " if result["kind"] == "fail" else "확인필요"
+        state = []
+        if properties["unresolvedArgs"]:
+            state.append(f"값 못 찾음({', '.join(properties['unresolvedArgs'])})")
+        elif properties["tracedValues"]:
+            state.append(f"값 확정({', '.join(properties['tracedValues'])})")
+        else:
+            state.append("값 확정")
+        state.append("근거 검수됨" if properties["evidenceReviewed"] else "근거 미검수")
+        print(f"  {mark} [{result['ruleId']}] {location['artifactLocation']['uri']}"
+              f":{location['region']['startLine']}  " + " · ".join(state))
+    print(f"\nSARIF: {out_path.resolve()}")
     return 0
 
 
@@ -214,14 +155,13 @@ def main(args: Optional[list] = None) -> int:
     # Setup Logging
     setup_logging(config.logging, config.paths.log_dir)
 
-    if parsed_args.command == "ask":
-        return handle_ask(config, parsed_args.question)
-    elif parsed_args.command == "scan":
-        return handle_scan(config)
-    elif parsed_args.command == "status":
-        return handle_status(config)
-    elif parsed_args.command == "rebuild":
-        return handle_rebuild(config, force=parsed_args.force)
+    if parsed_args.command == "analyze":
+        return handle_analyze(config, parsed_args.target, parsed_args.out,
+                             use_llm=parsed_args.llm,
+                             with_clauses=not parsed_args.no_clauses,
+                             llm_backend=parsed_args.llm_backend,
+                             llm_model=parsed_args.llm_model,
+                             llm_4bit=parsed_args.llm_4bit)
     else:
         parser.print_help()
         return 0

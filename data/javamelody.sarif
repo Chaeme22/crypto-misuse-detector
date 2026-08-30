@@ -1,0 +1,339 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CryptoMisuse-OSS",
+          "version": "0.1.0",
+          "informationUri": "https://github.com/",
+          "rules": [
+            {
+              "id": "CRYPTO-HASH-WEAK",
+              "name": "WeakHashFunction",
+              "shortDescription": {
+                "text": "충돌 저항성이 깨진 해시 함수 사용"
+              },
+              "fullDescription": {
+                "text": "MD5와 SHA-1은 충돌 저항성이 깨져 무결성·서명 용도로 쓸 수 없다. 국내 안내서는 보안강도 112비트 이상을 요구하며 그 목록에 MD5가 없다."
+              },
+              "help": {
+                "text": "SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "cryptography",
+                  "CWE-328"
+                ],
+                "cwe": "CWE-328"
+              }
+            },
+            {
+              "id": "CRYPTO-RNG-INSECURE",
+              "name": "InsecureRandom",
+              "shortDescription": {
+                "text": "암호 용도에 부적합한 난수 생성기"
+              },
+              "fullDescription": {
+                "text": "일반 난수 함수는 예측 가능한 수열을 낸다. 암호 키와 IV, 시드는 안전한 난수발생기(RBG)로 만들어야 한다."
+              },
+              "help": {
+                "text": "Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "cryptography",
+                  "CWE-338"
+                ],
+                "cwe": "CWE-338"
+              }
+            }
+          ]
+        }
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///tmp/javamelody/"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CRYPTO-HASH-WEAK",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "This code is performing a cryptographic operation using the SHA-1 algorithm, which is known to have collision vulnerabilities and is not secure for use in cryptographic applications.\n값 확인: 코드에서 확정됨\n근거: 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 7쪽 — [메시지인증/키유도/난수생성]용 해시함수; 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 6쪽 — [메시지인증/키유도/난수생성]용 해시함수 · 원문 대조가 필요한 판독에서 나온 조항\n수정 제안: Replace \"SHA-1\" with a more secure hash function such as SHA-256 or SHA-384."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "javamelody-core/src/main/java/net/bull/javamelody/internal/model/CounterRequest.java"
+                },
+                "region": {
+                  "startLine": 475,
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "return MessageDigest.getInstance(\"SHA-1\");"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "valueResolved": true,
+            "evidenceReviewed": false,
+            "api": "MessageDigest.getInstance(\"SHA-1\")",
+            "codeRole": "crypto_operation",
+            "decision": "violation",
+            "unresolvedArgs": [],
+            "tracedValues": [],
+            "citations": [
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 7,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "[Row 1] 보안강도 | 151(미국) | CRYPTREC(2/#) | | ECRYPT(#2) | 국내\n[Row 2] 112 비트 이상 | SHA-1” SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 | SHA-256 SHA-384 SHA-512 | SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 SHA3-shake1 28 SHA3-shake256 Whirlpool-512 BLAKE-224 BLAKE-256 BLAKE-384 BLAKE-512 | HAS-160” SHA~1 SH",
+                "needsReview": true
+              },
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 6,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "2) 해시함수\n해시함수는 사용 목적에 따라 메시지인증/키유도/단수생성용과 단순해시(메시지 압축)/전자 서명용으로 나뉘지며, 사용 목적과 보안강도에 따라 〈표 3〉, 〈표 4〉와 같이 분류된다.\n[메시지인증/키유도/난수생성]용 해시함수\n메시지 인증용 : 메시지의 위 · 변조를 확인하기 위해 해시함수 이용 키유도/난수생성용 : 안전한 키와 랜덤한 난수를 생성하기 위해 해시함수 이용\n||||| 〈표 3〉보안강도에 따른 메시지인증/키유도/난수생성용 해시함수 분류\n보안강도 NIST(미국) CRYPTREC(일본) ECRYPT(유럽) 국내 112 비트 이상 SHA-1 1) SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 ",
+                "needsReview": true
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "CRYPTO-HASH-WEAK",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "This code is performing a cryptographic operation using the SHA-1 algorithm, which is known to have collision vulnerabilities and is not secure for use in cryptographic applications.\n값 확인: 코드에서 확정됨\n근거: 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 7쪽 — [메시지인증/키유도/난수생성]용 해시함수; 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 6쪽 — [메시지인증/키유도/난수생성]용 해시함수 · 원문 대조가 필요한 판독에서 나온 조항\n수정 제안: Replace \"SHA-1\" with a more secure hash function such as \"SHA-256\"."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "javamelody-core/src/main/java/net/bull/javamelody/internal/model/UpdateChecker.java"
+                },
+                "region": {
+                  "startLine": 299,
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "return MessageDigest.getInstance(\"SHA-1\");"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "valueResolved": true,
+            "evidenceReviewed": false,
+            "api": "MessageDigest.getInstance(\"SHA-1\")",
+            "codeRole": "crypto_operation",
+            "decision": "violation",
+            "unresolvedArgs": [],
+            "tracedValues": [],
+            "citations": [
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 7,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "[Row 1] 보안강도 | 151(미국) | CRYPTREC(2/#) | | ECRYPT(#2) | 국내\n[Row 2] 112 비트 이상 | SHA-1” SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 | SHA-256 SHA-384 SHA-512 | SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 SHA3-shake1 28 SHA3-shake256 Whirlpool-512 BLAKE-224 BLAKE-256 BLAKE-384 BLAKE-512 | HAS-160” SHA~1 SH",
+                "needsReview": true
+              },
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 6,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "2) 해시함수\n해시함수는 사용 목적에 따라 메시지인증/키유도/단수생성용과 단순해시(메시지 압축)/전자 서명용으로 나뉘지며, 사용 목적과 보안강도에 따라 〈표 3〉, 〈표 4〉와 같이 분류된다.\n[메시지인증/키유도/난수생성]용 해시함수\n메시지 인증용 : 메시지의 위 · 변조를 확인하기 위해 해시함수 이용 키유도/난수생성용 : 안전한 키와 랜덤한 난수를 생성하기 위해 해시함수 이용\n||||| 〈표 3〉보안강도에 따른 메시지인증/키유도/난수생성용 해시함수 분류\n보안강도 NIST(미국) CRYPTREC(일본) ECRYPT(유럽) 국내 112 비트 이상 SHA-1 1) SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 ",
+                "needsReview": true
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "CRYPTO-RNG-INSECURE",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "The code uses `new Random()` to generate a temporary application name, which is not suitable for cryptographic operations as it can produce predictable sequences.\n값 확인: 코드에서 확정됨\n근거: 암호 키 관리 안내서_2014.pdf, 15쪽 — 제2절 비대칭키 알고리즘의 키 생성; 암호 키 관리 안내서_2014.pdf, 39쪽 — (라) RNG 시드 · 원문 대조가 필요한 판독에서 나온 조항\n수정 제안: Replace `new Random()` with a secure random number generator like `SecureRandom`."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "javamelody-offline-viewer/src/main/java/net/bull/javamelody/Viewer.java"
+                },
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 51,
+                  "snippet": {
+                    "text": "final String tmpApplication = \"tmpjavamelody\" + new Random().nextInt();"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "valueResolved": true,
+            "evidenceReviewed": false,
+            "api": "new Random",
+            "codeRole": "crypto_operation",
+            "decision": "violation",
+            "unresolvedArgs": [],
+            "tracedValues": [],
+            "citations": [
+              {
+                "document": "암호 키 관리 안내서_2014.pdf",
+                "page": 15,
+                "sectionPath": [
+                  "제2절 비대칭키 알고리즘의 키 생성"
+                ],
+                "quote": "응용 서버에서 데이터베이스로 전송되어 사용자의 식별자와 함께 보관된다.\nAPI방식 데이터베이스 관리 시스템의 사용자가 데이터베이스에 보관되어 있는 사용자의 정보를 확인하려 한다면, 사용자의 식별자와 연관되어 있는 암호화된 정보를 데이터베이스에서 응용 서버로 전송한다.\n응용 서버는 데이터베이스로부터 수신한 정보를 복호화하기 위한 API를 호출하고, 보안채널을 통해 암호화 서버와 통신하여 암호화된 정보를 복호화한다.\n그리고 복호화된 정보는 보안채널을 통해 응용 서버로부터 사용자에게로 전송된다.\nCKMS는 사용자의 정보를 암호화하는데 사용되는 암호화 서버 내에 위치하며, 암호화 서버의 암호 키들을 관리하는데 사용된다.\nCKMS 총괄책임자는 보안채널을 통해 암호화 서버와 통신하면서 CKMS에 대한 관리를 책임진다.",
+                "needsReview": true
+              },
+              {
+                "document": "암호 키 관리 안내서_2014.pdf",
+                "page": 39,
+                "sectionPath": [
+                  "(라) RNG 시드"
+                ],
+                "quote": ".\n✉ 키 합의 구조 요구사항 : 키 합의 구조에서 사용되는 암호 키들은 키 설정 과정의 실체들과\n정확하게 연관되어 있다.\n키 설정 프로토콜 요구사항：키 설정 프로토콜에 포함된 실체들에 대한 식별자들은\n✙ 실체들과 정확하게 연관되어야 한다.\n이러한 연관은 키 합의 구조로 보장될 수도 있고, 키 합의가 행해지는 프로토콜로 보장될 수도 있다.\n일반적으로 식별자는 키 설정 프로토콜의 각 실체와 연관되어 있다.\n웹 사이트를 이용하여 공공의 정보를 안전하게 분배하려는 경우와 같이, 경우에 따라 일부 실체들에게만 식별자와의 연관성이 필요할 수도 있다.\n키 합의와 그에 대한 프로토콜을 이용하여 유도된 암호 키들은 무결성이 보호되어야 하며, 위의 요구조건들이 보장되기 전에는 정보를 보호하거나 전송하는데 사용되면 안 된다.",
+                "needsReview": true
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "CRYPTO-RNG-INSECURE",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "This code uses the `Random` class for generating random numbers, which is not suitable for cryptographic purposes. The `Random` class generates predictable sequences and should be replaced with a secure random number generator like `SecureRandom`.\n값 확인: 코드에서 확정됨\n근거: 암호 키 관리 안내서_2014.pdf, 15쪽 — 제2절 비대칭키 알고리즘의 키 생성; 암호 키 관리 안내서_2014.pdf, 39쪽 — (라) RNG 시드 · 원문 대조가 필요한 판독에서 나온 조항\n수정 제안: Replace `new Random()` with `new SecureRandom()`."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "javamelody-test-webapp/src/main/java/net/bull/javamelody/JobTestImpl.java"
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 39,
+                  "snippet": {
+                    "text": "private static final Random RANDOM = new Random();"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "valueResolved": true,
+            "evidenceReviewed": false,
+            "api": "new Random",
+            "codeRole": "crypto_operation",
+            "decision": "violation",
+            "unresolvedArgs": [],
+            "tracedValues": [],
+            "citations": [
+              {
+                "document": "암호 키 관리 안내서_2014.pdf",
+                "page": 15,
+                "sectionPath": [
+                  "제2절 비대칭키 알고리즘의 키 생성"
+                ],
+                "quote": "응용 서버에서 데이터베이스로 전송되어 사용자의 식별자와 함께 보관된다.\nAPI방식 데이터베이스 관리 시스템의 사용자가 데이터베이스에 보관되어 있는 사용자의 정보를 확인하려 한다면, 사용자의 식별자와 연관되어 있는 암호화된 정보를 데이터베이스에서 응용 서버로 전송한다.\n응용 서버는 데이터베이스로부터 수신한 정보를 복호화하기 위한 API를 호출하고, 보안채널을 통해 암호화 서버와 통신하여 암호화된 정보를 복호화한다.\n그리고 복호화된 정보는 보안채널을 통해 응용 서버로부터 사용자에게로 전송된다.\nCKMS는 사용자의 정보를 암호화하는데 사용되는 암호화 서버 내에 위치하며, 암호화 서버의 암호 키들을 관리하는데 사용된다.\nCKMS 총괄책임자는 보안채널을 통해 암호화 서버와 통신하면서 CKMS에 대한 관리를 책임진다.",
+                "needsReview": true
+              },
+              {
+                "document": "암호 키 관리 안내서_2014.pdf",
+                "page": 39,
+                "sectionPath": [
+                  "(라) RNG 시드"
+                ],
+                "quote": ".\n✉ 키 합의 구조 요구사항 : 키 합의 구조에서 사용되는 암호 키들은 키 설정 과정의 실체들과\n정확하게 연관되어 있다.\n키 설정 프로토콜 요구사항：키 설정 프로토콜에 포함된 실체들에 대한 식별자들은\n✙ 실체들과 정확하게 연관되어야 한다.\n이러한 연관은 키 합의 구조로 보장될 수도 있고, 키 합의가 행해지는 프로토콜로 보장될 수도 있다.\n일반적으로 식별자는 키 설정 프로토콜의 각 실체와 연관되어 있다.\n웹 사이트를 이용하여 공공의 정보를 안전하게 분배하려는 경우와 같이, 경우에 따라 일부 실체들에게만 식별자와의 연관성이 필요할 수도 있다.\n키 합의와 그에 대한 프로토콜을 이용하여 유도된 암호 키들은 무결성이 보호되어야 하며, 위의 요구조건들이 보장되기 전에는 정보를 보호하거나 전송하는데 사용되면 안 된다.",
+                "needsReview": true
+              }
+            ]
+          }
+        },
+        {
+          "ruleId": "CRYPTO-HASH-WEAK",
+          "kind": "review",
+          "level": "note",
+          "message": {
+            "text": "[확인 필요] algorithm의 실제 값을 코드에서 찾지 못해 판정하지 못했다. 이 값이 어디서 오는지 확인해야 한다.\nalgorithm의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단: This code uses `MessageDigest.getInstance` to obtain an instance of a hash function based on the `algorithm` parameter, which is likely configured elsewhere. If this algorithm is set to MD5 or SHA-1,\n근거: 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 7쪽 — [메시지인증/키유도/난수생성]용 해시함수; 암호 알고리즘 및 키 길이 이용 안내서_2018.pdf, 6쪽 — [메시지인증/키유도/난수생성]용 해시함수 · 원문 대조가 필요한 판독에서 나온 조항\n수정 제안: Ensure that the `algorithm` parameter is not set to MD5 or SHA-1 and instead uses a stronger hash function such as SHA-256 or SHA-384."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "javamelody-core/src/main/java/net/bull/javamelody/internal/common/MessageDigestPasswordEncoder.java"
+                },
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 39,
+                  "snippet": {
+                    "text": "final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "valueResolved": false,
+            "evidenceReviewed": false,
+            "api": "MessageDigest.getInstance",
+            "codeRole": "config_value",
+            "decision": "undetermined",
+            "unresolvedArgs": [
+              "algorithm"
+            ],
+            "tracedValues": [],
+            "citations": [
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 7,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "[Row 1] 보안강도 | 151(미국) | CRYPTREC(2/#) | | ECRYPT(#2) | 국내\n[Row 2] 112 비트 이상 | SHA-1” SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 | SHA-256 SHA-384 SHA-512 | SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 SHA3-512 SHA3-shake1 28 SHA3-shake256 Whirlpool-512 BLAKE-224 BLAKE-256 BLAKE-384 BLAKE-512 | HAS-160” SHA~1 SH",
+                "needsReview": true
+              },
+              {
+                "document": "암호 알고리즘 및 키 길이 이용 안내서_2018.pdf",
+                "page": 6,
+                "sectionPath": [
+                  "[메시지인증/키유도/난수생성]용 해시함수"
+                ],
+                "quote": "2) 해시함수\n해시함수는 사용 목적에 따라 메시지인증/키유도/단수생성용과 단순해시(메시지 압축)/전자 서명용으로 나뉘지며, 사용 목적과 보안강도에 따라 〈표 3〉, 〈표 4〉와 같이 분류된다.\n[메시지인증/키유도/난수생성]용 해시함수\n메시지 인증용 : 메시지의 위 · 변조를 확인하기 위해 해시함수 이용 키유도/난수생성용 : 안전한 키와 랜덤한 난수를 생성하기 위해 해시함수 이용\n||||| 〈표 3〉보안강도에 따른 메시지인증/키유도/난수생성용 해시함수 분류\n보안강도 NIST(미국) CRYPTREC(일본) ECRYPT(유럽) 국내 112 비트 이상 SHA-1 1) SHA-224 SHA-256 SHA-384 SHA-512 SHA-512/224 SHA-512/256 SHA3-224 SHA3-256 SHA3-384 ",
+                "needsReview": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
