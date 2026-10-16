@@ -358,8 +358,9 @@ class LLMError(RAGException):
 class LLMModelError(LLMError):
     """Raised when LLM model fails to load or process."""
     
-    def __init__(self, model_id: str, cause: Optional[Exception] = None):
-        message = f"LLM model error: {model_id}"
+    def __init__(self, model_id: str, cause: Optional[Exception] = None,
+                 hint: str = ""):
+        message = f"LLM model error: {model_id}" + (f" — {hint}" if hint else "")
         super().__init__(message, cause=cause, context={"model_id": model_id})
         self.model_id = model_id
 

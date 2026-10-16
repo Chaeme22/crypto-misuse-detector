@@ -175,6 +175,15 @@ class AppConfig(BaseSettings):
     logging: LoggingConfig = Field(default_factory=LoggingConfig)
     ollama_host: str = "http://localhost:11434"
 
+    @model_validator(mode="after")
+    def ollama_host_from_env(self) -> "AppConfig":
+        """Ollama 표준 환경 변수 `OLLAMA_HOST`가 있으면 그 주소를 쓴다(`127.0.0.1:11439`처럼 스킴 없이 써도 된다)."""
+        import os
+        host = os.environ.get("OLLAMA_HOST", "").strip()
+        if host:
+            self.ollama_host = host if "://" in host else f"http://{host}"
+        return self
+
     def get_secret(self, env_name: str) -> Optional[str]:
         """Get secret value from environment variable."""
         import os

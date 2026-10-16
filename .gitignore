@@ -7,3 +7,10 @@ __pycache__/
 data/logs/
 data/*.log
 암호가이드라인/암호 가이드라인/
+
+# 학습 산출물 (어댑터·체크포인트·로그). 크기가 커서 git 밖에서 관리한다
+training/runs/
+training/logs/
+
+# 테스트 캐시
+.pytest_cache/

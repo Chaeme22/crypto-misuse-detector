@@ -26,6 +26,10 @@ class Decision(str, Enum):
     VIOLATION = "violation"
     CLEAN = "clean"
     UNDETERMINED = "undetermined"   # 판정에 필요한 사실을 확인하지 못했다
+    # 표 기준 최소(112비트)는 만족하지만 권장(128비트)에 못 미친다. KISA 안내서상 2030년까지 유효하다.
+    # SEED·ARIA-128·LEA-128·HIGHT·3TDEA·RSA-2048이 여기다. 위반과 섞으면 국내에서 요구하는 SEED 사용까지
+    # 고쳐야 할 것으로 보고된다. 표 대조로만 정해지고 모델에게 묻지 않는다(2026-10-08 결정).
+    WARNING = "warning"
 
 
 class Level(str, Enum):
@@ -63,6 +67,11 @@ class UsageSite:
     # `Cipher.getInstance(transformation)`은 그 변수가 어디서 왔는지 봐야 판정이 된다.
     # 설계에서 provenance slice로 넘기는 대상이 이것이고, 확신도 상한도 여기서 걸린다.
     unresolved_args: tuple[str, ...] = ()
+    # 비밀 재료(키·IV·솔트·비밀번호·시드)가 어디서 왔는지. provenance.py가 구조로 판별한다.
+    # `constant`·`predictable`·`below_minimum`이면 위반, `secure_random`·`meets_minimum`이면
+    # 정상, 그 밖이면 판정하지 않는다. 비어 있으면 출처를 묻는 규칙이 아니다.
+    provenance: str = ""
+    provenance_note: str = ""   # 왜 그렇게 봤는지. 보고서와 모델 프롬프트에 그대로 쓴다.
 
     def __post_init__(self):
         if self.line < 1:
@@ -105,6 +114,13 @@ class Rule:
     # 해시 선택이 문제가 아니라 반복 횟수가 문제인데 그건 재고 있지 않다. 표가 만족이라고
     # 해도 그런 규칙은 닫지 않는다.
     table_decides: bool = False
+    # 출처를 볼 인자. (트리거, 인자 위치) 쌍이다. `new PBEKeySpec`의 0번은 비밀번호,
+    # 1번은 솔트다. 호출이 있다는 것만으로는 판정이 서지 않고 그 인자가 상수인지 난수인지가
+    # 판정을 가른다.
+    material_args: tuple[tuple[str, int], ...] = ()
+    # 반복 횟수를 볼 인자와 최소값. 최소값은 표준 문서 값이며 출처를 규칙표에 적는다.
+    iteration_args: tuple[tuple[str, int], ...] = ()
+    min_iterations: int | None = None
 
 
 @dataclass(frozen=True, slots=True)

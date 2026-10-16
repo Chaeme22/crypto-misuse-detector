@@ -16,7 +16,7 @@
 
 사용법:
     python tools/benchmark.py /tmp/CryptoAPI-Bench
-    python tools/benchmark.py /tmp/CryptoAPI-Bench --llm --llm-model Qwen/...
+    python tools/benchmark.py /tmp/CryptoAPI-Bench --llm --llm-backend ollama
 """
 
 from __future__ import annotations
@@ -43,14 +43,16 @@ CATEGORIES = {
     "ecbcrypto": "CRYPTO-MODE-ECB",
     "insecureasymmetriccrypto": "CRYPTO-KEYSIZE-SHORT",
     "untrustedprng": "CRYPTO-RNG-INSECURE",
-    "predictableseeds": "CRYPTO-RNG-INSECURE",
+    "predictableseeds": "CRYPTO-SEED-PREDICTABLE",
     "pbeiteration": "CRYPTO-KDF-WEAK",
     "credentialinstring": "CRYPTO-KEY-HARDCODED",
     "predictablecryptographickey": "CRYPTO-KEY-HARDCODED",
-    "predictablepbepassword": "CRYPTO-KEY-HARDCODED",
-    "predictablekeystorepassword": "CRYPTO-KEY-HARDCODED",
-    "staticinitializationvector": "CRYPTO-KEY-HARDCODED",
-    "staticsalts": "CRYPTO-KEY-HARDCODED",
+    "staticinitializationvector": "CRYPTO-IV-STATIC",
+    # 재료마다 규칙이 다르다. 키 규칙에 몰아 두면 고정 솔트가 하드코딩 키로 잡혀도 맞힌
+    # 것으로 세어진다.
+    "predictablepbepassword": "CRYPTO-PASSWORD-HARDCODED",
+    "predictablekeystorepassword": "CRYPTO-PASSWORD-HARDCODED",
+    "staticsalts": "CRYPTO-SALT-STATIC",
 }
 # 우리 규칙이 다루지 않는 분류. TLS 인증서·호스트명 검증은 암호 알고리즘 선택이 아니다.
 OUT_OF_SCOPE = ("dummycertvalidation", "dummyhostnameverifier",
@@ -67,7 +69,7 @@ def ground_truth(root: Path) -> dict[str, dict]:
     """파일마다 무엇을 기대하는지. 디렉터리 이름과 파일 이름이 정답이다."""
     truth: dict[str, dict] = {}
     for path in sorted(root.rglob("*.java")):
-        relative = str(path.relative_to(root))
+        relative = path.relative_to(root).as_posix()
         category = path.parent.name
         if category in OUT_OF_SCOPE:
             truth[relative] = {"category": category, "expect": "out_of_scope"}
@@ -161,11 +163,31 @@ def score(truth: dict, document: dict) -> dict:
     return {"per_category": dict(per_category), "unexpected": unexpected}
 
 
+def summarize(result: dict) -> dict:
+    """범위 안 분류만 합친다. 화면 출력과 기준선 파일이 같은 숫자를 쓰게 한다."""
+    total: dict[str, int] = defaultdict(int)
+    for category, bucket in result["per_category"].items():
+        if category in OUT_OF_SCOPE or category not in CATEGORIES:
+            continue
+        for key in ("tp", "fn", "fp", "tn", "wrong_rule", "indirect",
+                    "indirect_flagged", "review_hit", "review_clean"):
+            total[key] += bucket[key]
+    tp, fn, fp = total["tp"], total["fn"], total["fp"]
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {"total": dict(total), "precision": precision, "recall": recall, "f1": f1}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="공개 벤치마크로 탐지 정확도를 잰다")
     ap.add_argument("root", type=Path)
     ap.add_argument("--llm", action="store_true")
-    ap.add_argument("--llm-model", default="Qwen/Qwen2.5-Coder-7B-Instruct")
+    ap.add_argument("--llm-backend", choices=("local", "ollama"), default="local",
+                    help="GPU가 없으면 ollama")
+    ap.add_argument("--llm-adapter", default=None, help="local 백엔드에 얹을 LoRA 어댑터 폴더")
+    ap.add_argument("--llm-model", default=None,
+                    help="local은 HF 이름, ollama는 태그. 생략하면 백엔드별 기본값")
     ap.add_argument("--llm-4bit", action="store_true", default=True)
     ap.add_argument("--clauses", action="store_true")
     ap.add_argument("--out", type=Path, default=None)
@@ -179,10 +201,12 @@ def main() -> int:
 
     provider = StaticVerdict()
     if args.llm:
-        from rag_app.models.llm import LocalTransformersLLM
         from rag_app.analysis.verdict import LlmVerdict
-        provider = LlmVerdict(LocalTransformersLLM(
-            load_config(), model_id=args.llm_model, load_in_4bit=args.llm_4bit))
+        from rag_app.models.llm import DEFAULT_VERDICT_MODELS, make_verdict_model
+        args.llm_model = args.llm_model or DEFAULT_VERDICT_MODELS[args.llm_backend]
+        provider = LlmVerdict(make_verdict_model(load_config(), args.llm_backend,
+                                                 args.llm_model, args.llm_4bit,
+                                                 args.llm_adapter))
 
     document, state = analyze(root, provider, args.clauses)
     result = score(truth, document)
@@ -196,7 +220,6 @@ def main() -> int:
     print(f"{'분류':<30} {'대상':>4} {'잡음':>4} {'놓침':>4} {'확인':>4} {'정상':>4} "
           f"{'오탐':>4} {'다른규칙':>7} {'간접':>4}")
     print("-" * 88)
-    total = defaultdict(int)
     for category in sorted(result["per_category"]):
         bucket = result["per_category"][category]
         if category in OUT_OF_SCOPE or category not in CATEGORIES:
@@ -206,15 +229,12 @@ def main() -> int:
         print(f"{category:<30} {target:>4} {bucket['tp']:>4} {bucket['fn']:>4} "
               f"{bucket['review_hit']:>4} {clean:>4} {bucket['fp']:>4} "
               f"{bucket['wrong_rule']:>7} {bucket['indirect']:>4}")
-        for key in ("tp", "fn", "fp", "tn", "wrong_rule", "indirect",
-                    "indirect_flagged", "review_hit", "review_clean"):
-            total[key] += bucket[key]
 
     print("-" * 88)
+    summary = summarize(result)
+    total = summary["total"]
     tp, fn, fp = total["tp"], total["fn"], total["fp"]
-    precision = tp / (tp + fp) if tp + fp else 0.0
-    recall = tp / (tp + fn) if tp + fn else 0.0
-    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    precision, recall, f1 = summary["precision"], summary["recall"], summary["f1"]
     print(f"{'합계':<30} {tp + fn:>4} {tp:>4} {fn:>4} {total['review_hit']:>4} "
           f"{fp + total['tn']:>4} {fp:>4} {total['wrong_rule']:>7} "
           f"{total['indirect']:>4}")

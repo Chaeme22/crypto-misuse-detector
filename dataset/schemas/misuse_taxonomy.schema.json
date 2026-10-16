@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "misuse_taxonomy.schema.json",
+  "title": "오용 분류 정본",
+  "description": "오용 유형·판정 조건·CWE의 정본. CWE는 이 파일에서만 정한다.",
+  "type": "object",
+  "required": ["version", "updated", "principles", "decided_by", "misuses", "planned", "cwe_hierarchy_verified"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "updated": {"type": "string", "format": "date"},
+    "principles": {"type": "array", "items": {"type": "string"}},
+    "decided_by": {"type": "object", "additionalProperties": {"type": "string"}},
+    "cwe_hierarchy_verified": {"type": "boolean"},
+    "misuses": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/misuse"}},
+    "planned": {"type": "array", "items": {"$ref": "#/$defs/planned"}}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "cwe": {"type": "string", "pattern": "^CWE-[0-9]+$"},
+    "misuse": {
+      "type": "object",
+      "required": ["misuse_id", "rule_id", "name", "cwe", "parent_cwe", "severity", "category",
+                   "material", "decided_by", "conditions", "languages", "benchmark_categories"],
+      "properties": {
+        "misuse_id": {"type": "string", "pattern": "^MISUSE-[A-Z-]+$"},
+        "rule_id": {"type": "string", "pattern": "^CRYPTO-[A-Z-]+$"},
+        "name": {"type": "string"},
+        "cwe": {"$ref": "#/$defs/cwe"},
+        "parent_cwe": {"anyOf": [{"$ref": "#/$defs/cwe"}, {"type": "null"}]},
+        "severity": {"enum": ["error", "warning", "note"]},
+        "category": {"enum": ["algorithm", "mode", "key_size", "randomness", "key_material", "kdf"]},
+        "material": {"enum": ["key", "iv", "salt", "password", "seed", "iteration_count", null]},
+        "decided_by": {"enum": ["threshold_table", "literal_pattern", "provenance", "iteration_count", "api_role"]},
+        "conditions": {
+          "type": "object",
+          "required": ["violation", "clean", "undetermined"],
+          "properties": {
+            "violation": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "clean": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "undetermined": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        },
+        "threshold": {
+          "type": "object",
+          "required": ["source", "evidence_status"],
+          "properties": {
+            "min_iterations": {"type": "integer", "minimum": 1},
+            "source": {"type": "string"},
+            "evidence_status": {"type": "string"}
+          }
+        },
+        "languages": {
+          "type": "object",
+          "additionalProperties": {"enum": ["implemented", "direct_call_only", "not_implemented"]}
+        },
+        "benchmark_categories": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "planned": {
+      "type": "object",
+      "required": ["misuse_id", "rule_id", "name", "cwe", "reason"],
+      "properties": {
+        "misuse_id": {"type": "string", "pattern": "^MISUSE-[A-Z-]+$"},
+        "rule_id": {"type": "null"},
+        "name": {"type": "string"},
+        "cwe": {"$ref": "#/$defs/cwe"},
+        "parent_cwe": {"anyOf": [{"$ref": "#/$defs/cwe"}, {"type": "null"}]},
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

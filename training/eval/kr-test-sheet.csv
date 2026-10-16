@@ -1,0 +1,1115 @@
+﻿id,repo,file,line,is_test,code,context,misuses,note
+Giggle-projects__spring-secure-hackathon:src/main/java/se/ton/t210/utils/encript/SeedUtils.java:16,Giggle-projects__spring-secure-hackathon,src/main/java/se/ton/t210/utils/encript/SeedUtils.java,16,False,byte[] encryptedInfo = KISA_SEED_CBC.SEED_CBC_Encrypt(,"   10  
+   11    public static String encode(String encodedSeedKey, String plainText) {
+   12      final byte[] seedKey = Base64.getDecoder().decode(encodedSeedKey);
+   13      final byte[] userKey = Arrays.copyOfRange(seedKey, 0, 16);
+   14      final byte[] IV = Arrays.copyOfRange(seedKey, 16, 32);
+   15  
+   16>     byte[] encryptedInfo = KISA_SEED_CBC.SEED_CBC_Encrypt(
+   17          userKey, IV,
+   18          plainText.getBytes(UTF_8), 0, plainText.getBytes(UTF_8).length
+   19      );
+   20  
+   21      byte[] encodedEncryptedInfo = Base64.getEncoder().encode(encryptedInfo);
+   22      return new String(encodedEncryptedInfo, UTF_8);",IV,[초안] IV를 키 재료에서 잘라 매번 같다. 키는 인자(호출자 밖) — 하드코딩 아님
+Giggle-projects__spring-secure-hackathon:src/main/java/se/ton/t210/utils/encript/SeedUtils.java:32,Giggle-projects__spring-secure-hackathon,src/main/java/se/ton/t210/utils/encript/SeedUtils.java,32,False,byte[] decryptedInfo = KISA_SEED_CBC.SEED_CBC_Decrypt(,"   26      try {
+   27        byte[] seedKey = Base64.getDecoder().decode(encodedSeedKey);
+   28        final byte[] userKey = Arrays.copyOfRange(seedKey, 0, 16);
+   29        final byte[] IV = Arrays.copyOfRange(seedKey, 16, 32);
+   30  
+   31        byte[] cipherInfo = Base64.getDecoder().decode(encodedText);
+   32>       byte[] decryptedInfo = KISA_SEED_CBC.SEED_CBC_Decrypt(
+   33            userKey, IV,
+   34            cipherInfo, 0, cipherInfo.length
+   35        );
+   36  
+   37        return new String(decryptedInfo, UTF_8);
+   38      } catch (Exception e) {",IV,[초안] IV를 키 재료에서 잘라 매번 같다. 키는 인자(호출자 밖) — 하드코딩 아님
+Hwater00__Duktown_Backend:src/main/java/com/duktown/global/kisa_SEED/SEED.java:17,Hwater00__Duktown_Backend,src/main/java/com/duktown/global/kisa_SEED/SEED.java,17,False,byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(,"   11  
+   12      @Value(""${custom.seed.pbsz.iv}"")
+   13      private String vectorKey;
+   14  
+   15      public String encrypt(String rawMessage) {
+   16          byte[] message = rawMessage.getBytes(StandardCharsets.UTF_8);
+   17>         byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(
+   18                  secretKey.getBytes(), vectorKey.getBytes(), message, 0, message.length
+   19          );
+   20          byte[] encodedMessage = Base64.getEncoder().encode(encryptedMessage);
+   21  
+   22          return new String(encodedMessage, StandardCharsets.UTF_8);
+   23      }",IV,[초안] 키·IV 모두 @Value 설정값. 고정 IV 재사용
+Hwater00__Duktown_Backend:src/main/java/com/duktown/global/kisa_SEED/SEED.java:27,Hwater00__Duktown_Backend,src/main/java/com/duktown/global/kisa_SEED/SEED.java,27,False,byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(,"   21  
+   22          return new String(encodedMessage, StandardCharsets.UTF_8);
+   23      }
+   24  
+   25      public String decrypt(String encryptedMessage) {
+   26          byte[] decodedMessage = Base64.getDecoder().decode(encryptedMessage);
+   27>         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(
+   28                  secretKey.getBytes(), vectorKey.getBytes(), decodedMessage, 0, decodedMessage.length
+   29          );
+   30  
+   31          return new String(decryptedMessage, StandardCharsets.UTF_8);
+   32      }
+   33  }",IV,[초안] 키·IV 모두 @Value 설정값. 고정 IV 재사용
+Khohyeon__junguniv_bb:src/main/java/com/example/junguniv_bb/_core/util/Seed.java:23,Khohyeon__junguniv_bb,src/main/java/com/example/junguniv_bb/_core/util/Seed.java,23,False,"return KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);","   17              return null;
+   18  
+   19          // UTF-8 인코딩
+   20          byte[] message = rawMessage.getBytes(StandardCharsets.UTF_8);
+   21  
+   22          // SEED 암호화(byte 배열 반환)
+   23>         return KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   24      }
+   25  
+   26      /* SEED 복호화 */
+   27      public static String decrypt(byte[] encryptedMessage) {
+   28  
+   29          if (encryptedMessage == null) ",KEY;IV,[초안] 필드에 리터럴 키·IV
+Khohyeon__junguniv_bb:src/main/java/com/example/junguniv_bb/_core/util/Seed.java:33,Khohyeon__junguniv_bb,src/main/java/com/example/junguniv_bb/_core/util/Seed.java,33,False,"byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, encryptedMessage, 0, encryptedMessage.length);","   27      public static String decrypt(byte[] encryptedMessage) {
+   28  
+   29          if (encryptedMessage == null) 
+   30              return null;
+   31  
+   32          // SEED 복호화
+   33>         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, encryptedMessage, 0, encryptedMessage.length);
+   34  
+   35          // UTF-8 디코딩
+   36          return new String(decryptedMessage, StandardCharsets.UTF_8);
+   37      }
+   38  }",KEY;IV,[초안] 필드에 리터럴 키·IV
+LeeBaekHaeng__god.com390:god.test/src/test/java/kr/or/kisa/seed/KISA_SEED_CBCTest.java:45,LeeBaekHaeng__god.com390,god.test/src/test/java/kr/or/kisa/seed/KISA_SEED_CBCTest.java,45,True,"byte[] bs = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, message_offset, message_length);","   39  	public String encrypt(String plainText) {
+   40  		try {
+   41  			byte[] message = plainText.getBytes(charsetName);
+   42  			int message_offset = 0;
+   43  			int message_length = message.length;
+   44  
+   45> 			byte[] bs = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, message_offset, message_length);
+   46  
+   47  			byte[] encode = Base64.getEncoder().encode(bs);
+   48  
+   49  			return new String(encode, charsetName);
+   50  		} catch (UnsupportedEncodingException e) {
+   51  			egovLogger.error(e.getMessage());",KEY;IV,[초안] 테스트: 리터럴 키·IV
+LeeBaekHaeng__god.com390:god.test/src/test/java/kr/or/kisa/seed/KISA_SEED_CBCTest.java:70,LeeBaekHaeng__god.com390,god.test/src/test/java/kr/or/kisa/seed/KISA_SEED_CBCTest.java,70,True,"byte[] bs = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, decode, message_offset, message_length);","   64  			byte[] message = cryptogram.getBytes(charsetName);
+   65  			byte[] decode = Base64.getDecoder().decode(message);
+   66  
+   67  			int message_offset = 0;
+   68  			int message_length = decode.length;
+   69  
+   70> 			byte[] bs = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, decode, message_offset, message_length);
+   71  
+   72  			return new String(bs, charsetName);
+   73  		} catch (UnsupportedEncodingException e) {
+   74  			egovLogger.error(e.getMessage());
+   75  			return null;
+   76  		}",KEY;IV,[초안] 테스트: 리터럴 키·IV
+NeighClova__Backend:src/main/java/com/sogonsogon/neighclova/service/PlaceService.java:343,NeighClova__Backend,src/main/java/com/sogonsogon/neighclova/service/PlaceService.java,343,False,"byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);","  337          return convertedFile;
+  338      }
+  339  
+  340      public String encrypt(String rawMessage) {
+  341          Base64.Encoder encoder = Base64.getEncoder();
+  342          byte[] message = rawMessage.getBytes(UTF_8);
+  343>         byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);
+  344  
+  345          return new String(encoder.encode(encryptedMessage), UTF_8);
+  346      }
+  347  
+  348      public String decrypt(String encryptedMessage) {
+  349          Base64.Decoder decoder = Base64.getDecoder();",IV,[초안] 키·IV @Value 설정값. 고정 IV 재사용
+NeighClova__Backend:src/main/java/com/sogonsogon/neighclova/service/PlaceService.java:351,NeighClova__Backend,src/main/java/com/sogonsogon/neighclova/service/PlaceService.java,351,False,"byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);","  345          return new String(encoder.encode(encryptedMessage), UTF_8);
+  346      }
+  347  
+  348      public String decrypt(String encryptedMessage) {
+  349          Base64.Decoder decoder = Base64.getDecoder();
+  350          byte[] message = decoder.decode(encryptedMessage);
+  351>         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);
+  352  
+  353          return new String(decryptedMessage, UTF_8);
+  354      }
+  355  
+  356      public void sendMultipartRequest(String instagramId, String instagramPw, String content, MultipartFile multipartFile) throws IOException {
+  357          RestTemplate restTemplate = new RestTemplate();",IV,[초안] 키·IV @Value 설정값. 고정 IV 재사용
+OzRagwort__RagwortCrypto:com/cryp/sym/LEA.java:57,OzRagwort__RagwortCrypto,com/cryp/sym/LEA.java,57,False,BlockCipherMode cipherctr = new ozr.encryption.sym.LEA.symm.LEA.CTR();,"   51  		case ""ecb"":
+   52  			return ECB(plain, key, true);
+   53  		case ""CBC"":
+   54  		case ""cbc"":
+   55  			return CBC(plain, key, true);
+   56  		case ""CTR"":
+   57> 			BlockCipherMode cipherctr = new ozr.encryption.sym.LEA.symm.LEA.CTR();
+   58  			return CTR_CFB_OFB(plain, key, cipherctr, true);
+   59  		case ""CFB"":
+   60  			BlockCipherMode ciphercfb = new ozr.encryption.sym.LEA.symm.LEA.CFB();
+   61  			return CTR_CFB_OFB(plain, key, ciphercfb, true);
+   62  		case ""OFB"":
+   63  			BlockCipherMode cipherofb = new ozr.encryption.sym.LEA.symm.LEA.OFB();",NONE,[초안] CTR 모드 객체 생성 줄. IV는 호출자가 넘김
+OzRagwort__RagwortCrypto:com/cryp/sym/LEA.java:104,OzRagwort__RagwortCrypto,com/cryp/sym/LEA.java,104,False,BlockCipherMode cipherctr = new ozr.encryption.sym.LEA.symm.LEA.CTR();,"   98  		case ""ecb"":
+   99  			return ECB(cipher, key, false);
+  100  		case ""CBC"":
+  101  		case ""cbc"":
+  102  			return CBC(cipher, key, false);
+  103  		case ""CTR"":
+  104> 			BlockCipherMode cipherctr = new ozr.encryption.sym.LEA.symm.LEA.CTR();
+  105  			return CTR_CFB_OFB(cipher, key, cipherctr, false);
+  106  		case ""CFB"":
+  107  			BlockCipherMode ciphercfb = new ozr.encryption.sym.LEA.symm.LEA.CFB();
+  108  			return CTR_CFB_OFB(cipher, key, ciphercfb, false);
+  109  		case ""OFB"":
+  110  			BlockCipherMode cipherofb = new ozr.encryption.sym.LEA.symm.LEA.OFB();",NONE,[초안] CTR 모드 객체 생성 줄. IV는 호출자가 넘김
+OzRagwort__RagwortCrypto:com/cryp/sym/LEA.java:133,OzRagwort__RagwortCrypto,com/cryp/sym/LEA.java,133,False,BlockCipherMode cipher = new ozr.encryption.sym.LEA.symm.LEA.ECB();,"  127  	
+  128  	private byte[] ECB(byte[] data, byte[] key, boolean type) {
+  129  		
+  130  		if(key.length != 16 && key.length != 24 && key.length != 32)
+  131  	    	return null;
+  132  		
+  133>     	BlockCipherMode cipher = new ozr.encryption.sym.LEA.symm.LEA.ECB();
+  134      	
+  135      	if(type)
+  136      	{
+  137      		cipher.init(Mode.ENCRYPT, key);
+  138      		cipher.setPadding(new PKCS5Padding(16));
+  139      		",ECB,[초안] LEA ECB 모드 객체
+OzRagwort__RagwortCrypto:com/cryp/sym/LEA.java:181,OzRagwort__RagwortCrypto,com/cryp/sym/LEA.java,181,False,BlockCipherMode cipher = new ozr.encryption.sym.LEA.symm.LEA.CBC();,"  175  	
+  176  	private byte[] CBC(byte[] data, byte[] key, boolean type) {
+  177  		
+  178  		if(key.length != 16 && key.length != 24 && key.length != 32)
+  179  	    	return null;
+  180  		
+  181> 		BlockCipherMode cipher = new ozr.encryption.sym.LEA.symm.LEA.CBC();
+  182      	
+  183  		if(type)
+  184      	{
+  185  			cipher.init(Mode.ENCRYPT, key, genIV(IV, key.length));
+  186      		cipher.setPadding(new PKCS5Padding(16));
+  187      		",NONE,[초안] CBC 모드 객체 생성 줄
+dasomel__egovframe-boot-starter-korean-crypto:src/main/java/org/egovframe/boot/crypto/national/common/EgovNationalCryptoProperties.java:13,dasomel__egovframe-boot-starter-korean-crypto,src/main/java/org/egovframe/boot/crypto/national/common/EgovNationalCryptoProperties.java,13,False,private final Lea lea = new Lea();,"    7  public class EgovNationalCryptoProperties {
+    8  
+    9      @NestedConfigurationProperty
+   10      private final Seed seed = new Seed();
+   11  
+   12      @NestedConfigurationProperty
+   13>     private final Lea lea = new Lea();
+   14  
+   15      public Seed getSeed() { return seed; }
+   16      public Lea getLea() { return lea; }
+   17  
+   18      /** SEED 서비스 빈 활성화 설정. */
+   19      public static class Seed {",NONE,[초안] 설정 프로퍼티 클래스
+dasomel__egovframe-boot-starter-korean-crypto:src/test/java/org/egovframe/boot/crypto/national/seed/EgovSeedCryptoServiceImplTest.java:96,dasomel__egovframe-boot-starter-korean-crypto,src/test/java/org/egovframe/boot/crypto/national/seed/EgovSeedCryptoServiceImplTest.java,96,True,"Cipher cipher = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   90          byte[] actualCipherText = encryptSingleBlockEcb(plainText, key);
+   91  
+   92          assertThat(actualCipherText).isEqualTo(expectedCipherText);
+   93      }
+   94  
+   95      private byte[] encryptSingleBlockEcb(byte[] plainText, byte[] key) throws Exception {
+   96>         Cipher cipher = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   97          cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, ""SEED""));
+   98          return cipher.doFinal(plainText);
+   99      }
+  100  }",ECB,[초안] 테스트: 단일 블록 시험 벡터(ECB)
+emtee40__cryptography-droid:src/cryptography/ciphers/aria/ARIA.java:29,emtee40__cryptography-droid,src/cryptography/ciphers/aria/ARIA.java,29,False,"Cipher cipher = Cipher.getInstance(""ARIA"");","   23  
+   24  	public static String encrypt(String input, String key) {
+   25  		org.apache.commons.codec.binary.Base64 base64 = new org.apache.commons.codec.binary.Base64();
+   26  		String output = """";
+   27  		try {
+   28  			SecretKeySpec secretKey = new SecretKeySpec(getKey(key), ""ARIA"");
+   29> 			Cipher cipher = Cipher.getInstance(""ARIA"");
+   30  			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+   31  			output = base64.encodeToString(cipher.doFinal(input.getBytes()));
+   32  		} catch (GeneralSecurityException e) {
+   33  			e.printStackTrace();
+   34  			return e.toString();
+   35  		}",ECB,[초안] 운영모드 미지정 ARIA → 기본 ECB
+emtee40__cryptography-droid:src/cryptography/ciphers/aria/ARIA.java:45,emtee40__cryptography-droid,src/cryptography/ciphers/aria/ARIA.java,45,False,"Cipher cipher = Cipher.getInstance(""ARIA"");","   39  
+   40  	public static String decrypt(String input, String key) {
+   41  		org.apache.commons.codec.binary.Base64 base64 = new org.apache.commons.codec.binary.Base64();
+   42  		String output = """";
+   43  		try {
+   44  			SecretKeySpec secretKey = new SecretKeySpec(getKey(key), ""ARIA"");
+   45> 			Cipher cipher = Cipher.getInstance(""ARIA"");
+   46  			cipher.init(Cipher.DECRYPT_MODE, secretKey);
+   47  			output = new String(cipher.doFinal(base64.decode(input.getBytes())));
+   48  		} catch (GeneralSecurityException e) {
+   49  			e.printStackTrace();
+   50  			return e.toString();
+   51  		}",ECB,[초안] 운영모드 미지정 ARIA → 기본 ECB
+gg582__spring-development-practice:06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDDecryptManager.java:71,gg582__spring-development-practice,06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDDecryptManager.java,71,False,"return KISA_SEED_CBC.SEED_CBC_Decrypt(userKey, iv, cipherText, 0, cipherText.length);","   65  
+   66          // 실제 복호화할 데이터 (IV를 제외한 나머지)
+   67          byte[] cipherText = new byte[data.length - IV_SIZE_BYTES];
+   68          System.arraycopy(data, IV_SIZE_BYTES, cipherText, 0, cipherText.length);
+   69  
+   70          // KISA_SEED_CBC의 SEED_CBC_Decrypt 메소드를 호출합니다.
+   71>         return KISA_SEED_CBC.SEED_CBC_Decrypt(userKey, iv, cipherText, 0, cipherText.length);
+   72      }
+   73  
+   74      /**
+   75       * @brief 현재 Manager가 사용하는 알고리즘 이름을 반환합니다.
+   76       * @return 알고리즘 이름 ""SEED"".
+   77       */",NONE,"[초안] SecureRandom IV를 암호문 앞에 붙임, 키는 SecretKey"
+gg582__spring-development-practice:06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDDecryptManager.java:89,gg582__spring-development-practice,06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDDecryptManager.java,89,False,"KISA_SEED_CBC.SEED_CBC_init(info, KISA_ENC_DEC.KISA_DECRYPT, key, iv);","   83      public void setSeedInfo(KISA_SEED_INFO seedInfo) {
+   84          this.seedInfo = seedInfo;
+   85      }
+   86      
+   87      private KISA_SEED_INFO initializeSeedInfo(byte[] key, byte[] iv) {
+   88          KISA_SEED_INFO info = new KISA_SEED_INFO();
+   89>         KISA_SEED_CBC.SEED_CBC_init(info, KISA_ENC_DEC.KISA_DECRYPT, key, iv);
+   90          return info;
+   91      }
+   92  }",NONE,"[초안] SecureRandom IV를 암호문 앞에 붙임, 키는 SecretKey"
+gg582__spring-development-practice:06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDEncryptManager.java:64,gg582__spring-development-practice,06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDEncryptManager.java,64,False,"byte[] encrypted = KISA_SEED_CBC.SEED_CBC_Encrypt(userKey, iv, data, 0, data.length);","   58  
+   59          // 자바에서 동적으로 IV를 생성합니다.
+   60          byte[] iv = new byte[IV_SIZE_BYTES];
+   61          new SecureRandom().nextBytes(iv);
+   62  
+   63          // KISA_SEED_CBC의 SEED_CBC_Encrypt 메소드를 호출합니다.
+   64>         byte[] encrypted = KISA_SEED_CBC.SEED_CBC_Encrypt(userKey, iv, data, 0, data.length);
+   65          
+   66          // 동적으로 생성된 IV를 암호문 앞에 붙여서 반환합니다.
+   67          byte[] result = new byte[iv.length + encrypted.length];
+   68          System.arraycopy(iv, 0, result, 0, iv.length);
+   69          System.arraycopy(encrypted, 0, result, iv.length, encrypted.length);
+   70          ",NONE,"[초안] SecureRandom IV를 암호문 앞에 붙임, 키는 SecretKey"
+gg582__spring-development-practice:06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDEncryptManager.java:89,gg582__spring-development-practice,06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDEncryptManager.java,89,False,"KISA_SEED_CBC.SEED_CBC_init(info, KISA_ENC_DEC.KISA_ENCRYPT, key, iv);","   83      public void setSeedInfo(KISA_SEED_INFO seedInfo) {
+   84          this.seedInfo = seedInfo;
+   85      }
+   86      
+   87      private KISA_SEED_INFO initializeSeedInfo(byte[] key, byte[] iv) {
+   88          KISA_SEED_INFO info = new KISA_SEED_INFO();
+   89>         KISA_SEED_CBC.SEED_CBC_init(info, KISA_ENC_DEC.KISA_ENCRYPT, key, iv);
+   90          return info;
+   91      }
+   92  }",NONE,"[초안] SecureRandom IV를 암호문 앞에 붙임, 키는 SecretKey"
+grtlinux__KieaSecModule:ver00/KieaSec-00-test/src/org/tain/seed/cbc/Main.java:30,grtlinux__KieaSecModule,ver00/KieaSec-00-test/src/org/tain/seed/cbc/Main.java,30,True,"enc = KISA_SEED_CBC.SEED_CBC_Encrypt(pbUserKey, bszIV, str.getBytes(charset), 0,","   24  
+   25  	public static byte[] encrypt(String str) {
+   26  		byte[] enc = null;
+   27  
+   28  		try {
+   29  			//암호화 함수 호출
+   30> 			enc = KISA_SEED_CBC.SEED_CBC_Encrypt(pbUserKey, bszIV, str.getBytes(charset), 0,
+   31  					str.getBytes(charset).length);
+   32  		} catch (UnsupportedEncodingException e) {
+   33  			e.printStackTrace();
+   34  		}
+   35  
+   36  		Encoder encoder = Base64.getEncoder();",KEY;IV,[초안] 테스트: 정적 바이트 배열 키·IV
+grtlinux__KieaSecModule:ver00/KieaSec-00-test/src/org/tain/seed/cbc/Main.java:56,grtlinux__KieaSecModule,ver00/KieaSec-00-test/src/org/tain/seed/cbc/Main.java,56,True,"dec = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, enc, 0, enc.length);","   50  
+   51  		String result = """";
+   52  		byte[] dec = null;
+   53  
+   54  		try {
+   55  			//복호화 함수 호출
+   56> 			dec = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, enc, 0, enc.length);
+   57  			result = new String(dec, charset);
+   58  		} catch (UnsupportedEncodingException e) {
+   59  			e.printStackTrace();
+   60  		}
+   61  
+   62  		System.out.println(""decrypt Result = "" + result);",KEY;IV,[초안] 테스트: 정적 바이트 배열 키·IV
+hangyunhaeng__rider:nova/src/main/java/egovframework/com/utl/enc/SeedUtil.java:22,hangyunhaeng__rider,nova/src/main/java/egovframework/com/utl/enc/SeedUtil.java,22,False,"Cipher = KISA_SEED_CBC.SEED_CBC_Encrypt(pbUserKey, bszIV, pbData ,0, pbData.length);","   16  				pbData[i] = userBytes[i];
+   17  			else
+   18  				pbData[i] = 0x00;
+   19  		}
+   20  
+   21  		//암호화 함수 호출
+   22> 		Cipher = KISA_SEED_CBC.SEED_CBC_Encrypt(pbUserKey, bszIV, pbData ,0, pbData.length);
+   23  
+   24  		String enArray = Base64.getEncoder().encodeToString(Cipher);
+   25  
+   26  		//String a = new String(enArray);
+   27  		return enArray;
+   28  	}",KEY;IV,[초안] 필드에 리터럴 키·IV
+hangyunhaeng__rider:nova/src/main/java/egovframework/com/utl/enc/SeedUtil.java:36,hangyunhaeng__rider,nova/src/main/java/egovframework/com/utl/enc/SeedUtil.java,36,False,"byte Plain1[] = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, Cipher, 0, Cipher.length);","   30  	public static String decrypt(String encrptedData) {
+   31  
+   32  		byte[] decodedBytes = Base64.getDecoder().decode(encrptedData);
+   33  		byte[] Cipher = decodedBytes;
+   34  		String result = """";
+   35  		//복호화 함수 호출
+   36> 		byte Plain1[] = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, Cipher, 0, Cipher.length);
+   37  		result = new String(Plain1);
+   38  
+   39  		return result;
+   40  	}
+   41  }",KEY;IV,[초안] 필드에 리터럴 키·IV
+hyuns2-temp__team_pbu_back:src/main/java/projectbuildup/gasomann/domain/auth/service/component/CbcDecoder.java:24,hyuns2-temp__team_pbu_back,src/main/java/projectbuildup/gasomann/domain/auth/service/component/CbcDecoder.java,24,False,"dec = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, enc, 0, enc.length);","   18          byte[] pbUserKey = decoder.decode(token.getBytes());
+   19          byte[] enc = decoder.decode(str);
+   20          String result = """";
+   21          byte[] dec;
+   22  
+   23          try {
+   24>             dec = KISA_SEED_CBC.SEED_CBC_Decrypt(pbUserKey, bszIV, enc, 0, enc.length);
+   25              result = new String(dec, charset);
+   26          } catch (UnsupportedEncodingException e) {
+   27              e.printStackTrace();
+   28          }
+   29          return result;
+   30      }",IV,"[초안] IV 리터럴 상수, 키는 토큰에서 디코드"
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:64,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,64,False,"keyGen = KeyGenerator.getInstance(""ARIA"", provider);","   58      }
+   59  
+   60      try {
+   61  
+   62        KeyGenerator keyGen = null;
+   63        Key key = null;
+   64>       keyGen = KeyGenerator.getInstance(""ARIA"", provider);
+   65        key = keyGen.generateKey();
+   66  
+   67        byte[] blockSizeData = new byte[1024];
+   68        // get some new random data each time just to mix things up a bit
+   69        Random r = new Random();
+   70        r.nextBytes(blockSizeData);",NONE,[초안] ARIA 키 생성
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:78,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,78,False,"desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);","   72        r.nextBytes(nonblockSizeData);
+   73  
+   74        Cipher desCipher = null;
+   75        byte[] iv = null;
+   76  
+   77        AlgorithmParameters lunaParams = null;
+   78>       desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);",ECB,[초안] ARIA/ECB 명시
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:79,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,79,False,"desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);","   73  
+   74        Cipher desCipher = null;
+   75        byte[] iv = null;
+   76  
+   77        AlgorithmParameters lunaParams = null;
+   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79>       desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:80,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,80,False,"desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);","   74        Cipher desCipher = null;
+   75        byte[] iv = null;
+   76  
+   77        AlgorithmParameters lunaParams = null;
+   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80>       desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:81,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,81,False,"desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);","   75        byte[] iv = null;
+   76  
+   77        AlgorithmParameters lunaParams = null;
+   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81>       desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();
+   87        if (iv != null) {",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:82,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,82,False,"desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);","   76  
+   77        AlgorithmParameters lunaParams = null;
+   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82>       desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();
+   87        if (iv != null) {
+   88          // is AES ok for any secret key?",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:83,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,83,False,"desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);","   77        AlgorithmParameters lunaParams = null;
+   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83>       desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();
+   87        if (iv != null) {
+   88          // is AES ok for any secret key?
+   89          lunaParams = AlgorithmParameters.getInstance(""AES"", provider);",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:84,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,84,False,"desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);","   78        desCipher = Cipher.getInstance(""ARIA/ECB/NoPadding"", provider);
+   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84>       desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85        desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();
+   87        if (iv != null) {
+   88          // is AES ok for any secret key?
+   89          lunaParams = AlgorithmParameters.getInstance(""AES"", provider);
+   90          lunaParams.init(iv);",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/CipherAriaDemo.java:85,infeelchoi__QSIGN,jsp/samples/CipherAriaDemo.java,85,False,"desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);","   79        desCipher = Cipher.getInstance(""ARIA/CBC/NoPadding"", provider);
+   80        desCipher = Cipher.getInstance(""ARIA/CBC/PKCS5Padding"", provider);
+   81        desCipher = Cipher.getInstance(""ARIA/CBC/ISO10126Padding"", provider);
+   82        desCipher = Cipher.getInstance(""ARIA/CFB8/NoPadding"", provider);
+   83        desCipher = Cipher.getInstance(""ARIA/CFB128/NoPadding"", provider);
+   84        desCipher = Cipher.getInstance(""ARIA/OFB/NoPadding"", provider);
+   85>       desCipher = Cipher.getInstance(""ARIA/CTR/NoPadding"", provider);
+   86        iv = desCipher.getIV();
+   87        if (iv != null) {
+   88          // is AES ok for any secret key?
+   89          lunaParams = AlgorithmParameters.getInstance(""AES"", provider);
+   90          lunaParams.init(iv);
+   91        }",NONE,[초안] ARIA CBC/CFB/OFB/CTR
+infeelchoi__QSIGN:jsp/samples/KeyFactoryDemo.java:196,infeelchoi__QSIGN,jsp/samples/KeyFactoryDemo.java,196,False,"kf = SecretKeyFactory.getInstance(""ARIA"", provider);","  190        kg = KeyGenerator.getInstance(""AES"", provider);
+  191        Key key = null;
+  192        key = kg.generateKey();
+  193        SecretKeyFactory kf = null;
+  194        kf = SecretKeyFactory.getInstance(""Generic"", provider);
+  195        kf = SecretKeyFactory.getInstance(""AES"", provider);
+  196>       kf = SecretKeyFactory.getInstance(""ARIA"", provider);
+  197        tempKey = kf.translateKey((SecretKey) key);
+  198  
+  199        kg = KeyGenerator.getInstance(""DES"", provider);
+  200        kg.init(56);
+  201        key = kg.generateKey();
+  202        kf = SecretKeyFactory.getInstance(""DES"", provider);",NONE,[초안] ARIA 키 팩토리·생성기
+infeelchoi__QSIGN:jsp/samples/KeyGeneratorDemo.java:141,infeelchoi__QSIGN,jsp/samples/KeyGeneratorDemo.java,141,False,"KeyGenerator kg = KeyGenerator.getInstance(""ARIA"", provider);","  135      } catch (NoSuchProviderException e) {
+  136        // TODO Auto-generated catch block
+  137        e.printStackTrace();
+  138      }
+  139  
+  140      try {
+  141>       KeyGenerator kg = KeyGenerator.getInstance(""ARIA"", provider);
+  142        LunaKey key = (LunaKey) kg.generateKey();
+  143      } catch (NoSuchAlgorithmException e) {
+  144        // TODO Auto-generated catch block
+  145        e.printStackTrace();
+  146      } catch (NoSuchProviderException e) {
+  147        // TODO Auto-generated catch block",NONE,[초안] ARIA 키 팩토리·생성기
+innovationacademy-kr__visitor-backend:src/main/java/com/ftseoul/visitor/encrypt/Seed.java:35,innovationacademy-kr__visitor-backend,src/main/java/com/ftseoul/visitor/encrypt/Seed.java,35,False,"byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,","   29      }
+   30  
+   31      public String encrypt(String rawMsg) {
+   32          pbszUserKey = key.getBytes(StandardCharsets.UTF_8);
+   33          pbszIV = IV.getBytes(StandardCharsets.UTF_8);
+   34          byte[] message = rawMsg.getBytes();
+   35>         byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,
+   36                  message, 0, message.length);
+   37  
+   38          return Base64.getEncoder()
+   39                  .encodeToString(SerializationUtils.serialize(encryptedMsg));
+   40      }
+   41  ",IV,[초안] 키·IV 설정값(생성자 인자). 고정 IV 재사용
+innovationacademy-kr__visitor-backend:src/main/java/com/ftseoul/visitor/encrypt/Seed.java:56,innovationacademy-kr__visitor-backend,src/main/java/com/ftseoul/visitor/encrypt/Seed.java,56,False,"byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV,","   50              Base64Utils.decodeFromUrlSafeString(code)
+   51          ));
+   52      }
+   53  
+   54      public String decrypt(String encodeMsg) {
+   55          byte[] encryptedMsg = deserialize(encodeMsg, byte[].class);
+   56>         byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV,
+   57                  encryptedMsg, 0, encryptedMsg.length);
+   58          return new String(decryptedMsg, StandardCharsets.UTF_8);
+   59      }
+   60  
+   61      public String encryptUrl(String rawMsg) {
+   62          pbszUserKey = key.getBytes(StandardCharsets.UTF_8);",IV,[초안] 키·IV 설정값(생성자 인자). 고정 IV 재사용
+innovationacademy-kr__visitor-backend:src/main/java/com/ftseoul/visitor/encrypt/Seed.java:65,innovationacademy-kr__visitor-backend,src/main/java/com/ftseoul/visitor/encrypt/Seed.java,65,False,"byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,","   59      }
+   60  
+   61      public String encryptUrl(String rawMsg) {
+   62          pbszUserKey = key.getBytes(StandardCharsets.UTF_8);
+   63          pbszIV = IV.getBytes(StandardCharsets.UTF_8);
+   64          byte[] message = rawMsg.getBytes();
+   65>         byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,
+   66              message, 0, message.length);
+   67  
+   68          return Base64Utils.encodeToUrlSafeString(SerializationUtils.serialize(encryptedMsg));
+   69      }
+   70  
+   71  ",IV,[초안] 키·IV 설정값(생성자 인자). 고정 IV 재사용
+innovationacademy-kr__visitor-backend:src/main/java/com/ftseoul/visitor/encrypt/Seed.java:74,innovationacademy-kr__visitor-backend,src/main/java/com/ftseoul/visitor/encrypt/Seed.java,74,False,"byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV,","   68          return Base64Utils.encodeToUrlSafeString(SerializationUtils.serialize(encryptedMsg));
+   69      }
+   70  
+   71  
+   72      public String decryptUrl(String encodeMsg) {
+   73          byte[] encryptedMsg = deserializeUrl(encodeMsg, byte[].class);
+   74>         byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV,
+   75              encryptedMsg, 0, encryptedMsg.length);
+   76          return new String(decryptedMsg, StandardCharsets.UTF_8);
+   77      }
+   78  }",IV,[초안] 키·IV 설정값(생성자 인자). 고정 IV 재사용
+innovationacademy-kr__visitor-backend:src/test/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBCTest.java:27,innovationacademy-kr__visitor-backend,src/test/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBCTest.java,27,True,"byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,","   21      @Test
+   22      public void 암복호화_테스트() {
+   23          //given
+   24          String rawMsg = ""테스트 데이터"";
+   25  
+   26          // when
+   27>         byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,
+   28                  rawMsg.getBytes(), 0, rawMsg.getBytes().length);
+   29          System.out.println(""암호화된 데이터1 => "" + new String(encryptedMsg));
+   30          System.out.println(""암호화된 데이터2 => "" + encryptedMsg.toString());
+   31  
+   32          byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, encryptedMsg,
+   33                  0, encryptedMsg.length);",KEY;IV,[초안] 테스트: 리터럴 키·IV
+innovationacademy-kr__visitor-backend:src/test/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBCTest.java:32,innovationacademy-kr__visitor-backend,src/test/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBCTest.java,32,True,"byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, encryptedMsg,","   26          // when
+   27          byte[] encryptedMsg = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV,
+   28                  rawMsg.getBytes(), 0, rawMsg.getBytes().length);
+   29          System.out.println(""암호화된 데이터1 => "" + new String(encryptedMsg));
+   30          System.out.println(""암호화된 데이터2 => "" + encryptedMsg.toString());
+   31  
+   32>         byte[] decryptedMsg = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, encryptedMsg,
+   33                  0, encryptedMsg.length);
+   34          System.out.println(""복호화된 데이터 -> "" + new String(decryptedMsg));
+   35  
+   36          assertThat(rawMsg).isEqualTo(new String(decryptedMsg));
+   37          assertThat(rawMsg).isNotEqualTo(new String(encryptedMsg));
+   38      }",KEY;IV,[초안] 테스트: 리터럴 키·IV
+jaeyyyyy__nnzz_back:src/main/java/com/nnzz/nnzz/config/seed/Seed.java:27,jaeyyyyy__nnzz_back,src/main/java/com/nnzz/nnzz/config/seed/Seed.java,27,False,"byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);","   21          this.pbszIV = IV.getBytes(UTF_8);
+   22      }
+   23  
+   24      public String encrypt(String rawMessage) {
+   25          Base64.Encoder encoder = Base64.getEncoder();
+   26          byte[] message = rawMessage.getBytes(UTF_8);
+   27>         byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   28          return new String(encoder.encode(encryptedMessage), UTF_8);
+   29      }
+   30  
+   31      public String decrypt(String encryptedMessage) {
+   32          Base64.Decoder decoder = Base64.getDecoder();
+   33          byte[] message = decoder.decode(encryptedMessage);",IV,[초안] 키·IV 생성자 인자(설정). 고정 IV 재사용
+jaeyyyyy__nnzz_back:src/main/java/com/nnzz/nnzz/config/seed/Seed.java:34,jaeyyyyy__nnzz_back,src/main/java/com/nnzz/nnzz/config/seed/Seed.java,34,False,"byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);","   28          return new String(encoder.encode(encryptedMessage), UTF_8);
+   29      }
+   30  
+   31      public String decrypt(String encryptedMessage) {
+   32          Base64.Decoder decoder = Base64.getDecoder();
+   33          byte[] message = decoder.decode(encryptedMessage);
+   34>         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   35          return new String(decryptedMessage, UTF_8);
+   36      }
+   37  }",IV,[초안] 키·IV 생성자 인자(설정). 고정 IV 재사용
+kanghj__SURF:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:53,kanghj__SURF,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,53,True,"in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   47          CipherOutputStream cOut;
+   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53>         in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54          out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+kanghj__SURF:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:54,kanghj__SURF,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,54,True,"out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53          in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54>         out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }
+   60          catch (Exception e)",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java:79,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java,79,False,"bCipher = KISA_SEED_CBC.SEED_CBC_Encrypt(bKey, bIV, bData, nDataOffset, nDataLength);","   73  
+   74          bData = setPadding(bData, 16);
+   75  
+   76          int nDataOffset = 0;
+   77          int nDataLength = bData.length;
+   78  
+   79>         bCipher = KISA_SEED_CBC.SEED_CBC_Encrypt(bKey, bIV, bData, nDataOffset, nDataLength);
+   80  
+   81  		return new String(Base64.getEncoder().encode(bCipher));
+   82  	}
+   83  
+   84  	/**
+   85  	 * SEED CBC 암호화 (URL 인코딩 + Base64 인코딩)",IV,[초안] IV를 키에서 복사 — 고정·예측 가능. 키는 인자
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java:114,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java,114,False,"bCipher = KISA_SEED_CBC.SEED_CBC_Encrypt(bKey, bIV, bData, nDataOffset, nDataLength);","  108  
+  109          bData = setPadding(bData, 16);
+  110  
+  111          int nDataOffset = 0;
+  112          int nDataLength = bData.length;
+  113  
+  114>         bCipher = KISA_SEED_CBC.SEED_CBC_Encrypt(bKey, bIV, bData, nDataOffset, nDataLength);
+  115  
+  116          String sEncData = new String(Base64.getEncoder().encode(bCipher));
+  117  
+  118          try {
+  119          	sEncData = URLEncoder.encode(sEncData, UTF_8);
+  120  		} catch (UnsupportedEncodingException e) {",IV,[초안] IV를 키에서 복사 — 고정·예측 가능. 키는 인자
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java:178,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java,178,False,"bPlain = KISA_SEED_CBC.SEED_CBC_Decrypt(bKey, bIV, bCipher, 0, bCipher.length);","  172  
+  173  		bCipher = Base64.getDecoder().decode(sEncData);
+  174  
+  175  		byte[] bIV = new byte[16];
+  176          System.arraycopy(bKey, 0, bIV, 0, Math.min(bKey.length, 16));
+  177  
+  178> 		bPlain = KISA_SEED_CBC.SEED_CBC_Decrypt(bKey, bIV, bCipher, 0, bCipher.length);
+  179  
+  180  		bPlain = removePadding(bPlain);
+  181  		return new String(bPlain);
+  182  	}
+  183  
+  184  	/**",IV,[초안] IV를 키에서 복사 — 고정·예측 가능. 키는 인자
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java:215,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java,215,False,"bPlain = KISA_SEED_CBC.SEED_CBC_Decrypt(bKey, bIV, bCipher, 0, bCipher.length);","  209  
+  210  			bCipher = Base64.getDecoder().decode(sEncData);
+  211  
+  212  			byte[] bIV = new byte[16];
+  213  	        System.arraycopy(bKey, 0, bIV, 0, Math.min(bKey.length, 16));
+  214  
+  215> 			bPlain = KISA_SEED_CBC.SEED_CBC_Decrypt(bKey, bIV, bCipher, 0, bCipher.length);
+  216  
+  217  			bPlain = removePadding(bPlain);
+  218  
+  219  			sPlainData = new String(bPlain, UTF_8);
+  220  
+  221  		} catch (UnsupportedEncodingException e) {",IV,[초안] IV를 키에서 복사 — 고정·예측 가능. 키는 인자
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java:66,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java,66,False,"bCipher = KISA_SEED_ECB.SEED_ECB_Encrypt(bKey, bData, 0, nDataLen);","   60  		byte[] bKey	= sKey.getBytes();
+   61  		byte[] bCipher = null;
+   62  		byte[] bData = sPlainData.getBytes();
+   63  
+   64  		bKey = setPadding(bKey, 16);
+   65  		int nDataLen = bData.length;
+   66> 		bCipher = KISA_SEED_ECB.SEED_ECB_Encrypt(bKey, bData, 0, nDataLen);
+   67  
+   68  		return new String(Base64.getEncoder().encode(bCipher));
+   69  	}
+   70  
+   71  	/**
+   72  	 * SEED ECB 암호화 (URL 인코딩 + Base64 인코딩)",ECB,[초안] KISA SEED ECB
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java:99,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java,99,False,"bCipher = KISA_SEED_ECB.SEED_ECB_Encrypt(bKey, bData, 0, nDataLen);","   93  			byte[] bKey	= sKey.getBytes();
+   94  			byte[] bCipher = null;
+   95  			byte[] bData = sPlainData.getBytes();
+   96  
+   97  			bKey = setPadding(bKey, 16);
+   98  			int nDataLen = bData.length;
+   99> 			bCipher = KISA_SEED_ECB.SEED_ECB_Encrypt(bKey, bData, 0, nDataLen);
+  100  
+  101  			sEncData = new String(Base64.getEncoder().encode(bCipher));
+  102  
+  103  			sEncData = URLEncoder.encode(sEncData, UTF_8);
+  104  		} catch (UnsupportedEncodingException e) {
+  105  			logger.error("""", e);",ECB,[초안] KISA SEED ECB
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java:140,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java,140,False,"bPlain = KISA_SEED_ECB.SEED_ECB_Decrypt(bKey, bCipher, 0, nDataLen);","  134  		bCipher = Base64.getDecoder().decode(sEncData);
+  135  
+  136  		bKey = setPadding(bKey, 16);
+  137  		byte[] bData = bCipher;
+  138  		int nDataLen = bData.length;
+  139  
+  140> 		bPlain = KISA_SEED_ECB.SEED_ECB_Decrypt(bKey, bCipher, 0, nDataLen);
+  141  		return new String(bPlain);
+  142  	}
+  143  
+  144  	/**
+  145  	 * SEED ECB 복호화 (URL 디코딩 + Base64 디코딩)
+  146  	 * @param sEncData",ECB,[초안] KISA SEED ECB
+kdk1026__CommonJava8:src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java:178,kdk1026__CommonJava8,src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java,178,False,"bPlain = KISA_SEED_ECB.SEED_ECB_Decrypt(bKey, bCipher, 0, nDataLen);","  172  			bCipher = Base64.getDecoder().decode(sEncData);
+  173  
+  174  			bKey = setPadding(bKey, 16);
+  175  			byte[] bData = bCipher;
+  176  			int nDataLen = bData.length;
+  177  
+  178> 			bPlain = KISA_SEED_ECB.SEED_ECB_Decrypt(bKey, bCipher, 0, nDataLen);
+  179  			sPlainData = new String(bPlain);
+  180  
+  181  		} catch (UnsupportedEncodingException e) {
+  182  			logger.error("""", e);
+  183  		}
+  184  		return sPlainData;",ECB,[초안] KISA SEED ECB
+kfetus__springboot3.3:Demo/src/main/java/demo/test/CertificateTest.java:140,kfetus__springboot3.3,Demo/src/main/java/demo/test/CertificateTest.java,140,True,"Cipher cipher = Cipher.getInstance(""SEED/CBC/PKCS5Padding"", provider);","  134  		byte[] iv = new byte[16];
+  135  		System.arraycopy(div, 0, iv, 0, 16);
+  136  		System.out.println(""iv : "" + byteArrayToHexString(iv));
+  137  
+  138  		// 3. SEED로 복호화하기
+  139  		BouncyCastleProvider provider = new BouncyCastleProvider();
+  140> 		Cipher cipher = Cipher.getInstance(""SEED/CBC/PKCS5Padding"", provider);
+  141  		Key key = new SecretKeySpec(keyData, ""SEED"");
+  142  		cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
+  143  		byte[] output = cipher.doFinal(encryptedPrivateKeyInfo.getEncryptedData());
+  144  
+  145  		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(output);
+  146  		KeyFactory keyFactory = KeyFactory.getInstance(""RSA"");",NONE,[초안] 테스트: SEED/CBC
+leecoder92__blahblah:blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java:20,leecoder92__blahblah,blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java,20,False,"byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);","   14      private final byte[] pbszIV = ""1234567890123456"".getBytes();
+   15  
+   16  
+   17      public  String encrypt(String rawMessage) {
+   18          Base64.Encoder encoder = Base64.getEncoder();
+   19          byte[] message = rawMessage.getBytes(UTF_8);
+   20>         byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   21          return new String(encoder.encode(encryptedMessage), UTF_8);
+   22      }
+   23      public  String decrypt(String encryptedMessage) {
+   24          Base64.Decoder decoder = Base64.getDecoder();
+   25          byte[] message = decoder.decode(encryptedMessage);
+   26          byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);",KEY;IV,[초안] 필드에 리터럴 키·IV
+leecoder92__blahblah:blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java:26,leecoder92__blahblah,blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java,26,False,"byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);","   20          byte[] encryptedMessage = KISA_SEED_CBC.SEED_CBC_Encrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   21          return new String(encoder.encode(encryptedMessage), UTF_8);
+   22      }
+   23      public  String decrypt(String encryptedMessage) {
+   24          Base64.Decoder decoder = Base64.getDecoder();
+   25          byte[] message = decoder.decode(encryptedMessage);
+   26>         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);
+   27          return new String(decryptedMessage, UTF_8);
+   28      }
+   29  
+   30  }",KEY;IV,[초안] 필드에 리터럴 키·IV
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:23,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,23,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","   17  	public static String ariaEncrypt(String str, String privateKey) 
+   18  			throws InvalidKeyException, UnsupportedEncodingException {
+   19  		if (str==null || str.equals("""")) return """";
+   20  
+   21  		byte[] p;
+   22  		byte[] c;
+   23> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+   24  		p = new byte[str.getBytes().length]; 
+   25  		p = str.getBytes();
+   26  
+   27  		int len = str.getBytes().length;
+   28  		if ((len % 16) != 0) {
+   29  			len = (len / 16 + 1) * 16;",NONE,[초안] 키가 공개 메서드 인자(호출자 밖)
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:67,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,67,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","   61  				throw new IOException(f.getName());
+   62  			}
+   63  		} finally{
+   64  			fis.close(); 
+   65  		}
+   66  
+   67> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+   68  		int len = b.length;
+   69  		if ((len % 16) != 0) {
+   70  			len = (len / 16 + 1) * 16;
+   71  		}
+   72  		byte[] c = new byte[len];
+   73  		System.arraycopy(b, 0, c, 0, b.length);",NONE,[초안] 키가 공개 메서드 인자(호출자 밖)
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:96,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,96,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","   90  	public static String ariaDecrypt(String strHex, String privateKey) 
+   91  	throws InvalidKeyException, UnsupportedEncodingException  {
+   92  		if (strHex==null || strHex.equals("""")) return """";
+   93  
+   94  		byte[] p;
+   95  		byte[] c;
+   96> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+   97  
+   98  		c = ARIAEngine.hexToByteArray(strHex);
+   99  		p = new byte[c.length];
+  100  		instance.decrypt(c, p, p.length);
+  101  
+  102  		StringBuffer buf = new StringBuffer();",NONE,[초안] 키가 공개 메서드 인자(호출자 밖)
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:130,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,130,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  124  				throw new IOException(f.getName());
+  125  			}
+  126  		} finally{
+  127  			fis.close(); 
+  128  		}
+  129  
+  130> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  131  		int len = b.length;
+  132  		if ((len % 16) != 0) {
+  133  			len = (len / 16 + 1) * 16;
+  134  		}
+  135  		byte[] c = new byte[len];
+  136  		System.arraycopy(b, 0, c, 0, b.length);",NONE,[초안] 키가 공개 메서드 인자(호출자 밖)
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:173,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,173,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  167  		StringBuffer buf = null;
+  168  		try {
+  169  			String privateKey = ""dkaghghkzl@l"";
+  170  			
+  171  			byte[] p;
+  172  			byte[] c;
+  173> 			ARIAEngine instance = new ARIAEngine(256, privateKey);
+  174  			
+  175  			c = hexToByteArray(strHex);
+  176  			p = new byte[c.length];
+  177  			instance.decrypt(c, p, p.length);
+  178  			
+  179  			buf = new StringBuffer();",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:197,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,197,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  191  	throws InvalidKeyException, UnsupportedEncodingException {
+  192  		if (str==null || str.equals("""")) return """";
+  193  		String privateKey = ""dkaghghkzl@l"";
+  194  
+  195  		byte[] p;
+  196  		byte[] c;
+  197> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  198  		p = new byte[str.getBytes().length];
+  199  		p = str.getBytes();
+  200  
+  201  		int len = str.getBytes().length;
+  202  		if ((len % 16) != 0) {
+  203  			len = (len / 16 + 1) * 16;",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:221,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,221,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  215  	public static String ariaCharEncrypt(String str, String charset) 
+  216  	throws InvalidKeyException, UnsupportedEncodingException {
+  217  		if (str==null || str.equals("""")) return """";
+  218  		String privateKey = ""dkaghghkzl@l"";
+  219  		byte[] p;
+  220  		byte[] c;
+  221> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  222  		p = new byte[str.getBytes(charset).length];
+  223  		p = str.getBytes(charset);
+  224  		int len = str.getBytes(charset).length;
+  225  		if ((len % 16) != 0) {
+  226  			len = (len / 16 + 1) * 16;
+  227  		}",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:248,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,248,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  242  		String privateKey = """";
+  243  		if(server.equals(""regi"")) privateKey = ""dkaghghkzl@l"";
+  244  		else privateKey = ""dkaghghkzl@l"";
+  245  
+  246  		byte[] p;
+  247  		byte[] c;
+  248> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  249  		p = new byte[str.getBytes(charset).length];
+  250  		p = str.getBytes(charset);
+  251  		int len = str.getBytes(charset).length;
+  252  		if ((len % 16) != 0) {
+  253  			len = (len / 16 + 1) * 16;
+  254  		}",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:274,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,274,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  268  	throws InvalidKeyException, UnsupportedEncodingException  {
+  269  		if (strHex==null || strHex.equals("""")) return """";
+  270  		String privateKey = ""dkaghghkzl@l"";
+  271  
+  272  		byte[] p;
+  273  		byte[] c;
+  274> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  275  
+  276  		c = hexToByteArray(strHex);
+  277  		p = new byte[c.length];
+  278  		instance.decrypt(c, p, p.length);
+  279  
+  280  		StringBuffer buf = new StringBuffer();",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+maze51__jspServlet:src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java:299,maze51__jspServlet,src/main/java/kr/or/ddit/encrypt/kisa/aria/ARIAUtil.java,299,False,"ARIAEngine instance = new ARIAEngine(256, privateKey);","  293  		String privateKey = """";
+  294  		if(server.equals(""regi"")) privateKey = ""dkaghghkzl@l"";
+  295  		else privateKey = ""dkaghghkzl@l"";
+  296  		 
+  297  		byte[] p;
+  298  		byte[] c;
+  299> 		ARIAEngine instance = new ARIAEngine(256, privateKey);
+  300  
+  301  		c = hexToByteArray(strHex);
+  302  		p = new byte[c.length];
+  303  		instance.decrypt(c, p, p.length);
+  304  
+  305  		StringBuffer buf = new StringBuffer();",KEY,"[초안] 지역 변수에 리터럴 키 ""dkaghghkzl@l"""
+nonowngh__police-porms:police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:156,nonowngh__police-porms,police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,156,False,"decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);","  150          log.info(""BASE64 DECODE : {} bytes"", dataEnc.getBytes().length);
+  151          byte[] decode = decoder.decode(dataEnc.getBytes());
+  152          log.info(""SEED_DECRYPT : {} bytes"", decode.length);
+  153          try {
+  154              switch (ifConfig.getSeedOpMode()) {
+  155                  case ""ECB"":
+  156>                     decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);
+  157                      break;
+  158                  case ""CBC"":
+  159                      decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);
+  160                      break;
+  161                  case ""POLICE"":
+  162                      decode = policeSeed.decode(decode);",ECB,[초안] KISA SEED ECB. 키는 설정값 복호화
+nonowngh__police-porms:police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:159,nonowngh__police-porms,police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,159,False,"decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);","  153          try {
+  154              switch (ifConfig.getSeedOpMode()) {
+  155                  case ""ECB"":
+  156                      decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);
+  157                      break;
+  158                  case ""CBC"":
+  159>                     decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);
+  160                      break;
+  161                  case ""POLICE"":
+  162                      decode = policeSeed.decode(decode);
+  163                      break;
+  164              }
+  165          } catch (Exception e) {",IV,[초안] IV 설정값 고정 재사용. 키는 설정값 복호화
+nonowngh__police-porms:police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:229,nonowngh__police-porms,police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,229,False,"seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);","  223          byte[] seedEncBytes = null;
+  224  
+  225          //resultStr 받아서 seed로 다시 암호화를 하고 map에 담아서 리턴한다.
+  226          try {
+  227              switch (ifConfig.getSeedOpMode()) {
+  228                  case ""ECB"":
+  229>                     seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  230                      break;
+  231                  case ""CBC"":
+  232                      seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  233                      break;
+  234                  case ""POLICE"":
+  235                      seedEncBytes = policeSeed.encode(resultStr);",ECB,[초안] KISA SEED ECB. 키는 설정값 복호화
+nonowngh__police-porms:police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:232,nonowngh__police-porms,police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,232,False,"seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);","  226          try {
+  227              switch (ifConfig.getSeedOpMode()) {
+  228                  case ""ECB"":
+  229                      seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  230                      break;
+  231                  case ""CBC"":
+  232>                     seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  233                      break;
+  234                  case ""POLICE"":
+  235                      seedEncBytes = policeSeed.encode(resultStr);
+  236                      break;
+  237              }
+  238          } catch (Exception e) {",IV,[초안] IV 설정값 고정 재사용. 키는 설정값 복호화
+nonowngh__police-tcs:police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:156,nonowngh__police-tcs,police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,156,False,"decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);","  150          log.info(""BASE64 DECODE : {} bytes"", dataEnc.getBytes().length);
+  151          byte[] decode = decoder.decode(dataEnc.getBytes());
+  152          log.info(""SEED_DECRYPT : {} bytes"", decode.length);
+  153          try {
+  154              switch (ifConfig.getSeedOpMode()) {
+  155                  case ""ECB"":
+  156>                     decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);
+  157                      break;
+  158                  case ""CBC"":
+  159                      decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);
+  160                      break;
+  161                  case ""POLICE"":
+  162                      decode = policeSeed.decode(decode);",ECB,[초안] KISA SEED ECB. 키는 설정값 복호화
+nonowngh__police-tcs:police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:159,nonowngh__police-tcs,police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,159,False,"decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);","  153          try {
+  154              switch (ifConfig.getSeedOpMode()) {
+  155                  case ""ECB"":
+  156                      decode = KISA_SEED_ECB.SEED_ECB_Decrypt(seedKey.getBytes(), decode, 0, decode.length);
+  157                      break;
+  158                  case ""CBC"":
+  159>                     decode = KISA_SEED_CBC.SEED_CBC_Decrypt(seedKey.getBytes(), initVector.getBytes(), decode, 0, decode.length);
+  160                      break;
+  161                  case ""POLICE"":
+  162                      decode = policeSeed.decode(decode);
+  163                      break;
+  164              }
+  165          } catch (Exception e) {",IV,[초안] IV 설정값 고정 재사용. 키는 설정값 복호화
+nonowngh__police-tcs:police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:229,nonowngh__police-tcs,police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,229,False,"seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);","  223          byte[] seedEncBytes = null;
+  224  
+  225          //resultStr 받아서 seed로 다시 암호화를 하고 map에 담아서 리턴한다.
+  226          try {
+  227              switch (ifConfig.getSeedOpMode()) {
+  228                  case ""ECB"":
+  229>                     seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  230                      break;
+  231                  case ""CBC"":
+  232                      seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  233                      break;
+  234                  case ""POLICE"":
+  235                      seedEncBytes = policeSeed.encode(resultStr);",ECB,[초안] KISA SEED ECB. 키는 설정값 복호화
+nonowngh__police-tcs:police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java:232,nonowngh__police-tcs,police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java,232,False,"seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);","  226          try {
+  227              switch (ifConfig.getSeedOpMode()) {
+  228                  case ""ECB"":
+  229                      seedEncBytes = KISA_SEED_ECB.SEED_ECB_Encrypt(seedKey.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  230                      break;
+  231                  case ""CBC"":
+  232>                     seedEncBytes = KISA_SEED_CBC.SEED_CBC_Encrypt(seedKey.getBytes(), initVector.getBytes(), resultStr.getBytes(), 0, resultStr.getBytes().length);
+  233                      break;
+  234                  case ""POLICE"":
+  235                      seedEncBytes = policeSeed.encode(resultStr);
+  236                      break;
+  237              }
+  238          } catch (Exception e) {",IV,[초안] IV 설정값 고정 재사용. 키는 설정값 복호화
+norkator__cryptography:src/cryptography/ciphers/aria/ARIA.java:29,norkator__cryptography,src/cryptography/ciphers/aria/ARIA.java,29,False,"Cipher cipher = Cipher.getInstance(""ARIA"");","   23  
+   24  	public static String encrypt(String input, String key) {
+   25  		org.apache.commons.codec.binary.Base64 base64 = new org.apache.commons.codec.binary.Base64();
+   26  		String output = """";
+   27  		try {
+   28  			SecretKeySpec secretKey = new SecretKeySpec(getKey(key), ""ARIA"");
+   29> 			Cipher cipher = Cipher.getInstance(""ARIA"");
+   30  			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+   31  			output = base64.encodeToString(cipher.doFinal(input.getBytes()));
+   32  		} catch (GeneralSecurityException e) {
+   33  			e.printStackTrace();
+   34  			return e.toString();
+   35  		}",ECB,[초안] 운영모드 미지정 ARIA → 기본 ECB
+norkator__cryptography:src/cryptography/ciphers/aria/ARIA.java:45,norkator__cryptography,src/cryptography/ciphers/aria/ARIA.java,45,False,"Cipher cipher = Cipher.getInstance(""ARIA"");","   39  
+   40  	public static String decrypt(String input, String key) {
+   41  		org.apache.commons.codec.binary.Base64 base64 = new org.apache.commons.codec.binary.Base64();
+   42  		String output = """";
+   43  		try {
+   44  			SecretKeySpec secretKey = new SecretKeySpec(getKey(key), ""ARIA"");
+   45> 			Cipher cipher = Cipher.getInstance(""ARIA"");
+   46  			cipher.init(Cipher.DECRYPT_MODE, secretKey);
+   47  			output = new String(cipher.doFinal(base64.decode(input.getBytes())));
+   48  		} catch (GeneralSecurityException e) {
+   49  			e.printStackTrace();
+   50  			return e.toString();
+   51  		}",ECB,[초안] 운영모드 미지정 ARIA → 기본 ECB
+skrevolve__SEED-CBC-PKCS5Padding:seed/KISA_SEED_ECB_CBC_CTR_CCM_GCM_CMAC/[02] JAVA/[02] CBC/WpayStdSample.java:119,skrevolve__SEED-CBC-PKCS5Padding,seed/KISA_SEED_ECB_CBC_CTR_CCM_GCM_CMAC/[02] JAVA/[02] CBC/WpayStdSample.java,119,False,"cipherTextStr = getString(KISA_SEED_CBC.SEED_CBC_Encrypt(key, iv, plainText, 0, plainText.length));","  113  
+  114  		try {
+  115  			plainText = getBytes(BinToHex(decryptTxt.getBytes()));
+  116  			key = getBytes(BinToHex(DatatypeConverter.parseBase64Binary(seedKey)));
+  117  			iv = getBytes(BinToHex(seedIv.getBytes()));
+  118  			
+  119> 			cipherTextStr = getString(KISA_SEED_CBC.SEED_CBC_Encrypt(key, iv, plainText, 0, plainText.length));
+  120  			cipherTextStr = new String(DatatypeConverter.printBase64Binary(hexToByteArray(cipherTextStr.replaceAll("","", """"))));
+  121  		} catch (Exception e) {
+  122  			e.printStackTrace();
+  123  		}
+  124  
+  125  		return cipherTextStr;",NONE,[초안] 키·IV 공개 메서드 인자(호출자 밖)
+skrevolve__SEED-CBC-PKCS5Padding:seed/KISA_SEED_ECB_CBC_CTR_CCM_GCM_CMAC/[02] JAVA/[02] CBC/WpayStdSample.java:143,skrevolve__SEED-CBC-PKCS5Padding,seed/KISA_SEED_ECB_CBC_CTR_CCM_GCM_CMAC/[02] JAVA/[02] CBC/WpayStdSample.java,143,False,"decryptTxt = getString(KISA_SEED_CBC.SEED_CBC_Decrypt(key, iv, cipherText, 0, cipherText.length));","  137  
+  138  		try {
+  139  			cipherText = getBytes(BinToHex(DatatypeConverter.parseBase64Binary(encryptTxt)));
+  140  			key = getBytes(BinToHex(DatatypeConverter.parseBase64Binary(seedKey))); // SEEDKEY BASE64DECODE
+  141  			iv = getBytes(BinToHex(seedIv.getBytes()));
+  142  
+  143> 			decryptTxt = getString(KISA_SEED_CBC.SEED_CBC_Decrypt(key, iv, cipherText, 0, cipherText.length));
+  144  			decryptTxt = new String(hexToByteArray(decryptTxt.replaceAll("","", """")));
+  145  		} catch (Exception e) {
+  146  			e.printStackTrace();
+  147  		}
+  148  
+  149  		return decryptTxt;",NONE,[초안] 키·IV 공개 메서드 인자(호출자 밖)
+surfpattern__SURF:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:53,surfpattern__SURF,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,53,True,"in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   47          CipherOutputStream cOut;
+   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53>         in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54          out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+surfpattern__SURF:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:54,surfpattern__SURF,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,54,True,"out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53          in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54>         out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }
+   60          catch (Exception e)",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+swirl-inspect__swirl:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:53,swirl-inspect__swirl,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,53,True,"in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   47          CipherOutputStream cOut;
+   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53>         in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54          out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+swirl-inspect__swirl:code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java:54,swirl-inspect__swirl,code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java,54,True,"out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");","   48          ByteArrayInputStream bIn;
+   49          ByteArrayOutputStream bOut;
+   50  
+   51          key = new SecretKeySpec(keyBytes, ""SEED"");
+   52  
+   53          in = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   54>         out = Cipher.getInstance(""SEED/ECB/NoPadding"", ""BC"");
+   55  
+   56          try
+   57          {
+   58              out.init(Cipher.ENCRYPT_MODE, key);
+   59          }
+   60          catch (Exception e)",ECB,[초안] 테스트: BC SEED 시험 벡터 ECB
+yoorym-kim__SONA:app/src/main/java/com/hotcoa/sona/leacrypto/LEA_Crypto.java:83,yoorym-kim__SONA,app/src/main/java/com/hotcoa/sona/leacrypto/LEA_Crypto.java,83,False,BlockCipherMode cipher = new LEA.CBC();,"   77      public static String encode(String plain, byte[] keyBytes){
+   78          // 초기 벡터 정의
+   79          byte[] ivBytes = new byte[] {
+   80                  0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+   81                  0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00};
+   82  
+   83>         BlockCipherMode cipher = new LEA.CBC();
+   84  
+   85          // 암호화
+   86          cipher.init(BlockCipher.Mode.ENCRYPT, keyBytes, ivBytes);
+   87          cipher.setPadding(new PKCS5Padding(16));
+   88  
+   89          byte[] encrypted = cipher.doFinal(plain.getBytes(StandardCharsets.UTF_8));",NONE,[초안] CBC 모드 객체 생성 줄(고정 IV는 init 줄에 있음 — 이 줄 단위 시트 밖)
+yoorym-kim__SONA:app/src/main/java/com/hotcoa/sona/leacrypto/LEA_Crypto.java:99,yoorym-kim__SONA,app/src/main/java/com/hotcoa/sona/leacrypto/LEA_Crypto.java,99,False,BlockCipherMode cipher = new LEA.CBC();,"   93      public static String decode(String encrypted, byte[] keyBytes){
+   94          // 초기 벡터 정의
+   95          byte[] ivBytes = new byte[] {
+   96                  0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+   97                  0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00};
+   98  
+   99>         BlockCipherMode cipher = new LEA.CBC();
+  100  
+  101          // 복호화
+  102          cipher.init(BlockCipher.Mode.DECRYPT, keyBytes, ivBytes);
+  103          cipher.setPadding(new PKCS5Padding(16));
+  104  
+  105          // 일기 내용 복호화",NONE,[초안] CBC 모드 객체 생성 줄(고정 IV는 init 줄에 있음 — 이 줄 단위 시트 밖)

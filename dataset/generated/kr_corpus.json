@@ -1,0 +1,2795 @@
+{
+ "repos": {
+  "Agiledonesolutions/nxt": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "ApolloFoundation/Apollo": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "apl-crypto/src/main/java/com/apollocurrency/aplwallet/apl/crypto/Curve25519.java"
+   ]
+  },
+  "AraguaneyBits/araguaneybits-wallet": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/araguaneybits/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "AzatSayatov/pushToTalk": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/bc/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "BENEDcrypto/BENEDcrypto": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/bened/crypto/Curve25519.java"
+   ]
+  },
+  "BOLI-Project/AndroidWallet": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/boli/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "Barrow099/tlsh-sys": {
+   "split": "test",
+   "queries": [
+    "Q7"
+   ],
+   "paths": [
+    "tlsh-4.8.2/java/src/test/java/com/trendmicro/tlsh/TlshTest.java"
+   ]
+  },
+  "Beom-Chu/Template-Or-Test": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/kbs/templateortest/seed/cipher/KisaSeedCbc.java"
+   ]
+  },
+  "BlackBaroness/cryptography": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "src/main/java/com/github/blackbaroness/cryptography/hashing/algorithm/has/Has.java"
+   ]
+  },
+  "BurstProject/poc2plotter": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "BurstProject/pocminer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "ChristopherArdiwinata/usyd-voordeelkaart": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "nl.kruidvat.voordeelkaart/sources/bg0/c.java"
+   ]
+  },
+  "ClarePhang/sdk-ameba-rtl8710af-v3.5a_without_NDA_GCC_V1.0.0": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "ColinHouse/Sprig": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "compiler/src/main/java/sprig/compiler/cli/BundleCommand.java"
+   ]
+  },
+  "ConnectSDK/Connect-SDK-Android-Core": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "DSRS-Research/roles-smells-metrics-package": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "data/SourceProjects/Desktop/keystore-explorer-5.4.4/kse/src/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "DecentAge/iep-node": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/xin/crypto/Curve25519.java"
+   ]
+  },
+  "DirectProjectJavaRI/agent": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/nhindirect/stagent/cryptography/bc/DirectEnvelopedDataHelper.java"
+   ]
+  },
+  "DirtyUnicorns/android_external_spongycastle": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "scpkix-jdk15on/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "F3rryX/TEXAiDontCARe": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "TEXA CARe/Source/jadx/sources/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "TEXA CARe/Source/jadx/sources/org/spongycastle/operator/DefaultAlgorithmNameFinder.java"
+   ]
+  },
+  "ForCash-dev/ForCash-Cryptocurrency": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "GENERALBYTESCOM/batm_public": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "server_extensions_extra/src/main/java/com/generalbytes/batm/server/extensions/extra/burstcoin/sources/crypto/client/Curve25519.java"
+   ]
+  },
+  "Giggle-projects/spring-secure-hackathon": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/se/ton/t210/utils/encript/KISA_SEED_CBC.java",
+    "src/main/java/se/ton/t210/utils/encript/SeedUtils.java"
+   ]
+  },
+  "GittyGitHubby/californium": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "element-connector/src/main/java/org/eclipse/californium/elements/util/EncryptedStreamUtil.java",
+    "scandium-core/src/main/java/org/eclipse/californium/scandium/dtls/cipher/CipherSuite.java"
+   ]
+  },
+  "Gsealy/xml-security-gm": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "Haifisch/iphone-dataprotection.hfsexplorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "HerrineKim/ssanta-clinic": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "Backend/src/main/java/com/ssafy/ssantaClinic/common/util/KISA_SEED_CBC.java",
+    "Backend/src/main/java/com/ssafy/ssantaClinic/common/util/SEED.java"
+   ]
+  },
+  "HipsterMIN/integration-sso": {
+   "split": "test",
+   "queries": [
+    "Q4"
+   ],
+   "paths": [
+    "plugins/idem-plugin-anyid/src/main/java/io/github/hipstermin/idem/plugin/anyid/AnyIdKmsClient.java"
+   ]
+  },
+  "Hwater00/Duktown_Backend": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/duktown/global/kisa_SEED/KISA_SEED_CBC.java",
+    "src/main/java/com/duktown/global/kisa_SEED/SEED.java"
+   ]
+  },
+  "IceBurst/Burst": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "InfinityEconomicsPlatform/core-source": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core-source-0.2.2/source/src/main/java/xin/crypto/Curve25519.java"
+   ]
+  },
+  "Jaguar0625/JavaScriptNrs": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "datagen/Main.java"
+   ]
+  },
+  "Jinypak/hsm_monitor": {
+   "split": "dev",
+   "queries": [
+    "Q3",
+    "Q4"
+   ],
+   "paths": [
+    "java-app/src/main/java/com/yours/hsm/algo/AlgoCatalog.java"
+   ]
+  },
+  "JonasRSV/AirPlayAuth-OpenAirPlay": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/eu/airaudio/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "JongHak19/SEED_pyqt": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "mode/CBC/KISA_SEED_CBC.java",
+    "mode/CCM/KISA_SEED_CCM.java",
+    "mode/CTR/KISA_SEED_CTR.java",
+    "mode/ECB/KISA_SEED_ECB.java",
+    "mode/GCM/KISA_SEED_GCM.java"
+   ]
+  },
+  "JoyLinks/network": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "src/main/java/com/joyzl/network/tls/CipherSuiteType.java"
+   ]
+  },
+  "Jrhenderson11/TLS-Attacker": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "TLS-Core/src/main/java/de/rub/nds/tlsattacker/core/constants/CipherAlgorithm.java"
+   ]
+  },
+  "Jrius/Drizzle": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "DrizzlePrp/src/jonelo/jacksum/adapt/gnu/crypto/Registry.java"
+   ]
+  },
+  "JunhuaLyu/Nxt-Client-For-Android": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/org/nextcoin/util/Curve25519.java",
+    "src/org/nextcoin/util/Vanity.java"
+   ]
+  },
+  "KOING-PROJECT/Server": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/koing/server/koing_server/common/encryption/KISA_SEED_CBC.java",
+    "src/main/java/com/koing/server/koing_server/service/account/component/SEED_CBC.java"
+   ]
+  },
+  "Khohyeon/junguniv_bb": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/example/junguniv_bb/_core/util/KISA_SEED_CBC.java",
+    "src/main/java/com/example/junguniv_bb/_core/util/Seed.java"
+   ]
+  },
+  "KingricharVD/suqa-coinomi": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/coinomi/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "LeeBaekHaeng/god.com390": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "god.test/src/main/java/kr/or/kisa/seed/KISA_SEED_CBC.java",
+    "god.test/src/test/java/kr/or/kisa/seed/KISA_SEED_CBCTest.java"
+   ]
+  },
+  "LeeMin9yeon9/winnticket": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/kr/co/winnticket/integration/benepia/crypto/BenepiaSeedEcbCrypto.java",
+    "src/main/java/kr/co/winnticket/integration/benepia/crypto/KISA_SEED_ECB.java"
+   ]
+  },
+  "Legostaev/xmlsec-gost": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "LimaYes/ElasticPrototypeWallet": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "LimaYes/elastic-core-maven": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/org/xel/crypto/Curve25519.java"
+   ]
+  },
+  "LokoAddams/algo": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Connect-SDK-Android/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "LokoAddams/tv_Master_Master": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Connect-SDK-Android/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "MFrcoin/android-wallet": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/mfcoin/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "Macacofig/TV-Master": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Connect-SDK-Android/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "MarcelBeining/T2N": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/sshfrommatlab_13b/sshj-master/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "MaxSmile/CoinageWallet-Android": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/coinomi/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "MichTronics76/HamMumble": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/bc/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "Moabbit/UniWallet": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/openwallet/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "ModelDBRepository/231862": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "T2N/src/sshfrommatlab_13b/sshj-master/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "Motive-Cryptocurrency/Motive-Core": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "MrE-Fog/wycheproof": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "java/com/google/security/wycheproof/testcases/JsonAeadTest.java",
+    "java/com/google/security/wycheproof/testcases/JsonCipherTest.java"
+   ]
+  },
+  "MrE-Fog/wycheproof-2": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "java/com/google/security/wycheproof/testcases/JsonAeadTest.java",
+    "java/com/google/security/wycheproof/testcases/JsonCipherTest.java"
+   ]
+  },
+  "MrE-Fog/wycheproofz": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "java/com/google/security/wycheproof/testcases/JsonAeadTest.java",
+    "java/com/google/security/wycheproof/testcases/JsonCipherTest.java"
+   ]
+  },
+  "MxJ3lany/ExtractionFiles": {
+   "split": "test",
+   "queries": [
+    "Q2",
+    "Q5"
+   ],
+   "paths": [
+    "145_rtyley_spongycastle/src10/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "145_rtyley_spongycastle/src10/org/spongycastle/operator/DefaultAlgorithmNameFinder.java",
+    "145_rtyley_spongycastle/src12/org/spongycastle/tls/crypto/impl/jcajce/JcaTlsCrypto.java"
+   ]
+  },
+  "MyAOSP/external_spongycastle": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "scpkix-jdk15on/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "NTK1100/CTF": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q7",
+    "Q8"
+   ],
+   "paths": [
+    "dreamhack/re/[CodeEngn] MobileApp L01/SmartApp L01.apk.cache/sources/4d/0000014d.java",
+    "dreamhack/re/[CodeEngn] MobileApp L01/slove.java",
+    "tlsh-master/java/src/test/java/com/trendmicro/tlsh/TlshTest.java"
+   ]
+  },
+  "NTXcrypto/NTXcoin": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "NXTARDOR/NXT": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "Naguroka/chiikawa-pocket-datamine": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "decompiled/jadx-base/sources/com/facebook/ads/redexgen/core/EZ.java"
+   ]
+  },
+  "Neco-spain/l2jeternity-dec": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "jonelo/jacksum/JacksumAPI.java",
+    "jonelo/jacksum/adapt/gnu/crypto/Registry.java",
+    "jonelo/jacksum/adapt/gnu/crypto/hash/Has160.java",
+    "jonelo/jacksum/adapt/gnu/crypto/hash/HashFactory.java"
+   ]
+  },
+  "NeighClova/Backend": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/sogonsogon/neighclova/service/PlaceService.java"
+   ]
+  },
+  "Ofaid/Rangkabaru": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/bc/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "Ofaid/newofa": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/bc/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "libraries/humla/libs/humla-spongycastle/pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "OpitzLab/NeMo-TMS": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Model_Generation/lib/T2N-master/src/sshfrommatlab_13b/sshj-master/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "OzRagwort/RagwortCrypto": {
+   "split": "test",
+   "queries": [
+    "Q7"
+   ],
+   "paths": [
+    "com/cryp/hash/LSH.java"
+   ]
+  },
+  "Pindi-Apps/claude-code-infrastructure-showcase": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "RAKWireless/CREATOR-Standard-SDK": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "RUB-NDS/SSH-Strict-Kex-Violations-State-Learning-Artifacts": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "code/ssh_attacker/SSH-Core/src/main/java/de/rub/nds/sshattacker/core/constants/EncryptionAlgorithm.java"
+   ]
+  },
+  "Reload8686/KSE": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "kse/src/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "RoboKatz-4073/FRC-2020-Season": {
+   "split": "test",
+   "queries": [
+    "Q2",
+    "Q8"
+   ],
+   "paths": [
+    "old/rio-dev-old/src/main/java/djb/Curve25519.java",
+    "rio/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "RtlduinoMan/IOT": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "SAFE-eV/SAFESealing": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/com/metabit/custom/safe/iip/shared/SharedConstants.java"
+   ]
+  },
+  "SJ-history/term": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "pandora3/src/kr/co/ta9/pandora3/app/util/KISA_SEED_CBC.java",
+    "pandora3/src/kr/co/ta9/pandora3/app/util/SeedUtil.java"
+   ]
+  },
+  "SamLatsin/lg-smart-remote": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "libs/Connect-SDK-Android/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "Sharders/sharder-chain": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/org/conch/crypto/Curve25519.java"
+   ]
+  },
+  "ShinSeoY/crypto": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/crypto/util/KISA_SEED_CBC.java",
+    "src/main/java/crypto/util/SeedUtil.java"
+   ]
+  },
+  "TEAM-Gummy/android_external_spongycastle": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "scpkix-jdk15on/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "TLS-Anonymous/Submission": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "TLS-Attacker-Development/TLS-Core/src/main/java/de/rub/nds/tlsattacker/core/constants/CipherAlgorithm.java"
+   ]
+  },
+  "TeamExodus/external_spongycastle": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "scpkix-jdk15on/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "ThalesGroup/CipherTrust_Application_Protection": {
+   "split": "test",
+   "queries": [
+    "Q2",
+    "Q4"
+   ],
+   "paths": [
+    "crypto/java/FileEncryptionSampleUsingARIA.java",
+    "crypto/java/FileEncryptionSampleUsingSEED.java"
+   ]
+  },
+  "VitaliiBashta/L2Jts": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "commons/src/main/java/org/mmocore/commons/crypt/JacksumAPI.java",
+    "commons/src/main/java/org/mmocore/commons/crypt/adapt/gnu/crypto/Registry.java"
+   ]
+  },
+  "Wolferss/Lahf": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "commons/src/main/java/org/mmocore/commons/crypt/JacksumAPI.java",
+    "commons/src/main/java/org/mmocore/commons/crypt/adapt/gnu/crypto/Registry.java"
+   ]
+  },
+  "XingChain/ChainPlatform": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/cid/crypto/Curve25519.java"
+   ]
+  },
+  "YawLife/LIFE": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/life/crypto/Curve25519.java"
+   ]
+  },
+  "abeifuss/simgui": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/staticFunctions/layer2recodingScheme/curve25519/Curve25519.java"
+   ]
+  },
+  "ahmadelyoussef/pit_study": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "pit-example/tests/xmlsec-2.0.7/src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "aionnetwork/aion": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "modCrypto/src/main/java/org/aion/crypto/ed25519/Curve25519.java"
+   ]
+  },
+  "alexhulbert/Cryogen": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Icewind/src/djb/Curve25519.java"
+   ]
+  },
+  "alyx4000/dp": {
+   "split": "test",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "sources/sdk/pendo/io/b5/h.java",
+    "sources/sdk/pendo/io/t4/d.java"
+   ]
+  },
+  "anboralabs/ks-explorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "kse/src/main/java/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "andreas-kupries/ankh": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "c/rhash/bindings/java/src/org/sf/rhash/HashType.java"
+   ]
+  },
+  "anishnath/crypto-ws": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/pem/ObjectIdUtil.java"
+   ]
+  },
+  "apache/santuario-xml-security-java": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "asaikali/modern-spring-on-kubernetes": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "containerize/buildpack-cds/src/main/java/com/example/BuildpackCdsApplication.java",
+    "containerize/buildpack-cds/src/test/java/com/example/BuildpackCdsApplicationTests.java"
+   ]
+  },
+  "assetree/shareschain": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/shareschain/util/crypto/Curve25519.java"
+   ]
+  },
+  "atcsecure/horizon-blocknet": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nhz/crypto/Curve25519.java"
+   ]
+  },
+  "balena/ecdh-curve25519-java": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "ecdh-curve25519/src/main/java/br/eti/balena/security/ecdh/curve25519/Curve25519.java"
+   ]
+  },
+  "be-93/project": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "project/src/main/java/com/backend/project/scrapUtil/SignDecr.java"
+   ]
+  },
+  "beatrizfs04/Projeto_Ciberseguranca": {
+   "split": "dev",
+   "queries": [
+    "Q3",
+    "Q4"
+   ],
+   "paths": [
+    "src/main/java/com/example/app/CifrasController.java"
+   ]
+  },
+  "ben-haim/blcx": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "bigbiggom/evil-seed-java": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "seed/KisaSeedCbc.java"
+   ]
+  },
+  "bizui18/JPATest_2": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/JPATest/controller/APITestBoardController.java",
+    "src/main/java/com/JPATest/util/cipher/seed/KISA_SEED_CBC.java",
+    "src/main/java/com/JPATest/util/cipher/seed/Seed128ByKisa.java"
+   ]
+  },
+  "borzalom/bac": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/Curve25519.java"
+   ]
+  },
+  "brewagebear/study": {
+   "split": "test",
+   "queries": [
+    "Q3",
+    "Q4"
+   ],
+   "paths": [
+    "inflearn/create-backend-framework/src/main/java/io/dailyworker/framework/security/DataCrypt.java",
+    "inflearn/create-backend-framework/src/test/java/io/dailyworker/framework/security/ARIACbcPkcs7Test.java",
+    "inflearn/create-backend-framework/src/test/java/io/dailyworker/framework/security/ARIAEcbZeroTest.java"
+   ]
+  },
+  "briancabbott/rb-programming-sandbox": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "Open Source/Ruby VMs/JRuby/jruby-openssl/src/main/java/org/jruby/ext/openssl/Cipher.java"
+   ]
+  },
+  "casuist311/ambz2_sdk": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "comprakt/comprakt-fuzz-tests": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "output/885ad66cc12b49a49ab57c103516932f.java"
+   ]
+  },
+  "cosmojg/open-coinomi-android": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/coinomi/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "costinchelu/java-study": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "java-security/fork-norkator-cryptography/src/main/java/cryptography/Hashes.java",
+    "java-security/fork-norkator-cryptography/src/main/java/cryptography/hashes/has/HAS.java"
+   ]
+  },
+  "cping/RipplePower": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "eclipse/RipplePower/src/org/ripple/power/Curve25519.java"
+   ]
+  },
+  "crocs-muni/ECTester": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "common/src/main/java/cz/crcs/ectester/common/util/ECUtil.java",
+    "standalone/src/main/java/cz/crcs/ectester/standalone/consts/KeyPairGeneratorIdent.java",
+    "standalone/src/main/java/cz/crcs/ectester/standalone/consts/SignatureIdent.java",
+    "standalone/src/main/java/cz/crcs/ectester/standalone/libs/jni/NativeKeyPairGeneratorSpi.java",
+    "standalone/src/main/java/cz/crcs/ectester/standalone/libs/jni/NativeSignatureSpi.java"
+   ]
+  },
+  "ctt-gob-es/framework-ios-pades": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "Java/pades-ios/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "dasomel/egovframe-boot-starter-korean-crypto": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/egovframe/boot/crypto/national/seed/EgovSeedCryptoServiceImpl.java",
+    "src/test/java/org/egovframe/boot/crypto/national/seed/EgovSeedCryptoServiceImplTest.java"
+   ]
+  },
+  "dawallet/burst_for_android": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "dblevins/tomee-analysis": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "apache-tomee-microprofile-8.0.3-SNAPSHOT.zip/apache-tomee-microprofile-8.0.3-SNAPSHOT/lib/xmlsec-2.1.4.jar/org/apache/xml/security/algorithms/JCEMapper-asmified.java",
+    "apache-tomee-plume-8.0.3-SNAPSHOT.zip/apache-tomee-plume-8.0.3-SNAPSHOT/lib/xmlsec-2.1.4.jar/org/apache/xml/security/algorithms/JCEMapper-asmified.java"
+   ]
+  },
+  "de-luxe/burstcoin-address-generator": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/crypto/Curve25519.java"
+   ]
+  },
+  "de-luxe/burstcoin-faucet": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "de-luxe/burstcoin-jminer": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "deepin-community/libxml-security-java": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "deepin-community/rhash": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "bindings/java/src/org/sf/rhash/HashType.java"
+   ]
+  },
+  "dmkaplan2000/nxt_account_id": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt_account_id.java"
+   ]
+  },
+  "drmckay/PADI-SDK": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "duckx580-pixel/Growtopia5.55": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "sources/com/facebook/ads/redexgen/core/EZ.java"
+   ]
+  },
+  "duckx580-pixel/gentahax-v5.53": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "sources/com/facebook/ads/redexgen/core/EZ.java"
+   ]
+  },
+  "duckx580-pixel/growtopiav5.55": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "sources/com/facebook/ads/redexgen/core/EZ.java"
+   ]
+  },
+  "duckx580-pixel/growtopiav5.57": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "sources/com/facebook/ads/redexgen/core/EZ.java"
+   ]
+  },
+  "eclipse-californium/californium": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "element-connector/src/main/java/org/eclipse/californium/elements/util/EncryptedStreamUtil.java",
+    "scandium-core/src/main/java/org/eclipse/californium/scandium/dtls/cipher/CipherSuite.java"
+   ]
+  },
+  "ecoletree/springbootDemo": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "bootWorkout-1/src/main/java/com/bootWorkout/demo1/common/util/KISA_SEED_CBC.java",
+    "bootWorkout-1/src/main/java/com/bootWorkout/demo1/common/util/KISA_SEED_ECB.java",
+    "bootWorkout-1/src/main/java/com/bootWorkout/demo1/cryptoFinal/SeedCryptoUtil.java",
+    "bootWorkout-1/src/main/java/com/bootWorkout/demo1/kisaEncript/SeedCBCCryptoUtil.java",
+    "bootWorkout-1/src/main/java/com/bootWorkout/demo1/kisaEncript/SeedECBCryptoUtil.java"
+   ]
+  },
+  "emtee40/cryptography-droid": {
+   "split": "test",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "src/cryptography/Hashes.java",
+    "src/cryptography/hashes/has/HAS.java"
+   ]
+  },
+  "emudhra-integration-sdk/java-esign-sdk": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/org/emcastle/cms/bc/EnvelopedDataHelper.java",
+    "src/org/emcastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "emudhra-integration-sdk/java-os-esign-sdk": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/org/emcastle/cms/bc/EnvelopedDataHelper.java",
+    "src/org/emcastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "ethanseul/crypto": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "ethanseul/cryptologiee": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "every-algorithm/java": {
+   "split": "dev",
+   "queries": [
+    "Q6",
+    "Q8"
+   ],
+   "paths": [
+    "cryptography/has-160.java",
+    "cryptography/korean_certificate-based_digital_signature_algorithm.java"
+   ]
+  },
+  "ffgg57594-gif/MedVision-AI": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/com/medgpt/app/AssetsProvider.java"
+   ]
+  },
+  "filipnyquist/lbry-android": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/fillerino/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "fly-bit/flybit": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/org/flybit/crypto/Curve25519.java"
+   ]
+  },
+  "fly-bit/flybit-crypto": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/org/flybit/crypto/Curve25519.java"
+   ]
+  },
+  "fruits-eco-blockchain/fruits-kit4j": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "fruitsKit/src/main/java/fruits/kit/crypto/ec/Curve25519Impl.java"
+   ]
+  },
+  "gabrielparadaf/batm_test": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "server_extensions_extra/src/main/java/com/generalbytes/batm/server/extensions/extra/burstcoin/sources/crypto/client/Curve25519.java"
+   ]
+  },
+  "geekynerdbiker/outsourcing": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "java-workspace/java-KISA_FINAL/Coder.java",
+    "java-workspace/java-KISA_FINAL/KISA_SEED_CBC.java"
+   ]
+  },
+  "gg582/spring-development-practice": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/KISA_SEED_CBC.java",
+    "06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDDecryptManager.java",
+    "06-spring-profile-injection/encryption-dashboard/external/encrypt/com/example/app/crypto/algorithms/SEEDEncryptManager.java",
+    "06-spring-profile-injection/encryption-dashboard/external/kisa/src/KISA_SEED_CBC.java"
+   ]
+  },
+  "gimre-xymcity/curve25519-sign-test": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java",
+    "src/nxt/crypto/Curve25519bad.java"
+   ]
+  },
+  "glassless-security/glassless": {
+   "split": "test",
+   "queries": [
+    "Q3",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "src/main/java/net/glassless/provider/GlaSSLessProvider.java",
+    "src/main/java/net/glassless/provider/internal/cipher/ARIACipher.java"
+   ]
+  },
+  "greatlevi/rtk-8711af": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "grtlinux/KieaMohw": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "ver00.00/KieaMohw-10-job-01/src/main/java/org/tain/working/_ifseed/IFSEEDSampleMain.java",
+    "ver00.00/KieaMohw-10-job-01/src/main/java/org/tain/working/_ifseed/KISA_SEED_CBC.java",
+    "ver00.00/KieaMohw-10-job-01/src/main/java/org/tain/working/_kisaseed/KISA_SEED_CBC.java",
+    "ver00.00/KieaMohw-10-job-01/src/main/java/org/tain/working/_kisaseed/KISA_SEED_ECB.java",
+    "ver00.00/KieaMohw-10-job-01/src/main/java/org/tain/working/_kisaseed/KisaSeedMain.java"
+   ]
+  },
+  "grtlinux/KieaSecModule": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "ver00/KieaSec-00-test/src/org/tain/seed/cbc/KISA_SEED_CBC.java",
+    "ver00/KieaSec-00-test/src/org/tain/seed/cbc/Main.java",
+    "ver00/KieaSec-00-test/src/org/tain/seed/cbc_01/KisaSeedCbc.java",
+    "ver00/KieaSec-00-test/src/org/tain/seed/ctr/KISA_SEED_CTR.java",
+    "ver00/KieaSec-00-test/src/org/tain/seed/ecb/KISA_SEED_ECB.java"
+   ]
+  },
+  "gusmp/appletCatcertDI": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "src/main/java/jonelo/jacksum/JacksumAPI.java",
+    "src/main/java/jonelo/jacksum/adapt/gnu/crypto/Registry.java"
+   ]
+  },
+  "haewon-mallow/actions-runner-test": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/com/cashmallow/api/infrastructure/security/KISA_SEED_ECB.java",
+    "src/main/java/com/cashmallow/api/infrastructure/security/SecurityServiceImpl.java",
+    "src/main/java/com/cashmallow/api/interfaces/coatm/web/KISA_SEED_ECB.java"
+   ]
+  },
+  "hangyunhaeng/rider": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "nova/src/main/java/egovframework/com/utl/enc/KISA_SEED_CBC.java",
+    "nova/src/main/java/egovframework/com/utl/enc/SeedUtil.java"
+   ]
+  },
+  "harimoradiya/androidtvremote": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "ConnectSDK/src/main/java/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "hemanshuchauhan/sshj": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "hiprashant02/dociiiiscan": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "sources/qm/c.java"
+   ]
+  },
+  "htroche/AndroidMarvell": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/com/ayla/marvell/provisioning/Curve25519.java"
+   ]
+  },
+  "hubaek/smarthaccp": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "smarthaccp_mes/src/main/java/com/ppm/mes/controllers/HaccpLoginController.java",
+    "smarthaccp_mes/src/main/java/com/ppm/mes/utils/KISA_SEED_CBC.java"
+   ]
+  },
+  "hugoDGdev/frequenceFaclab": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "icecast_server_linux/RHash-1.4.6/bindings/java/src/org/sf/rhash/HashType.java"
+   ]
+  },
+  "huyuanhao/guilvN": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "app/src/main/java/com/p118pd/sdk/C5756LiLlil.java",
+    "app/src/main/java/com/p118pd/sdk/LIlL.java"
+   ]
+  },
+  "hyuns2-temp/team_pbu_back": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/projectbuildup/gasomann/domain/auth/service/component/CbcDecoder.java",
+    "src/main/java/projectbuildup/gasomann/infra/kisa/KISA_SEED_CBC.java"
+   ]
+  },
+  "idsec-solutions/signservice-ref": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "cs-sigserver-consolidated/src/main/java/com/aaasec/sigserv/xmlsign/registry/impl/StaticAlgorithmRegistry.java"
+   ]
+  },
+  "infeelchoi/QSIGN": {
+   "split": "test",
+   "queries": [
+    "Q3",
+    "Q4"
+   ],
+   "paths": [
+    "jsp/samples/CipherAriaDemo.java"
+   ]
+  },
+  "innovationacademy-kr/visitor-backend": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBC.java",
+    "src/main/java/com/ftseoul/visitor/encrypt/Seed.java",
+    "src/test/java/com/ftseoul/visitor/encrypt/KISA_SEED_CBCTest.java"
+   ]
+  },
+  "iovoledger/rni": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/io/iovo/node/crypto/Curve25519.java"
+   ]
+  },
+  "jaeyyyyy/nnzz_back": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/nnzz/nnzz/config/seed/KISA_SEED_CBC.java",
+    "src/main/java/com/nnzz/nnzz/config/seed/Seed.java"
+   ]
+  },
+  "jamesburrell2/NYC_OpenWallet": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/openwallet/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "jevinskie/iphone-dataprotection.hfsexplorer": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "johndpope/crypto": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/egl/crypto/Curve25519.java"
+   ]
+  },
+  "johndpope/desktop-1": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "jonelo/jacksum": {
+   "split": "dev",
+   "queries": [
+    "Q6",
+    "Q7",
+    "kr.re.nsr.crypto"
+   ],
+   "paths": [
+    "src/main/java/net/jacksum/algorithms/wrappers/LSHWrapper.java",
+    "src/main/java/net/jacksum/multicore/manyalgos/HashAlgorithm.java",
+    "src/main/java/net/jacksum/selectors/Has160_Selector.java",
+    "src/main/java/net/jacksum/zzadopt/gnu/crypto/Registry.java"
+   ]
+  },
+  "jongtak0920/Connect-SDK-Android-Core-Test": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "jruby/jruby-openssl": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/jruby/ext/openssl/Cipher.java"
+   ]
+  },
+  "jyh5869/java_jpa_vuejs": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/example/java_jpa_vuejs/auth/authUtil/KISA_SEED_CBC.java",
+    "src/main/java/com/example/java_jpa_vuejs/auth/authUtil/SEED_ENC.java"
+   ]
+  },
+  "kaikramer/keystore-explorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "kse/src/main/java/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "kanghj/SURF": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java"
+   ]
+  },
+  "kares/jruby-openssl": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/jruby/ext/openssl/Cipher.java"
+   ]
+  },
+  "kdk1026/CommonJava8": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_ECB",
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/common/util/crypto/seed/BouncyCastleSeedUtil.java",
+    "src/main/java/common/util/crypto/seed/cbc/KISA_SEED_CBC.java",
+    "src/main/java/common/util/crypto/seed/cbc/SeedCbcUtil.java",
+    "src/main/java/common/util/crypto/seed/ecb/KISA_SEED_ECB.java",
+    "src/main/java/common/util/crypto/seed/ecb/SeedEcbUtil.java"
+   ]
+  },
+  "kent0217/RTL8711_FreeRTOS_GPIO-UART": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "keplercoin/keplercoin": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/kpl/crypto/Curve25519.java"
+   ]
+  },
+  "kevinroleke/ardor": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "kfetus/springboot3.3": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "Demo/src/main/java/demo/test/CertificateTest.java"
+   ]
+  },
+  "khushbu-parth/filter-demo": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "ok/Connect-SDK-Android/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "kpfuchs/gMix": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "gMix/src/userGeneratedContent/testbedPlugIns/staticFunctionPlugIns/layer2recodingScheme/curve25519/Curve25519.java"
+   ]
+  },
+  "krisistech/nubia": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "krkarma777/moonbam": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/moonBam/config/KISA_SEED_CBC.java",
+    "src/main/java/com/moonBam/controller/member/SecurityController.java"
+   ]
+  },
+  "kuehne-trustable-de/cryptoUtil": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/de/trustable/util/OidNameMapper.java"
+   ]
+  },
+  "leecoder92/blahblah": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/KISA_SEED_CBC.java",
+    "blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java"
+   ]
+  },
+  "leemiran/NISE_DEV": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/egovframework/svt/util/KisaSeedEcb.java"
+   ]
+  },
+  "lehuy2k1/dntn2022": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/com/sdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "lfchaim/whs-ecc": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/com/whs/ecc/burstcoinjminer/Curve25519.java",
+    "src/main/java/com/whs/ecc/curve/Curve25519.java",
+    "src/main/java/com/whs/ecc/google/Bench.java",
+    "src/main/java/com/whs/ecc/google/djb/Curve25519.java"
+   ]
+  },
+  "liulei0903/nxt-private-chain": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "private-chain-nxt-master/src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "lorenz/jitsi-monorepo": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "zrtp4j/src/djb/Curve25519.java"
+   ]
+  },
+  "marcellinamichie291/bamt-temp": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "server_extensions_extra/src/main/java/com/generalbytes/batm/server/extensions/extra/burstcoin/sources/crypto/client/Curve25519.java"
+   ]
+  },
+  "maze51/boardTest": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_CBC.java",
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_CTR.java",
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_ECB.java"
+   ]
+  },
+  "maze51/jspServlet": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_CBC.java",
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_CTR.java",
+    "src/main/java/kr/or/ddit/encrypt/kisa/seed/KISA_SEED_ECB.java"
+   ]
+  },
+  "minuk926/crypto": {
+   "split": "dev",
+   "queries": [
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "src/main/java/kr/xit/crypto/exam/CBCExample.java",
+    "src/main/java/kr/xit/crypto/exam/GCMExample.java"
+   ]
+  },
+  "mooncoindev/coinomi-android-moon": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/coinomi/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "mrpsion/burst-mining-system": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "mrshin163/hsds": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "boryng/SRC/eaccounting/src/main/java/com/bizsp/framework/util/security/Cipher.java"
+   ]
+  },
+  "mrthuan/testai": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/com/facebook/ads/redexgen/X/EZ.java"
+   ]
+  },
+  "mrv777/Ardor": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "ndexnetwork/ndex-node": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nDEX/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "nk-sentinel/cipherradar": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "cli/testdata/java/BouncyCastleCrypto.java"
+   ]
+  },
+  "nonowngh/paradise-brityapi": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "paradise-brityapi/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java",
+    "paradise-brityapi/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CBC.java",
+    "paradise-brityapi/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CTR.java",
+    "paradise-brityapi/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_ECB.java"
+   ]
+  },
+  "nonowngh/police-porms": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "police-porms/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java",
+    "police-porms/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CBC.java",
+    "police-porms/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CTR.java",
+    "police-porms/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_ECB.java"
+   ]
+  },
+  "nonowngh/police-tcs": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "police-tcs/src/main/java/mb/fw/atb/strategy/provider/PoliceIssuingStrategy.java",
+    "police-tcs/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CBC.java",
+    "police-tcs/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_CTR.java",
+    "police-tcs/src/main/java/mb/fw/atb/util/crypto/kisa/KISA_SEED_ECB.java"
+   ]
+  },
+  "norkator/cryptography": {
+   "split": "test",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "src/cryptography/Hashes.java",
+    "src/cryptography/hashes/has/HAS.java"
+   ]
+  },
+  "nw/iphone-dataprotection.hfsexplorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "nxt-ext/nxt": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "onix-project/wallet-android": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/onix/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "open-keychain/spongycastle": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "pkix/src/main/java/org/spongycastle/operator/DefaultAlgorithmNameFinder.java",
+    "pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "open-xchange/appsuite-middleware": {
+   "split": "test",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "com.openexchange.server/src/com/openexchange/image/ImageUtility.java",
+    "com.openexchange.server/src/com/openexchange/tools/HashUtility.java"
+   ]
+  },
+  "openairplay/AirPlayAuth": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/eu/airaudio/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "openssl-projects/openssl-jostle": {
+   "split": "dev",
+   "queries": [
+    "Q3",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/ARIAAgreementTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/BlockCipherAutoIvParamsTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/BlockCipherNullKeyTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/BlockSizeContractTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/NoPaddingChunkedParityTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/crypto/SM4AgreementTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/parity/CipherNegativePathSurveyTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/parity/KeyGeneratorNegativePathSurveyTest.java",
+    "jostle/src/test/java/org/openssl/jostle/test/provider/AlgorithmParametersWireTest.java"
+   ]
+  },
+  "openwalletGH/openwallet-android": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/openwallet/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "ozgeozler93/NtruEncryption-NtruSignature": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "ntru-master/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "prizmspace/PrizmCore": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/prizm/crypto/Curve25519.java"
+   ]
+  },
+  "prizmspace/PrizmCore.v.1.10.4.6": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/prizm/crypto/Curve25519.java"
+   ]
+  },
+  "pushkarnk/java-fips-tests": {
+   "split": "dev",
+   "queries": [
+    "Q1"
+   ],
+   "paths": [
+    "tests/TestCipherAlgorithms.java"
+   ]
+  },
+  "qyy891878034/apc-burstkit4j": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/burst/kit/crypto/ec/Curve25519Impl.java"
+   ]
+  },
+  "rhash/RHash": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "bindings/java/src/org/sf/rhash/HashType.java"
+   ]
+  },
+  "risex/risecoin": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/rise/crypto/Curve25519.java"
+   ]
+  },
+  "rtlduino/RTL8710AF_GCC": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "rudy0103/BlahBlah": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/KISA_SEED_CBC.java",
+    "blahblahchat/src/main/java/com/ssafy/blahblahchat/common/encryption/Seed.java"
+   ]
+  },
+  "rwr9857/cipher": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "SEED128/KisaSeedCbc.java"
+   ]
+  },
+  "sagpant/tlsh": {
+   "split": "test",
+   "queries": [
+    "Q7"
+   ],
+   "paths": [
+    "java/src/test/java/com/trendmicro/tlsh/TlshTest.java"
+   ]
+  },
+  "samsosleepy2007/VoiceChat-Mumble-MCSV": {
+   "split": "dev",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "apps/vc-mumla/source/libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/bc/EnvelopedDataHelper.java",
+    "apps/vc-mumla/source/libraries/humla/libs/humla-spongycastle/pkix/src/main/java/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "apps/vc-mumla/source/libraries/humla/libs/humla-spongycastle/pkix/src/main/jdk1.1/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "sandoche/Proof-of-Stake-Cryptocurrency-generator": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "nxt/src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "seo3997/Kycarrots": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/com/whomade/kycarrots/framework/common/util/SeedScrtyUtil.java",
+    "src/main/java/com/whomade/kycarrots/framework/security/seed/KISA_SEED_ECB.java"
+   ]
+  },
+  "serenitydu/masc_test": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "suspicious_files/com.deister.deisterwallet-93_sources_org_spongycastle_cms_jcajce_EnvelopedDataHelper.java",
+    "suspicious_files/com.deister.deisterwallet-93_sources_org_spongycastle_operator_DefaultAlgorithmNameFinder.java"
+   ]
+  },
+  "sethkontny/iphone-dataprotection.hfsexplorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "seung-dev/seung-kimchi": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/seung/kimchi/core/types/SAlgorithm.java"
+   ]
+  },
+  "seunggil1/SSANTA-CLINIC": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "Backend/src/main/java/com/ssafy/ssantaClinic/common/util/KISA_SEED_CBC.java",
+    "Backend/src/main/java/com/ssafy/ssantaClinic/common/util/SEED.java"
+   ]
+  },
+  "sgtest/pinned-231862": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "T2N/src/sshfrommatlab_13b/sshj-master/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "shanzyxcl/VPNTunnel": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "app/src/main/java/djb/Bench.java",
+    "app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "shinjoy/TheClinic": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/kr/nomad/util/encrypt/CryptoSeedData.java",
+    "src/main/java/kr/nomad/util/encrypt/KISA_SEED_CBC.java"
+   ]
+  },
+  "shiroogp/DashProjects": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "GhostDash.apk_Decompiler.com/sources/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "GhostDash.apk_Decompiler.com/sources/org/spongycastle/operator/DefaultAlgorithmNameFinder.java"
+   ]
+  },
+  "signerry/santuario-xml-security-java": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "signum-network/signumj": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/signumj/crypto/ec/Curve25519Impl.java"
+   ]
+  },
+  "skrevolve/SEED-CBC-PKCS5Padding": {
+   "split": "test",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "seed/KISA_SEED_ECB_CBC_CTR_CCM_GCM_CMAC/[02] JAVA/[02] CBC/WpayStdSample.java"
+   ]
+  },
+  "smmarat/multicoin": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/com/coinomi/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "sshtools/maverick-synergy": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "maverick-base/src/main/java/com/sshtools/common/ssh/components/jce/Curve25519.java"
+   ]
+  },
+  "stko/oobd": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "clients/Base/src/org/spongycastle/cms/jcajce/EnvelopedDataHelper.java"
+   ]
+  },
+  "strllar/scala-stellar-base": {
+   "split": "dev",
+   "queries": [
+    "Q6"
+   ],
+   "paths": [
+    "jvm/src/main/java/jacksum/Registry.java"
+   ]
+  },
+  "sunghs/java-utils": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/sunghs/java/utils/cipher/support/KisaSeedCbc.java"
+   ]
+  },
+  "surfpattern/SURF": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java"
+   ]
+  },
+  "swedenconnect/algorithm-registry": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "src/main/java/se/swedenconnect/security/algorithms/impl/StaticAlgorithmRegistry.java"
+   ]
+  },
+  "swirl-inspect/swirl": {
+   "split": "test",
+   "queries": [
+    "Q1",
+    "Q2"
+   ],
+   "paths": [
+    "code/meteor_app/full_source/javax.crypto.Cipher__init/1065/SEEDTest.java"
+   ]
+  },
+  "tbuktu/ntru": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "th4o/NHZ": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/org/nhzcrypto/util/Curve25519.java",
+    "src/org/nhzcrypto/util/Vanity.java"
+   ]
+  },
+  "threatsource2023Sec/weblogic": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "org.apache.santuario.xmlsec.jar/org/apache/xml/security/algorithms/JCEMapper.java"
+   ]
+  },
+  "thuanDDKeego/screen-mirroring": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Connect-SDK/core/src/com/connectsdk/service/airplay/auth/crypt/Curve25519.java"
+   ]
+  },
+  "tierralibre/esi": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/nxt/crypto/Curve25519.java"
+   ]
+  },
+  "tls-attacker/Exploring-the-Unknown-DTLS-Universe": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "tls-scanner/TLS-Attacker/TLS-Core/src/main/java/de/rub/nds/tlsattacker/core/constants/CipherAlgorithm.java"
+   ]
+  },
+  "tls-attacker/SSH-Attacker": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "SSH-Core/src/main/java/de/rub/nds/sshattacker/core/constants/EncryptionAlgorithm.java"
+   ]
+  },
+  "tls-attacker/TLS-Attacker": {
+   "split": "dev",
+   "queries": [
+    "Q2",
+    "Q4",
+    "Q5"
+   ],
+   "paths": [
+    "TLS-Core/src/main/java/de/rub/nds/tlsattacker/core/constants/CipherAlgorithm.java"
+   ]
+  },
+  "tmtkkwgch/hellogit": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr030/Usr030Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr030/Usr030Form.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr030/Usr030ParamModel.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr031kn/Usr031knAction.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr032kn/Usr032knAction.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr033kn/Usr033knAction.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr040/Usr040Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr040/Usr040Form.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr040/Usr040ParamModel.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr041/Usr041Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr044/Usr044Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr045/Usr045Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr045kn/Usr045knAction.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr046/Usr046Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr046kn/Usr046knAction.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr081/Usr081Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr082/Usr082Action.java",
+    "gsession/WEB-INF/plugin/common/src/jp/groupsession/v2/usr/usr083kn/Usr083knAction.java"
+   ]
+  },
+  "totoku103/crypto-project": {
+   "split": "test",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "lib/src/main/java/me/totoku103/crypto/enums/SeedCbcTransformations.java"
+   ]
+  },
+  "trendmicro/tlsh": {
+   "split": "test",
+   "queries": [
+    "Q7"
+   ],
+   "paths": [
+    "java/src/test/java/com/trendmicro/tlsh/TlshTest.java"
+   ]
+  },
+  "trwinowiecki/AndroidTexting": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "app/src/main/java/com/spongycastle/cms/jcajce/EnvelopedDataHelper.java",
+    "app/src/main/java/com/spongycastle/operator/DefaultAlgorithmNameFinder.java"
+   ]
+  },
+  "unlv-evol/roles-smells-metrics-package": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "data/SourceProjects/Desktop/keystore-explorer-5.4.4/kse/src/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "veerapaneni88/JavaSample": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "service/forms/util/ChildSafetyEvaluationPrefill.java",
+    "service/forms/util/CommonApplicationPrefillData.java"
+   ]
+  },
+  "vergecurrency/vergexvr": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/main/java/com/vergepay/core/coins/nxt/Curve25519.java"
+   ]
+  },
+  "wang-coin/WNG": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/java/wng/crypto/Curve25519.java"
+   ]
+  },
+  "waveplatformio/blockchain": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/io/waveplatform/blockchain/crypto/Curve25519.java"
+   ]
+  },
+  "wcgowner/wcg": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "Source/src/java/wcg/crypto/Curve25519.java"
+   ]
+  },
+  "weichihl/KVS_WebRTC_on_AmebaPro": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "wernerd/ZRTP4J": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "whatap/kube-client-sample": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC",
+    "KISA_SEED_CTR",
+    "KISA_SEED_ECB"
+   ],
+   "paths": [
+    "src/main/java/whatap/util/SEED_CBC.java",
+    "src/main/java/whatap/util/SEED_CTR.java",
+    "src/main/java/whatap/util/SEED_ECB.java"
+   ]
+  },
+  "xapiens/Xendra": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "core/src/org/kse/utilities/oid/ObjectIdUtil.java",
+    "security/src/org/kse/utilities/oid/ObjectIdUtil.java"
+   ]
+  },
+  "xdel/buttermilk": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "buttermilk-core/src/main/java/com/cryptoregistry/SignatureAlgorithm.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/c2/Curve25519.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/formats/JSONReader.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/formats/simplereader/SignatureReader.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/signature/C2CryptoSignature.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/signature/C2Signature.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/signature/builder/C2SignatureBuilder.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/signature/builder/C2SignatureCollector.java",
+    "buttermilk-core/src/main/java/com/cryptoregistry/signature/validator/SelfContainedSignatureValidator.java",
+    "buttermilk-core/src/test/java/com/cryptoregistry/c2/BenchTest.java",
+    "buttermilk-core/src/test/java/com/cryptoregistry/c2/Curve25519Test.java",
+    "protocol-buffers/src/main/java/com/cryptoregistry/proto/builder/SignatureMetadataProtoBuilder.java",
+    "protocol-buffers/src/main/java/com/cryptoregistry/proto/compat/SignatureAlgAdapter.java",
+    "protocol-buffers/src/main/java/com/cryptoregistry/proto/reader/SignatureProtoReader.java"
+   ]
+  },
+  "xushoucai/RTL8710_SDK_GCC_VERSION": {
+   "split": "test",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  },
+  "yoonhaorg/Duktown_Backend": {
+   "split": "dev",
+   "queries": [
+    "KISA_SEED_CBC"
+   ],
+   "paths": [
+    "src/main/java/com/duktown/global/kisa_SEED/KISA_SEED_CBC.java",
+    "src/main/java/com/duktown/global/kisa_SEED/SEED.java"
+   ]
+  },
+  "yoorym-kim/SONA": {
+   "split": "test",
+   "queries": [
+    "kr.re.nsr.crypto"
+   ],
+   "paths": [
+    "app/src/main/java/com/hotcoa/sona/leacrypto/LEA_Crypto.java"
+   ]
+  },
+  "young-hee/project": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "EMT.olt/emt-app/src/main/java/kr/ap/emt/payment/wpay/iniWPayment.java"
+   ]
+  },
+  "zavierxu/iphone-dataprotection.hfsexplorer": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "src/djb/Curve25519.java"
+   ]
+  },
+  "zhenwei1108/LinLong-Java": {
+   "split": "dev",
+   "queries": [
+    "Q2"
+   ],
+   "paths": [
+    "crypto-pkix/src/main/java/com/github/zhenwei/pkix/cms/jcajce/EnvelopedDataHelper.java",
+    "crypto-pkix/src/main/java/com/github/zhenwei/pkix/operator/DefaultAlgorithmNameFinder.java"
+   ]
+  },
+  "zhiyuan1yin20240124/ambz2_matter": {
+   "split": "dev",
+   "queries": [
+    "Q8"
+   ],
+   "paths": [
+    "tools/wigadget/Android/WiGadget/app/src/main/java/djb/Curve25519.java"
+   ]
+  }
+ },
+ "counts": {
+  "dev": 158,
+  "test": 125,
+  "dropped_library-only": 85
+ }
+}

@@ -10,11 +10,16 @@ Tier-2 조항 검색은 이 표가 걸린 뒤에 근거를 붙이는 데만 쓴�
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from .findings import Level, Rule
 
 DEFAULT_PATH = Path("config/tier1_rules.json")
+
+# 대소문자를 무시해도 되는 모양: 변환 스펙 `AES/ECB/PKCS5Padding`, 알고리즘 이름 하나 `rc4`
+_TRANSFORMATION = re.compile(r"[A-Za-z0-9_-]+/[A-Za-z0-9_-]+/[A-Za-z0-9_-]+")
+_NAME = re.compile(r"[A-Za-z][A-Za-z0-9-]{1,19}")
 
 
 def load(path: Path = DEFAULT_PATH) -> list[Rule]:
@@ -38,6 +43,13 @@ def load(path: Path = DEFAULT_PATH) -> list[Rule]:
             table_purposes=tuple(entry.get("table_purposes", ())),
             table_measures=bool(entry.get("table_measures", False)),
             table_decides=bool(entry.get("table_decides", False)),
+            material_args=tuple(
+                (trigger, int(position))
+                for trigger, position in entry.get("material_args", {}).items()),
+            iteration_args=tuple(
+                (trigger, int(position))
+                for trigger, position in entry.get("iteration_args", {}).items()),
+            min_iterations=entry.get("min_iterations"),
         ))
     return rules
 
@@ -61,10 +73,14 @@ def match_literal(value: str, rules: list[Rule]) -> Rule | None:
     긴 트리거가 이긴다. `AES/ECB`가 `MD5`보다 구체적이므로 운영모드 규칙으로 가야 한다.
     """
     text = value.strip()
+    # JCA는 알고리즘 이름의 대소문자를 가리지 않는다(`"aes/ecb/pkcs5padding"`도 ECB다). 다만 아무 문자열에나 대소문자를
+    # 무시하면 `"nodes/x"`가 `DES/`에 걸린다. 그래서 값 전체가 이름이나 `알고리즘/모드/패딩` 모양일 때만 무시한다
+    folded = _TRANSFORMATION.fullmatch(text) is not None or _NAME.fullmatch(text) is not None
     best: tuple[int, Rule] | None = None
     for rule in rules:
         for trigger in rule.literal_triggers:
-            hit = (trigger in text) if "/" in trigger else (text == trigger)
+            a, b = (trigger.upper(), text.upper()) if folded else (trigger, text)
+            hit = (a in b) if "/" in trigger else (a == b)
             if hit and (best is None or len(trigger) > best[0]):
                 best = (len(trigger), rule)
     return best[1] if best else None

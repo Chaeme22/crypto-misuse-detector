@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crypto_ir_v1.schema.json",
+  "title": "crypto-ir-v1 레코드",
+  "description": "언어별 AST에서 암호 오용 판정에 필요한 의미만 뽑은 프로젝트 표준 IR(LLVM IR 아님). 설계 문서 8.1절. 원본 코드 해시와 라인을 보존한다.",
+  "type": "object",
+  "required": ["ir_version", "language", "api", "library", "operation", "algorithm", "mode",
+               "key_source", "iv_source", "salt_source", "password_source", "seed_source",
+               "random_source", "iteration_count", "sink", "file_path", "code_sha256", "line"],
+  "properties": {
+    "ir_version": {"const": "crypto-ir-v1"},
+    "language": {"enum": ["java", "python", "c", "cpp", "javascript"]},
+    "api": {"type": "string", "minLength": 1, "description": "트리거 이름. `new PBEKeySpec`, `KeyStore.load`, `EVP_aes_128_ecb`"},
+    "library": {"type": "string", "description": "JCA, pycryptodome, cryptography, OpenSSL, Crypto++ 등"},
+    "operation": {"enum": ["encrypt", "decrypt", "hash", "mac", "sign", "verify", "key_generation",
+                           "key_derivation", "key_storage", "random_generation", "cipher_initialization", "unknown"]},
+    "algorithm": {"type": ["string", "null"]},
+    "mode": {"type": ["string", "null"]},
+    "key_bits": {"type": ["integer", "null"], "minimum": 1},
+    "key_source": {"$ref": "#/$defs/source"},
+    "iv_source": {"$ref": "#/$defs/source"},
+    "salt_source": {"$ref": "#/$defs/source"},
+    "password_source": {"$ref": "#/$defs/source"},
+    "seed_source": {"$ref": "#/$defs/source"},
+    "random_source": {"$ref": "#/$defs/source"},
+    "iteration_count": {"type": ["integer", "null"], "minimum": 0},
+    "sink": {"enum": ["cipher_initialization", "digest", "mac_initialization", "signature",
+                      "key_spec", "key_derivation", "key_store", "random_seed", "random_output"]},
+    "file_path": {"type": "string"},
+    "code_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "line": {"type": "integer", "minimum": 1},
+    "column": {"type": "integer", "minimum": 1}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "description": "설계 문서 8.4절 provenance ontology. 해당 재료가 없으면 not_applicable, 값을 못 따라가면 unknown. predictable은 현재 시각처럼 박히진 않았지만 예측 가능한 값(탐지기 provenance.py와 같은 뜻).",
+      "enum": ["literal_constant", "predictable", "secure_random", "weak_random", "function_parameter",
+               "local_value", "same_file_call", "cross_file_call", "environment", "config_file",
+               "external_input", "test_fixture", "documentation", "unknown", "not_applicable"]
+    }
+  }
+}

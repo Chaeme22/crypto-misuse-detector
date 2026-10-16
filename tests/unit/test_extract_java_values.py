@@ -52,7 +52,9 @@ public class T {
     }
 }
 ''', tier1)
-    assert found[5][0].traced_values == ("0123456789abcdef",)
+    site, rule = found[5]
+    assert site.traced_values == ("0123456789abcdef",)
+    assert rule.rule_id == "CRYPTO-IV-STATIC"
 
 
 def test_unknown_caller_stays_unresolved(tmp_path, tier1):
@@ -111,8 +113,14 @@ public class T {
     }
 }
 ''', tier1)
-    assert found[5][1].rule_id == "CRYPTO-CIPHER-OBSOLETE"
-    assert found[6][1].rule_id == "CRYPTO-HASH-WEAK"
+    # 한 줄에 여러 규칙이 걸릴 수 있다. RC2는 표에 없고, 운영모드를 적지 않아 기본 ECB이기도 하다.
+    (tmp_path / "T.java").write_text((tmp_path / "T.java").read_text(encoding="utf-8"),
+                                     encoding="utf-8")
+    by_line: dict[int, set[str]] = {}
+    for site, rule in extract.collect(tmp_path, tier1):
+        by_line.setdefault(site.line, set()).add(rule.rule_id)
+    assert "CRYPTO-CIPHER-OBSOLETE" in by_line[5]
+    assert "CRYPTO-HASH-WEAK" in by_line[6]
 
 
 def test_empty_argument_is_not_a_value(tmp_path, tier1):

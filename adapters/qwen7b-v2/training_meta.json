@@ -1,0 +1,30 @@
+{
+  "base_model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "load_4bit": true,
+  "train_file": "train.jsonl",
+  "train_sha256": "sha256:034f93e56f15675359f095261030445798e6fbc860556851f91c447cf2edb115",
+  "validation_file": "validation.jsonl",
+  "validation_sha256": "sha256:b4d262a0bfeb46715ce07b226ae8af7822c9d0f0b0bbb1f199e8103978f099a9",
+  "train_examples": 1278,
+  "train_dropped_too_long": 0,
+  "hyperparameters": {
+    "epochs": 2.0,
+    "lr": 0.0002,
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "batch": 1,
+    "grad_accum": 16,
+    "max_length": 1536,
+    "max_steps": -1,
+    "seed": 0,
+    "targets": "attn",
+    "low_vram": true
+  },
+  "train_loss": 0.2032601416693069,
+  "eval_loss": 0.019536923617124557,
+  "eval_perplexity": 1.0197290182493821,
+  "seconds": 11312.1,
+  "device": "NVIDIA GeForce RTX 2070",
+  "peak_vram_gb": 6.67
+}

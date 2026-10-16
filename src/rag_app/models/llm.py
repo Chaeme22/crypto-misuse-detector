@@ -14,6 +14,9 @@ from ..observability.logging import get_logger, get_current_request_id
 
 logger = get_logger(__name__)
 
+# Ollama 문맥 길이(토큰). 판정 프롬프트는 학습 최대 1,536 토큰 안이고 답은 짧다
+OLLAMA_NUM_CTX = 4096
+
 
 # Prompt Injection Attack Pattern Definitions [1.14.3]
 PROMPT_INJECTION_PATTERNS = [
@@ -135,7 +138,8 @@ class LocalTransformersLLM:
 
     def __init__(self, config: AppConfig,
                  model_id: str = "Qwen/Qwen2.5-Coder-7B-Instruct",
-                 device: str = "cuda", load_in_4bit: bool = False):
+                 device: str = "cuda", load_in_4bit: bool = False,
+                 adapter_path: Optional[str] = None):
         import torch
 
         self.config = config
@@ -148,6 +152,10 @@ class LocalTransformersLLM:
             device = "cpu"
         self.device = device
 
+        # bf16은 Ampere(계산 능력 8) 이상만 하드웨어로 돈다. RTX 20xx는 torch가 지원한다고
+        # 답하지만 에뮬레이션이라 매우 느리다. 학습(training/train_lora.py)과 같은 기준이다.
+        half = (torch.bfloat16 if device == "cuda"
+                and torch.cuda.get_device_capability(0)[0] >= 8 else torch.float16)
         kwargs = {"device_map": device}
         if load_in_4bit and device == "cuda":
             from transformers import BitsAndBytesConfig
@@ -156,18 +164,24 @@ class LocalTransformersLLM:
             kwargs["quantization_config"] = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.bfloat16,
+                bnb_4bit_compute_dtype=half,
                 bnb_4bit_use_double_quant=True,
             )
         else:
-            kwargs["dtype"] = torch.bfloat16 if device == "cuda" else torch.float32
+            kwargs["dtype"] = half if device == "cuda" else torch.float32
 
         self.processor, self.model, self.is_vision = _load_backbone(model_id, kwargs)
+        self.adapter_path = adapter_path
+        if adapter_path:
+            # 학습한 LoRA 어댑터를 기본 모델 위에 얹는다. 기본 모델은 학습 때와 같아야 한다.
+            from peft import PeftModel
+            self.model = PeftModel.from_pretrained(self.model, adapter_path)
         self.model.eval()
         logger.info("local_llm_loaded",
                     f"Loaded {model_id} on {device.upper()} "
                     f"({'4bit' if load_in_4bit else 'bf16'}, "
-                    f"{'vision' if self.is_vision else 'text'})")
+                    f"{'vision' if self.is_vision else 'text'}"
+                    f"{', adapter ' + adapter_path if adapter_path else ''})")
 
     def generate(self, request: GenerationRequest) -> GenerationResult:
         import time
@@ -211,22 +225,24 @@ class OllamaLLM:
     with Prompt Injection Defense [1.14.3].
     """
 
-    def __init__(self, config: AppConfig):
+    def __init__(self, config: AppConfig, model: Optional[str] = None):
         self.config = config
         self.llm_config = config.models.llm
-        self.model_id = self.llm_config.model_id
+        self.model_id = model or self.llm_config.model_id
         self.max_output_tokens = self.llm_config.max_output_tokens
         self.temperature = self.llm_config.temperature
-        
+
         # Ollama configuration
         self.ollama_host = config.ollama_host
-        # Convert model_id to Ollama format (e.g., Qwen/Qwen3.5-4B -> qwen3.5:4b)
-        # Ollama uses format like "qwen3.5:4b" 
-        self.ollama_model = self.model_id.replace('Qwen/', '').replace('/', ':').lower()
-        # Fix: Qwen3.5-4B -> qwen3.5:4b (Ollama naming convention)
-        self.ollama_model = self.ollama_model.replace('-', ':').replace(':', ':', 1)
-        if ':' not in self.ollama_model:
-            self.ollama_model = f"{self.ollama_model}:latest"
+        if model:
+            # Ollama 태그를 그대로 쓴다. `qwen2.5:7b`처럼 사람이 지정한 이름이다.
+            self.ollama_model = model
+        else:
+            # 설정의 HF 이름에서 추측한다 (예: Qwen/Qwen3.5-4B -> qwen3.5:4b).
+            self.ollama_model = self.model_id.replace('Qwen/', '').replace('/', ':').lower()
+            self.ollama_model = self.ollama_model.replace('-', ':').replace(':', ':', 1)
+            if ':' not in self.ollama_model:
+                self.ollama_model = f"{self.ollama_model}:latest"
 
         self.injection_detector = PromptInjectionDetector()
         self._is_dummy = False
@@ -240,42 +256,70 @@ class OllamaLLM:
             logger.info("llm_loaded", "Test environment detected: using dummy LLM mode")
             return
 
+        # 서버가 없거나 모델이 없으면 여기서 멈춘다. 전에는 경고만 남기고 가짜 응답 모드로
+        # 넘어가 판정이 조용히 가짜 문장으로 채워졌고, 모델이 없으면 수 GB를 몰래 받으려 했다.
         try:
             response = requests.get(f"{self.ollama_host}/api/tags", timeout=5)
-            if response.status_code == 200:
-                models = response.json().get('models', [])
-                model_names = [m['name'] for m in models]
-                if self.ollama_model in model_names:
-                    logger.info("llm_loaded", f"Ollama model available: {self.ollama_model}")
-                else:
-                    logger.warning("llm_model_missing", f"Model {self.ollama_model} not found in Ollama. Available: {model_names}")
-                    logger.info("llm_pull", f"Attempting to pull {self.ollama_model}...")
-                    self._pull_model()
-            else:
-                logger.warning("ollama_unavailable", f"Ollama returned status {response.status_code}")
-                self._is_dummy = True
         except Exception as e:
-            logger.warning("ollama_connection_failed", f"Cannot connect to Ollama: {e}")
-            self._is_dummy = True
+            raise LLMModelError(self.ollama_model, cause=e,
+                                hint=f"Ollama 서버({self.ollama_host})에 연결하지 못했다. "
+                                     f"`ollama serve`로 켠다") from e
+        if response.status_code != 200:
+            raise LLMModelError(self.ollama_model,
+                                hint=f"Ollama 서버가 상태 {response.status_code}를 돌려줬다")
+        model_names = [m['name'] for m in response.json().get('models', [])]
+        if self.ollama_model not in model_names:
+            raise LLMModelError(self.ollama_model,
+                                hint=f"설치되지 않은 모델이다. `ollama pull {self.ollama_model}`로 "
+                                     f"받는다. 설치된 모델: {model_names}")
+        logger.info("llm_loaded", f"Ollama model available: {self.ollama_model}")
 
-    def _pull_model(self) -> None:
-        """Pull model from Ollama registry."""
+    def _complete(self, request: GenerationRequest) -> GenerationResult:
+        """
+        판정 요청을 그대로 보낸다.
+
+        같은 코드에 같은 판정이 나와야 보고서를 비교할 수 있다. 그래서 요청의 온도와 시드를
+        그대로 쓰고 top_p·repeat_penalty 같은 표본추출 옵션은 넣지 않는다.
+        """
+        text = request.prompt or request.question
+        if self._is_dummy:
+            return GenerationResult(answer="", citations=[], model_id=self.model_id,
+                                    tokens_used=0, finish_reason="dummy")
+        # 문맥 길이를 고정한다. 지정하지 않으면 Ollama가 장비의 메모리를 보고 정하고(2048~), 넘치는 앞부분을
+        # 말없이 잘라 낸다 — 규칙·사실 칸이 잘리면 PC마다 판정이 달라진다. 학습 최대 길이 1,536 + 답을 넉넉히 덮는다
+        options = {"temperature": request.temperature,
+                   "num_predict": min(request.max_tokens, self.max_output_tokens),
+                   "num_ctx": OLLAMA_NUM_CTX}
+        if request.seed is not None:
+            options["seed"] = request.seed
         try:
             response = requests.post(
-                f"{self.ollama_host}/api/pull",
-                json={"name": self.ollama_model},
-                stream=True,
-                timeout=300
-            )
-            for line in response.iter_lines():
-                if line:
-                    data = json.loads(line)
-                    if 'status' in data:
-                        logger.info("ollama_pull", data['status'])
-            logger.info("llm_loaded", f"Successfully pulled {self.ollama_model}")
-        except Exception as e:
-            logger.error("ollama_pull_failed", f"Failed to pull model: {e}")
-            self._is_dummy = True
+                f"{self.ollama_host}/api/chat",
+                json={"model": self.ollama_model,
+                      "messages": [{"role": "user", "content": text}],
+                      "think": False, "stream": True, "options": options},
+                timeout=900, stream=True)
+        except requests.exceptions.RequestException as e:
+            raise LLMModelError(self.ollama_model, cause=e,
+                                hint="Ollama 호출이 실패했다") from e
+        if response.status_code != 200:
+            raise LLMModelError(self.ollama_model,
+                                hint=f"Ollama API 오류: {response.text[:200]}")
+        parts, tokens, finish = [], 0, "stop"
+        for line in response.iter_lines():
+            if not line:
+                continue
+            data = json.loads(line)
+            content = data.get("message", {}).get("content")
+            if content:
+                parts.append(content)
+            if "eval_count" in data:
+                tokens = data.get("eval_count", 0) + data.get("prompt_eval_count", 0)
+            if data.get("done"):
+                finish = data.get("done_reason", "stop")
+        return GenerationResult(answer="".join(parts).strip(), citations=[],
+                                model_id=self.ollama_model, tokens_used=tokens,
+                                finish_reason=finish)
 
     def generate(self, request: GenerationRequest) -> GenerationResult:
         """
@@ -294,15 +338,11 @@ class OllamaLLM:
         # 1. Enforce Prompt Injection Defense [1.14.3]
         self.injection_detector.validate_or_raise(request.prompt)
 
-        # 2. Check Context Sufficiency
+        # 2. 문서 context가 없으면 판정 요청이다. 프롬프트를 그대로 보내고 온도·시드를 지킨다.
+        # 전에는 context가 비면 "답변을 찾을 수 없습니다"를 바로 돌려줘서 판정이 한 번도
+        # 모델에 닿지 못했다. 챗봇 시스템 프롬프트와 top_p 표본추출도 판정에는 맞지 않는다.
         if not request.context or not request.context.strip():
-            return GenerationResult(
-                answer="제공된 문서에서 답변을 찾을 수 없습니다.",
-                citations=[],
-                model_id=self.model_id,
-                tokens_used=0,
-                finish_reason="insufficient_context",
-            )
+            return self._complete(request)
 
         # 3. Construct Full Messages
         messages = [
@@ -389,6 +429,32 @@ class OllamaLLM:
         except Exception as e:
             logger.error("llm_generation_failed", f"LLM generation failed: {e}")
             raise LLMModelError(self.model_id, cause=e) from e
+
+
+# 판정 모델의 기본값. 백엔드마다 이름 체계가 다르다(HF 저장소 이름 / Ollama 태그).
+# 둘 다 Qwen2.5-Coder-7B-Instruct 계열이라 지난 측정과 같은 모델이다.
+DEFAULT_VERDICT_MODELS = {
+    "local": "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "ollama": "qwen2.5-coder:7b",
+}
+
+
+def make_verdict_model(config: AppConfig, backend: str = "local",
+                       model: Optional[str] = None, load_in_4bit: bool = False,
+                       adapter: Optional[str] = None):
+    """
+    판정용 모델을 만든다. CLI와 측정 도구가 같은 경로를 쓰게 한다.
+
+    GPU가 없는 PC에서는 ollama 백엔드를 쓴다. local 백엔드의 4비트 적재는 CUDA가 있어야 한다.
+    """
+    name = model or DEFAULT_VERDICT_MODELS[backend]
+    if backend == "ollama":
+        if adapter:
+            raise ValueError("ollama 백엔드는 어댑터를 따로 받지 않는다. "
+                             "tools/export_adapter.py로 등록한 모델 이름을 --llm-model로 준다")
+        return OllamaLLM(config, model=name)
+    return LocalTransformersLLM(config, model_id=name, load_in_4bit=load_in_4bit,
+                                adapter_path=adapter)
 
 
 def get_llm(config: AppConfig) -> LanguageModel:

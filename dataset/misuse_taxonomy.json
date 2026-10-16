@@ -1,0 +1,385 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-02",
+  "principles": [
+    "오용 유형 하나에 CWE 하나. 가장 구체적인 하위 CWE를 쓰고 상위 CWE는 parent_cwe에 둔다.",
+    "CWE 정본은 이 파일이다. config/tier1_rules.json의 cwe는 이 파일과 같아야 한다(tests/unit/test_taxonomy.py).",
+    "undetermined는 실패가 아니라 코드 문맥만으로 사실을 확인할 수 없다는 정답이다.",
+    "판정 조건은 탐지기 구현과 같은 말로 적는다. 구현을 바꾸면 이 조건도 바꾼다.",
+    "parent_cwe는 MITRE CWE 계층(ChildOf)을 적은 것이다. 아직 MITRE 원문과 대조하지 않았다(cwe_hierarchy_verified=false)."
+  ],
+  "decided_by": {
+    "threshold_table": "코드에서 읽은 알고리즘·키 길이를 KISA 기준표(config/tier1_thresholds.json)와 견준다",
+    "literal_pattern": "알고리즘 변환 문자열(AES/ECB/...)의 운영모드를 본다",
+    "provenance": "비밀 재료 인자의 출처를 구조로 판별한다(src/rag_app/analysis/provenance.py)",
+    "iteration_count": "반복 횟수 인자를 최소 기준과 견준다",
+    "api_role": "API 호출 자체가 후보이고, 실제 암호 용도인지는 문맥(LLM 역할 판정)이 정한다"
+  },
+  "misuses": [
+    {
+      "misuse_id": "MISUSE-HASH-WEAK",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "name": "취약한 해시 함수",
+      "cwe": "CWE-328",
+      "parent_cwe": "CWE-327",
+      "severity": "error",
+      "category": "algorithm",
+      "material": null,
+      "decided_by": "threshold_table",
+      "conditions": {
+        "violation": [
+          "해시 알고리즘이 용도별 KISA 기준표(표 3 메시지인증, 표 4 단순해시·전자서명)의 어느 보안강도 행에도 없다 (예: MD5, SHA-1의 서명 용도)",
+          "기준표상 보안강도가 112비트에 못 미친다"
+        ],
+        "clean": [
+          "기준표 기준을 만족한다 (예: SHA-256 이상, SHA3-256, LSH-256)",
+          "알고리즘 이름이 목록·설정 사전·문서 문자열에만 있고 실제 연산에 쓰이지 않는다(역할 판정)",
+          "보안과 무관한 용도다 (예: 캐시 키, 중복 제거, 파일 식별, 해시 분산) — 결과가 비밀·무결성·인증을 지키지 않는다 (역할 non_security). 프로젝트 판정 정책"
+        ],
+        "undetermined": [
+          "알고리즘 이름이 변수로 들어와 값을 찾지 못했다",
+          "문자열만 발견되어 실제 사용인지 정적 신호로 가릴 수 없다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "brokenhash",
+        "brokenmac"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-MODE-ECB",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "name": "ECB 운영모드",
+      "cwe": "CWE-327",
+      "parent_cwe": null,
+      "severity": "error",
+      "category": "mode",
+      "material": null,
+      "decided_by": "literal_pattern",
+      "conditions": {
+        "violation": [
+          "변환 문자열이 ECB 운영모드를 지정하고 실제 암호화에 쓰인다 (예: AES/ECB/PKCS5Padding, MODE_ECB)",
+          "운영모드 없이 블록암호 이름만 지정한다 (예: Cipher.getInstance(\"AES\")). Java 표준 제공자의 기본값이 ECB다"
+        ],
+        "clean": [
+          "ECB 문자열이 목록·문서·테스트 데이터에만 있다(역할 판정)",
+          "RSA/ECB/... 처럼 공개키 암호 변환의 ECB 표기 — 블록 운영모드가 아니다"
+        ],
+        "undetermined": [
+          "Cipher.getInstance 인자가 변수이고 값을 찾지 못했다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "ecbcrypto"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-CIPHER-OBSOLETE",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "name": "폐기된 블록암호",
+      "cwe": "CWE-327",
+      "parent_cwe": null,
+      "severity": "error",
+      "category": "algorithm",
+      "material": null,
+      "decided_by": "threshold_table",
+      "conditions": {
+        "violation": [
+          "대칭키 암호가 KISA 기준표(표 2)의 어느 보안강도 행에도 없다 (예: DES, RC4, RC2, Blowfish)",
+          "new SecretKeySpec(key, \"DESede\")처럼 키 객체가 지정한 알고리즘이 기준표에 없다"
+        ],
+        "clean": [
+          "기준표 기준을 만족한다 (예: AES, ARIA, SEED, LEA)"
+        ],
+        "undetermined": [
+          "알고리즘 이름이 변수로 들어와 값을 찾지 못했다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "brokencrypto"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-KEYSIZE-SHORT",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "name": "불충분한 공개키 길이",
+      "cwe": "CWE-326",
+      "parent_cwe": null,
+      "severity": "error",
+      "category": "key_size",
+      "material": null,
+      "decided_by": "threshold_table",
+      "conditions": {
+        "violation": [
+          "공개키 길이가 KISA 기준표(표 6)의 최소 길이에 못 미친다 (예: RSA 1024비트)"
+        ],
+        "clean": [
+          "기준표 기준을 만족한다 (만료 예정이면 note 수준으로 보고)"
+        ],
+        "undetermined": [
+          "initialize 호출이 없어 제공자 기본 키 길이를 쓴다",
+          "키 길이가 변수로 들어와 값을 찾지 못했다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "insecureasymmetriccrypto"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-RNG-INSECURE",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "name": "암호 용도에 부적합한 난수 생성기",
+      "cwe": "CWE-338",
+      "parent_cwe": "CWE-330",
+      "severity": "error",
+      "category": "randomness",
+      "material": null,
+      "decided_by": "api_role",
+      "conditions": {
+        "violation": [
+          "java.util.Random, Math.random, Python random 모듈의 출력이 키·IV·토큰 등 보안 용도에 쓰인다"
+        ],
+        "clean": [
+          "보안과 무관한 용도다 (예: 셔플, 지터, 테스트 데이터) (역할 non_security)"
+        ],
+        "undetermined": [
+          "용도를 코드 문맥에서 가릴 수 없다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "untrustedprng"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-SEED-PREDICTABLE",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "name": "예측 가능한 난수 시드",
+      "cwe": "CWE-337",
+      "parent_cwe": "CWE-335",
+      "severity": "error",
+      "category": "randomness",
+      "material": "seed",
+      "decided_by": "provenance",
+      "conditions": {
+        "violation": [
+          "SecureRandom.setSeed 또는 new SecureRandom(seed)의 시드가 상수다 (provenance=constant)",
+          "시드가 현재 시각처럼 예측 가능한 값이다 (provenance=predictable)"
+        ],
+        "clean": [
+          "시드가 SecureRandom 출력이다 (provenance=secure_random)",
+          "시드를 지정하지 않는다 (new SecureRandom()) — 지점이 아니다"
+        ],
+        "undetermined": [
+          "시드가 외부 입력, 다른 파일의 호출자, 경로마다 다른 출처에서 온다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "not_implemented"
+      },
+      "benchmark_categories": [
+        "predictableseeds"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-KEY-HARDCODED",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "name": "하드코딩된 암호 키",
+      "cwe": "CWE-321",
+      "parent_cwe": "CWE-798",
+      "severity": "error",
+      "category": "key_material",
+      "material": "key",
+      "decided_by": "provenance",
+      "conditions": {
+        "violation": [
+          "new SecretKeySpec의 키 바이트가 코드에 박힌 상수다 (리터럴, 상수 배열, 같은 파일 호출자가 넘긴 리터럴)"
+        ],
+        "clean": [
+          "키 바이트를 SecureRandom으로 만든다 (늘 실행되는 nextBytes, SecureRandom.next*)"
+        ],
+        "undetermined": [
+          "키가 외부 입력(환경 변수, 시스템 속성, 스트림)에서 온다",
+          "키가 다른 파일의 호출자에서 온다",
+          "조건문 안에서만 난수로 채우는 등 경로마다 출처가 다르다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "not_implemented"
+      },
+      "benchmark_categories": [
+        "credentialinstring",
+        "predictablecryptographickey"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-IV-STATIC",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "name": "고정·예측 가능한 IV",
+      "cwe": "CWE-329",
+      "parent_cwe": "CWE-1204",
+      "severity": "error",
+      "category": "key_material",
+      "material": "iv",
+      "decided_by": "provenance",
+      "conditions": {
+        "violation": [
+          "new IvParameterSpec의 IV가 상수다 (리터럴, 상수 배열, 채우지 않은 new byte[n]의 0 배열)"
+        ],
+        "clean": [
+          "IV를 암호화마다 SecureRandom으로 만든다"
+        ],
+        "undetermined": [
+          "IV가 수신한 암호문이나 스트림에서 온다 (복호화 경로에서는 정상일 수 있다)",
+          "IV가 다른 파일의 호출자에서 오거나 경로마다 출처가 다르다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "not_implemented"
+      },
+      "benchmark_categories": [
+        "staticinitializationvector"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-PASSWORD-HARDCODED",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "name": "하드코딩된 비밀번호",
+      "cwe": "CWE-259",
+      "parent_cwe": "CWE-798",
+      "severity": "error",
+      "category": "key_material",
+      "material": "password",
+      "decided_by": "provenance",
+      "conditions": {
+        "violation": [
+          "PBEKeySpec 비밀번호나 KeyStore.load/store/getKey, KeyManagerFactory.init의 비밀번호가 코드에 박힌 상수다"
+        ],
+        "clean": [
+          "비밀번호를 SecureRandom으로 만든다 (드묾)"
+        ],
+        "undetermined": [
+          "비밀번호가 사용자 입력, 환경 변수, 프로그램 인자, 설정 파일에서 온다",
+          "비밀번호로 null을 넘긴다",
+          "다른 파일의 호출자에서 오거나 경로마다 출처가 다르다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "not_implemented"
+      },
+      "benchmark_categories": [
+        "predictablepbepassword",
+        "predictablekeystorepassword"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-SALT-STATIC",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "name": "고정·예측 가능한 솔트",
+      "cwe": "CWE-760",
+      "parent_cwe": "CWE-916",
+      "severity": "error",
+      "category": "key_material",
+      "material": "salt",
+      "decided_by": "provenance",
+      "conditions": {
+        "violation": [
+          "PBEParameterSpec·PBEKeySpec의 솔트가 상수다"
+        ],
+        "clean": [
+          "솔트를 SecureRandom으로 만든다"
+        ],
+        "undetermined": [
+          "솔트가 저장된 값을 읽어 온 것이다 (검증 경로에서는 정상일 수 있다)",
+          "다른 파일의 호출자에서 오거나 경로마다 출처가 다르다"
+        ]
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "not_implemented"
+      },
+      "benchmark_categories": [
+        "staticsalts"
+      ]
+    },
+    {
+      "misuse_id": "MISUSE-KDF-WEAK",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "name": "취약한 패스워드 기반 키 유도",
+      "cwe": "CWE-916",
+      "parent_cwe": "CWE-328",
+      "severity": "warning",
+      "category": "kdf",
+      "material": "iteration_count",
+      "decided_by": "iteration_count",
+      "conditions": {
+        "violation": [
+          "PBEParameterSpec·PBEKeySpec의 반복 횟수가 최소 기준(1,000회)에 못 미친다",
+          "PBKDF2WithHmacMD5처럼 취약한 해시를 쓰는 키 유도를 지정한다"
+        ],
+        "clean": [
+          "반복 횟수가 최소 기준을 만족한다",
+          "PBKDF2WithHmacSHA1·SHA256 등 KISA 표 3(키유도용 해시) 기준을 만족하는 해시를 쓴다 — 해시 선택은 기준표가 판정한다"
+        ],
+        "undetermined": [
+          "반복 횟수가 변수로 들어와 값을 찾지 못했다",
+          "경로마다 반복 횟수가 다르다"
+        ]
+      },
+      "threshold": {
+        "min_iterations": 1000,
+        "source": "NIST SP 800-132 5.2절",
+        "evidence_status": "지식베이스 미수록 — 원문 추가 후 근거 검수 필요"
+      },
+      "languages": {
+        "java": "implemented",
+        "python": "direct_call_only"
+      },
+      "benchmark_categories": [
+        "pbeiteration"
+      ]
+    }
+  ],
+  "planned": [
+    {
+      "misuse_id": "MISUSE-RSA-PADDING",
+      "rule_id": null,
+      "name": "안전하지 않은 RSA 패딩 (PKCS#1 v1.5 암호화)",
+      "cwe": "CWE-780",
+      "parent_cwe": "CWE-327",
+      "reason": "색인 문서에 근거(NIST 800-131A)가 있으나 탐지 규칙이 없다"
+    },
+    {
+      "misuse_id": "MISUSE-HASH-NO-SALT",
+      "rule_id": null,
+      "name": "솔트 없는 비밀번호 해시",
+      "cwe": "CWE-759",
+      "parent_cwe": "CWE-916",
+      "reason": "MessageDigest로 비밀번호를 한 번 해시하는 모양을 가리려면 데이터 흐름(비밀번호 → digest) 판별이 필요하다"
+    }
+  ],
+  "cwe_hierarchy_verified": false
+}

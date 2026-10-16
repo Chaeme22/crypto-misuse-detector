@@ -1,0 +1,854 @@
+{
+  "meta": {
+    "detector_commit": "",
+    "detector_dirty": false,
+    "rules_sha256": "4a71fedc49cb5c4512027058552bed2075e38efc83795d115dce7176f9380a61",
+    "thresholds_sha256": "6379c26ab358eeab718abfd7a272b4da6930f98ff09b58a354d8653dc267bd04",
+    "benchmark": "CryptoAPI-Bench",
+    "benchmark_commit": "e6b6b50fef6970151300c1ac2de62e188ba6de19",
+    "provider": "static",
+    "model": null
+  },
+  "score": {
+    "total": {
+      "tp": 86,
+      "fn": 69,
+      "fp": 0,
+      "tn": 13,
+      "wrong_rule": 0,
+      "indirect": 19,
+      "indirect_flagged": 0,
+      "review_hit": 67,
+      "review_clean": 2
+    },
+    "precision": 1.0,
+    "recall": 0.5548387096774193,
+    "f1": 0.7136929460580913
+  },
+  "per_category": {
+    "brokencrypto": {
+      "tp": 20,
+      "fn": 15,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 5,
+      "indirect_flagged": 0,
+      "review_hit": 15,
+      "review_clean": 0
+    },
+    "brokenhash": {
+      "tp": 16,
+      "fn": 12,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 4,
+      "indirect_flagged": 0,
+      "review_hit": 12,
+      "review_clean": 0
+    },
+    "brokenmac": {
+      "tp": 1,
+      "fn": 1,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    },
+    "credentialinstring": {
+      "tp": 1,
+      "fn": 7,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 6,
+      "review_clean": 0
+    },
+    "dummycertvalidation": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    },
+    "dummyhostnameverifier": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    },
+    "ecbcrypto": {
+      "tp": 4,
+      "fn": 3,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 3,
+      "review_clean": 0
+    },
+    "http": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    },
+    "impropersslsocketfactory": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 0,
+      "tn": 0,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    },
+    "insecureasymmetriccrypto": {
+      "tp": 2,
+      "fn": 4,
+      "fp": 0,
+      "tn": 0,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 4,
+      "review_clean": 0
+    },
+    "pbeiteration": {
+      "tp": 5,
+      "fn": 3,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 3,
+      "review_clean": 0
+    },
+    "predictablecryptographickey": {
+      "tp": 4,
+      "fn": 4,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 4,
+      "review_clean": 0
+    },
+    "predictablekeystorepassword": {
+      "tp": 6,
+      "fn": 3,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 3,
+      "review_clean": 1
+    },
+    "predictablepbepassword": {
+      "tp": 7,
+      "fn": 3,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 3,
+      "review_clean": 1
+    },
+    "predictableseeds": {
+      "tp": 10,
+      "fn": 6,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 2,
+      "indirect_flagged": 0,
+      "review_hit": 6,
+      "review_clean": 0
+    },
+    "staticinitializationvector": {
+      "tp": 5,
+      "fn": 4,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 4,
+      "review_clean": 0
+    },
+    "staticsalts": {
+      "tp": 4,
+      "fn": 4,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 1,
+      "indirect_flagged": 0,
+      "review_hit": 4,
+      "review_clean": 0
+    },
+    "untrustedprng": {
+      "tp": 1,
+      "fn": 0,
+      "fp": 0,
+      "tn": 1,
+      "wrong_rule": 0,
+      "indirect": 0,
+      "indirect_flagged": 0,
+      "review_hit": 0,
+      "review_clean": 0
+    }
+  },
+  "cases": {
+    "missed": [
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenmac/BrokenMacBBCase2.java",
+        "category": "brokenmac",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": []
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABMCCase1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": []
+      }
+    ],
+    "review_only": [
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase10.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase11.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase12.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase13.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase14.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase15.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase5.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase6.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase7.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABSCase1.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABSCase2.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABSCase3.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABSCase4.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokencrypto/BrokenCryptoABSCase5.java",
+        "category": "brokencrypto",
+        "expected_rule": "CRYPTO-CIPHER-OBSOLETE",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase10.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase11.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase12.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase5.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase6.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase7.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase8.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABICase9.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABSCase1.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABSCase2.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABSCase3.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/brokenhash/BrokenHashABSCase4.java",
+        "category": "brokenhash",
+        "expected_rule": "CRYPTO-HASH-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-HASH-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABHCase1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABICase1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABICase3.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABMC1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringABSCase1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/credentialinstring/CredentialInStringBBCase1.java",
+        "category": "credentialinstring",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABICase2.java",
+        "category": "ecbcrypto",
+        "expected_rule": "CRYPTO-MODE-ECB",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABICase3.java",
+        "category": "ecbcrypto",
+        "expected_rule": "CRYPTO-MODE-ECB",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABSCase1.java",
+        "category": "ecbcrypto",
+        "expected_rule": "CRYPTO-MODE-ECB",
+        "reported": [],
+        "review": [
+          "CRYPTO-MODE-ECB"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABICase2.java",
+        "category": "insecureasymmetriccrypto",
+        "expected_rule": "CRYPTO-KEYSIZE-SHORT",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEYSIZE-SHORT"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABICase3.java",
+        "category": "insecureasymmetriccrypto",
+        "expected_rule": "CRYPTO-KEYSIZE-SHORT",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEYSIZE-SHORT"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABMC1.java",
+        "category": "insecureasymmetriccrypto",
+        "expected_rule": "CRYPTO-KEYSIZE-SHORT",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEYSIZE-SHORT"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABPSCase1.java",
+        "category": "insecureasymmetriccrypto",
+        "expected_rule": "CRYPTO-KEYSIZE-SHORT",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEYSIZE-SHORT"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/pbeiteration/LessThan1000IterationPBEABHCase1.java",
+        "category": "pbeiteration",
+        "expected_rule": "CRYPTO-KDF-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-KDF-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/pbeiteration/LessThan1000IterationPBEABMC1.java",
+        "category": "pbeiteration",
+        "expected_rule": "CRYPTO-KDF-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-KDF-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/pbeiteration/LessThan1000IterationPBEABPSCase1.java",
+        "category": "pbeiteration",
+        "expected_rule": "CRYPTO-KDF-WEAK",
+        "reported": [],
+        "review": [
+          "CRYPTO-KDF-WEAK"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABHCase2.java",
+        "category": "predictablecryptographickey",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABMC1.java",
+        "category": "predictablecryptographickey",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABPSCase1.java",
+        "category": "predictablecryptographickey",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABSCase1.java",
+        "category": "predictablecryptographickey",
+        "expected_rule": "CRYPTO-KEY-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-KEY-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablekeystorepassword/PredictableKeyStorePasswordABHCase1.java",
+        "category": "predictablekeystorepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablekeystorepassword/PredictableKeyStorePasswordABHCase2.java",
+        "category": "predictablekeystorepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablekeystorepassword/PredictableKeyStorePasswordABMC1.java",
+        "category": "predictablekeystorepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablepbepassword/PredictablePBEPasswordABHCase1.java",
+        "category": "predictablepbepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablepbepassword/PredictablePBEPasswordABHCase2.java",
+        "category": "predictablepbepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictablepbepassword/PredictablePBEPasswordABMC1.java",
+        "category": "predictablepbepassword",
+        "expected_rule": "CRYPTO-PASSWORD-HARDCODED",
+        "reported": [],
+        "review": [
+          "CRYPTO-PASSWORD-HARDCODED"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABHCase2.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABHCase4.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABMC1.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABMC2.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABPSCase1.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/predictableseeds/PredictableSeedsABPSCase2.java",
+        "category": "predictableseeds",
+        "expected_rule": "CRYPTO-SEED-PREDICTABLE",
+        "reported": [],
+        "review": [
+          "CRYPTO-SEED-PREDICTABLE"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticinitializationvector/StaticInitializationVectorABHCase2.java",
+        "category": "staticinitializationvector",
+        "expected_rule": "CRYPTO-IV-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-IV-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticinitializationvector/StaticInitializationVectorABMC1.java",
+        "category": "staticinitializationvector",
+        "expected_rule": "CRYPTO-IV-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-IV-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticinitializationvector/StaticInitializationVectorABPSCase1.java",
+        "category": "staticinitializationvector",
+        "expected_rule": "CRYPTO-IV-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-IV-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticinitializationvector/StaticInitializationVectorABSCase1.java",
+        "category": "staticinitializationvector",
+        "expected_rule": "CRYPTO-IV-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-IV-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticsalts/StaticSaltsABHCase1.java",
+        "category": "staticsalts",
+        "expected_rule": "CRYPTO-SALT-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-SALT-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticsalts/StaticSaltsABMC1.java",
+        "category": "staticsalts",
+        "expected_rule": "CRYPTO-SALT-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-KDF-WEAK",
+          "CRYPTO-SALT-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticsalts/StaticSaltsABPSCase1.java",
+        "category": "staticsalts",
+        "expected_rule": "CRYPTO-SALT-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-SALT-STATIC"
+        ]
+      },
+      {
+        "file": "src/main/java/org/cryptoapi/bench/staticsalts/StaticSaltsABSCase1.java",
+        "category": "staticsalts",
+        "expected_rule": "CRYPTO-SALT-STATIC",
+        "reported": [],
+        "review": [
+          "CRYPTO-SALT-STATIC"
+        ]
+      }
+    ],
+    "wrong_rule": [],
+    "false_positive": []
+  }
+}

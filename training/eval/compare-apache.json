@@ -1,0 +1,103 @@
+{
+  "unit": "(class, type)",
+  "positive_units": 36,
+  "negative_units": 24,
+  "all": {
+    "CryptoGuard (Xia 외 실행 결과)": {
+      "TP": 29,
+      "FP": 10,
+      "FN": 7,
+      "TN": 14,
+      "precision": 0.744,
+      "recall": 0.806,
+      "f1": 0.773
+    },
+    "ours: static": {
+      "TP": 30,
+      "FP": 3,
+      "FN": 6,
+      "TN": 21,
+      "precision": 0.909,
+      "recall": 0.833,
+      "f1": 0.87
+    },
+    "ours: local:Qwen/Qwen2.5-Coder-7B-Instruct": {
+      "TP": 25,
+      "FP": 0,
+      "FN": 11,
+      "TN": 24,
+      "precision": 1.0,
+      "recall": 0.694,
+      "f1": 0.82
+    },
+    "ours: local:Qwen/Qwen2.5-Coder-7B-Instruct+qwen7b-v2": {
+      "TP": 30,
+      "FP": 2,
+      "FN": 6,
+      "TN": 22,
+      "precision": 0.938,
+      "recall": 0.833,
+      "f1": 0.882
+    }
+  },
+  "gpt_subset": {
+    "CryptoGuard (Xia 외 실행 결과)": {
+      "TP": 21,
+      "FP": 3,
+      "FN": 5,
+      "TN": 12,
+      "precision": 0.875,
+      "recall": 0.808,
+      "f1": 0.84
+    },
+    "ours: static": {
+      "TP": 23,
+      "FP": 1,
+      "FN": 3,
+      "TN": 14,
+      "precision": 0.958,
+      "recall": 0.885,
+      "f1": 0.92
+    },
+    "ours: local:Qwen/Qwen2.5-Coder-7B-Instruct": {
+      "TP": 20,
+      "FP": 0,
+      "FN": 6,
+      "TN": 15,
+      "precision": 1.0,
+      "recall": 0.769,
+      "f1": 0.87
+    },
+    "ours: local:Qwen/Qwen2.5-Coder-7B-Instruct+qwen7b-v2": {
+      "TP": 23,
+      "FP": 1,
+      "FN": 3,
+      "TN": 14,
+      "precision": 0.958,
+      "recall": 0.885,
+      "f1": 0.92
+    },
+    "GPT-4 (첫 실행)": {
+      "TP": 22,
+      "FP": 9,
+      "FN": 4,
+      "TN": 6,
+      "precision": 0.71,
+      "recall": 0.846,
+      "f1": 0.772
+    },
+    "GPT-4 (검증 단계 후)": {
+      "TP": 20,
+      "FP": 8,
+      "FN": 6,
+      "TN": 7,
+      "precision": 0.714,
+      "recall": 0.769,
+      "f1": 0.741
+    }
+  },
+  "gpt_subset_units": {
+    "positive": 26,
+    "negative": 15
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sft_messages.schema.json",
+  "title": "SFT messages JSONL 한 행",
+  "description": "Chat SFT 학습 행. 설계 문서 7.2절. 운영 판정(verdict.py → OllamaLLM/LocalTransformersLLM)은 시스템 메시지 없이 사용자 메시지 하나만 보내므로 학습 행도 user·assistant 두 개다. user는 verdict.build_prompt가 만든 문자열 그대로, assistant는 verdict.format_answer의 네 줄이다. CWE·근거·CVE는 assistant 출력에 넣지 않고 example_id로 manifest와 잇는다.",
+  "type": "object",
+  "required": [
+    "example_id",
+    "messages"
+  ],
+  "properties": {
+    "example_id": {
+      "type": "string",
+      "pattern": "^EX-"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/user"
+        },
+        {
+          "$ref": "#/$defs/assistant"
+        }
+      ],
+      "items": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "user": {
+      "type": "object",
+      "required": [
+        "role",
+        "content"
+      ],
+      "properties": {
+        "role": {
+          "const": "user"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "assistant": {
+      "type": "object",
+      "required": [
+        "role",
+        "content"
+      ],
+      "properties": {
+        "role": {
+          "const": "assistant"
+        },
+        "content": {
+          "type": "string",
+          "pattern": "^role: (crypto_operation|name_list|config_value|test_fixture|documentation|non_security)\\ndecision: (violation|clean|undetermined)\\nreasoning: [^\\n]+\\nfix: [^\\n]*$"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

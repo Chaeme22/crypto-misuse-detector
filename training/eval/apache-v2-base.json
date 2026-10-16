@@ -1,0 +1,3850 @@
+{
+  "provider": "local:Qwen/Qwen2.5-Coder-7B-Instruct",
+  "in_scope_positive": 56,
+  "in_scope_negative": 51,
+  "totals": {
+    "TN": 31,
+    "review_neg": 20,
+    "FN": 14,
+    "TP": 36,
+    "review_pos": 6
+  },
+  "precision": 1.0,
+  "recall": 0.643,
+  "by_type": {
+    "CipherAlgo": {
+      "TP": 18,
+      "FN": 6,
+      "TN": 3
+    },
+    "Constantkey": {
+      "review_pos": 4,
+      "TP": 4,
+      "TN": 5,
+      "review_neg": 18,
+      "FN": 2
+    },
+    "Mac": {
+      "TP": 2,
+      "FN": 1
+    },
+    "MessageDigest": {
+      "TP": 4,
+      "TN": 1,
+      "FN": 1
+    },
+    "ModeofOperation": {
+      "TP": 1,
+      "FN": 1
+    },
+    "PBEIteration": {
+      "TP": 2,
+      "TN": 1
+    },
+    "PBESalt": {
+      "review_pos": 2,
+      "TP": 1
+    },
+    "Random": {
+      "TN": 21,
+      "review_neg": 2,
+      "FN": 3
+    },
+    "static IV": {
+      "TP": 4
+    }
+  },
+  "cases": [
+    {
+      "index": 1,
+      "project": "tomee",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.openejb.config.OutputGeneratedDescriptors",
+      "method": null,
+      "line": 120,
+      "snippet": "new Random().nextInt()",
+      "explanation": "used for random position in file",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "tomee",
+          "file": "org/apache/openejb/config/OutputGeneratedDescriptors.java",
+          "line": 120,
+          "class": "org.apache.openejb.config.OutputGeneratedDescriptors",
+          "method": "tempFile",
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "clean",
+          "role": "non_security",
+          "api": "new Random"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "project": "wicket",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.wicket.util.diff.Diff",
+      "method": "randomEdit",
+      "line": 308,
+      "snippet": "r.nextInt()",
+      "explanation": "random editing in random places",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "wicket",
+          "file": "org/apache/wicket/util/diff/Diff.java",
+          "line": 307,
+          "class": "org.apache.wicket.util.diff.Diff",
+          "method": "randomEdit",
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "undetermined",
+          "role": "non_security",
+          "api": "new Random"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "project": "wicket",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.wicket.util.diff.Diff",
+      "method": "randomSequence",
+      "line": 384,
+      "snippet": "r.nextInt(size)",
+      "explanation": "randomly seletected sequences",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "wicket",
+          "file": "org/apache/wicket/util/diff/Diff.java",
+          "line": 381,
+          "class": "org.apache.wicket.util.diff.Diff",
+          "method": "randomSequence",
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "undetermined",
+          "role": "non_security",
+          "api": "new Random"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomLong",
+      "line": 52,
+      "snippet": "random.nextLong()",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 5,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomInt",
+      "line": 60,
+      "snippet": "random.nextInt()",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 6,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomInterval",
+      "line": 81,
+      "snippet": "random.nextInt(max - min)",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 7,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomPort",
+      "line": 96,
+      "snippet": "random.nextInt(65536)",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 8,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomShort",
+      "line": 100,
+      "snippet": "random.nextInt(32767)",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 9,
+      "project": "activemq",
+      "type": "Random",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomBytes",
+      "line": 111,
+      "snippet": "random.nextInt().byteValue()",
+      "explanation": "used to create random salt for PBEKeySpec() ",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 10,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomBoolean",
+      "line": 108,
+      "snippet": "random.nextBoolean()",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 11,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomDouble",
+      "line": 123,
+      "snippet": "random.nextDouble()",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 12,
+      "project": "activemq",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": "randomFloat",
+      "line": 127,
+      "snippet": "random.nextFloat()",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 13,
+      "project": "manifold",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.manifoldcf.core.connectorpool.ConnectorPoolConnectorPool.java",
+      "method": "pollAll",
+      "line": 773,
+      "snippet": "randomNumberGenerator.nextInt(numServices)",
+      "explanation": "extract a random number of services in thread connector pool",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 14,
+      "project": "manifold",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.manifoldcf.core.database.Database.java",
+      "method": "getSleepAmt",
+      "line": 482,
+      "snippet": "random.nextDouble()",
+      "explanation": "random time sleep if not able to modify/access specific database table  ",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 15,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.util.Utils",
+      "method": "random",
+      "line": 2148,
+      "snippet": "Random",
+      "explanation": "usecase not clear",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 16,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.util.random.XORShiftRandom",
+      "method": "benchmark",
+      "line": null,
+      "snippet": "Random",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 17,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.eclipse.jetty.plus.webapp.PlusConfiguration",
+      "method": null,
+      "line": 3,
+      "snippet": "java.util.Random",
+      "explanation": "defined but not used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 18,
+      "project": "spark",
+      "type": "Random",
+      "positive": true,
+      "class": "org.eclipse.jetty.client.util.DigestAuthentication",
+      "method": null,
+      "line": 12,
+      "snippet": "java.util.Random",
+      "explanation": "defined but not used",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 19,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.rdd.RDD",
+      "method": "apply",
+      "line": null,
+      "snippet": "Random",
+      "explanation": "usecase not clear",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 20,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.util.Utils",
+      "method": null,
+      "line": null,
+      "snippet": "Random",
+      "explanation": "usecase not clear",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 21,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.util.random.XORShiftRandom",
+      "method": null,
+      "line": null,
+      "snippet": "Random",
+      "explanation": "usecase not clear",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 22,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.rdd.PartitionwiseSampledRDD",
+      "method": "getPartitions",
+      "line": 64,
+      "snippet": "anonfun.getPartitions.1(this, random)",
+      "explanation": "used in partition",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 23,
+      "project": "spark",
+      "type": "Random",
+      "positive": true,
+      "class": "org.eclipse.jetty.server.session.AbstractSessionIdManager",
+      "method": "initRandom",
+      "line": null,
+      "snippet": "random",
+      "explanation": "used in hash seed",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "spark",
+          "file": "org/eclipse/jetty/server/session/AbstractSessionIdManager.java",
+          "line": 237,
+          "class": "org.eclipse.jetty.server.session.AbstractSessionIdManager",
+          "method": "initRandom",
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "clean",
+          "role": "non_security",
+          "api": "new Random"
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.spark.rdd.RDD",
+      "method": "randomsplit",
+      "line": 545,
+      "snippet": "Random",
+      "explanation": "usecase not clear",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 25,
+      "project": "spark",
+      "type": "Random",
+      "positive": false,
+      "class": "org.eclipse.jetty.client.util.MultiPartContentProvider",
+      "method": "makeBoundary",
+      "line": 106,
+      "snippet": "java.util.Random",
+      "explanation": "random boundary",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "spark",
+          "file": "org/eclipse/jetty/client/util/MultiPartContentProvider.java",
+          "line": 101,
+          "class": "org.eclipse.jetty.client.util.MultiPartContentProvider",
+          "method": "makeBoundary",
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new Random"
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "project": "tika",
+      "type": "Random",
+      "positive": false,
+      "class": "org.apache.tika.parser.CryptoParser",
+      "method": "parse",
+      "line": 92,
+      "snippet": "cipher.init(2, key, params, random);",
+      "explanation": "SecureRandom used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 27,
+      "project": "traverna",
+      "type": "MessageDigest",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 97,
+      "snippet": "MessageDigest.getInstance(\"MD5\")",
+      "explanation": "hashing salt",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 50,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "SecretKeyFactory.getInstance(\"PBEWithMD5AndDES\")"
+        },
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 53,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"MD5\")"
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "project": "manifold",
+      "type": "MessageDigest",
+      "positive": false,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "startHash",
+      "line": 378,
+      "snippet": "MessageDigest.getInstance(\"SHA\")",
+      "explanation": "defined not used",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 392,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "startHash",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"SHA\")"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 658,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "startHash",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"SHA\")"
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "project": "spark",
+      "type": "MessageDigest",
+      "positive": true,
+      "class": "org.eclipse.jetty.util.security.Credential",
+      "method": "check",
+      "line": 188,
+      "snippet": "MessageDigest.getInstance(\"MD5\")",
+      "explanation": "hashing credentials",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "spark",
+          "file": "org/eclipse/jetty/util/security/Credential.java",
+          "line": 184,
+          "class": "org.eclipse.jetty.util.security.Credential",
+          "method": "check",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"MD5\")"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "project": "spark",
+      "type": "MessageDigest",
+      "positive": true,
+      "class": "org.eclipse.jetty.client.util.DigestAuthentication",
+      "method": "authenticate",
+      "line": 87,
+      "snippet": "algorithm = \"MD5\";\ndigester.digest(A1.getBytes())",
+      "explanation": "hashing passwords",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 31,
+      "project": "spark",
+      "type": "MessageDigest",
+      "positive": true,
+      "class": "org.eclipse.jetty.util.security.Credential",
+      "method": "digest",
+      "line": 230,
+      "snippet": "__md = MessageDigest.getInstance(\"MD5\")",
+      "explanation": "hashing passwords",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "spark",
+          "file": "org/eclipse/jetty/util/security/Credential.java",
+          "line": 226,
+          "class": "org.eclipse.jetty.util.security.Credential",
+          "method": "digest",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"MD5\")"
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "project": "spark",
+      "type": "MessageDigest",
+      "positive": true,
+      "class": "org.eclipse.jetty.security.authentication.DigestAuthenticator",
+      "method": null,
+      "line": null,
+      "snippet": "MessageDigest.getInstance(\"MD5\")",
+      "explanation": "hashing credentials",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "spark",
+          "file": "org/eclipse/jetty/security/authentication/DigestAuthenticator.java",
+          "line": 339,
+          "class": "org.eclipse.jetty.security.authentication.DigestAuthenticator",
+          "method": "check",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "MessageDigest.getInstance(\"MD5\")"
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "project": "directoryserver",
+      "type": "Mac",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "line": 26,
+      "snippet": "Mac.getInstance(\"HmacMD5\")",
+      "explanation": "authentication code for secret key",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+          "line": 50,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Mac.getInstance(\"HmacMD5\")"
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "project": "directoryserver",
+      "type": "Mac",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "calculateIntegrity",
+      "line": 51,
+      "snippet": "Mac.getInstance(\"HmacMD5\")",
+      "explanation": "used for checking integrity for decrypted data and padded data",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+          "line": 88,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+          "method": "calculateIntegrity",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Mac.getInstance(\"HmacMD5\")"
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "project": "directoryserver",
+      "type": "Mac",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "line": 181,
+      "snippet": "Mac.getInstance(\"HmacSHA1\")",
+      "explanation": "authentication code for secret key",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 303,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processChecksum",
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "clean",
+          "role": "표 대조로 확정",
+          "api": "Mac.getInstance(\"HmacSHA1\")"
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "line": 25,
+      "snippet": "SecretKeySpec(key, \"ARCFOUR\");",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+          "line": 48,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"ARCFOUR\")"
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "line": 61,
+      "snippet": "Cipher.getInstance(\"ARCFOUR\");",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+          "line": 102,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"ARCFOUR\")"
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "line": 62,
+      "snippet": "SecretKeySpec(keyBytes, \"ARCFOUR\")",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+          "line": 103,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"ARCFOUR\")"
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "line": 161,
+      "snippet": "Cipher.getInstance(\"DESede/CBC/NoPadding\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 273,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"DESede/CBC/NoPadding\")"
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "line": 162,
+      "snippet": "SecretKeySpec(keyBytes, \"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 274,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "line": 180,
+      "snippet": "SecretKeySpec(key, \"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 301,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processChecksum",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 42,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "line": 89,
+      "snippet": "Cipher.getInstance(\"DES/CBC/NoPadding\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+          "line": 158,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+        }
+      ]
+    },
+    {
+      "index": 43,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "line": 90,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DES\")"
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "line": 92,
+      "snippet": "Cipher.getInstance(\"DES/CBC/NoPadding\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+          "line": 158,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "line": 93,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DES\")"
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 125,
+      "snippet": "Cipher.getInstance(\"DES/CBC/NoPadding\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 266,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "project": "directoryserver",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 126,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "vulnerable DES; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 267,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DES\")"
+        }
+      ]
+    },
+    {
+      "index": 48,
+      "project": "traverna",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 64,
+      "snippet": "SecretKeyFactory.getInstance(\"PBEWithMD5AndDES\")",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 63,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"PBEWithMD5AndDES\")"
+        }
+      ]
+    },
+    {
+      "index": 49,
+      "project": "traverna",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 75,
+      "snippet": "Cipher.getInstance(\"PBEWithMD5AndDES\")",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 63,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"PBEWithMD5AndDES\")"
+        }
+      ]
+    },
+    {
+      "index": 50,
+      "project": "meecrowave",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "line": 2714,
+      "snippet": "SecretKeySpec(new byte[] { 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, 119, 57, 25 }, \"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "meecrowave",
+          "file": "org/apache/meecrowave/Meecrowave.java",
+          "line": 2014,
+          "class": "org.apache.meecrowave.Meecrowave",
+          "method": "apply",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "project": "meecrowave",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "line": 2726,
+      "snippet": "Cipher.getInstance(\"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "meecrowave",
+          "file": "org/apache/meecrowave/Meecrowave.java",
+          "line": 2031,
+          "class": "org.apache.meecrowave.Meecrowave",
+          "method": "apply",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "project": "tomee",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "encrypt",
+      "line": 26,
+      "snippet": "Cipher.getInstance(\"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "tomee",
+          "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+          "line": 58,
+          "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+          "method": "encrypt",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "config_value",
+          "api": "Cipher.getInstance(TRANSFORMATION=\"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 53,
+      "project": "tomee",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "decrypt",
+      "line": 43,
+      "snippet": "Cipher.getInstance(\"DESede\")",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "tomee",
+          "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+          "line": 85,
+          "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+          "method": "decrypt",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "config_value",
+          "api": "Cipher.getInstance(TRANSFORMATION=\"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 54,
+      "project": "tomee",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "<clinit>",
+      "line": 54,
+      "snippet": "SecretKeySpec(StaticDESPasswordCipher._3desData, \"DESede\");",
+      "explanation": "vulnerable DESede; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "tomee",
+          "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+          "line": 39,
+          "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+          "method": null,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "config_value",
+          "api": "new SecretKeySpec(..., \"DESede\")"
+        }
+      ]
+    },
+    {
+      "index": 55,
+      "project": "wicket",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": null,
+      "line": null,
+      "snippet": "[\"PBEWithMD5AndDES\"]",
+      "explanation": "vulnerable ARCFOUR; can use AES",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 56,
+      "project": "activemq",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "line": 166,
+      "snippet": "Cipher.getInstance(\"Blowfish\")",
+      "explanation": "vulnerable Blowfish; can use AES",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 166,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "decode",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"Blowfish\")"
+        }
+      ]
+    },
+    {
+      "index": 57,
+      "project": "activemq",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "line": 177,
+      "snippet": "Cipher.getInstance(\"Blowfish\")",
+      "explanation": "vulnerable Blowfish; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 177,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "encode",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"Blowfish\")"
+        }
+      ]
+    },
+    {
+      "index": 58,
+      "project": "activemq",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "line": 145,
+      "snippet": "SecretKeySpec(internalKey, \"Blowfish\")",
+      "explanation": "vulnerable Blowfish; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 145,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "decode",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"Blowfish\")"
+        }
+      ]
+    },
+    {
+      "index": 59,
+      "project": "activemq",
+      "type": "CipherAlgo",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "line": 175,
+      "snippet": "SecretKeySpec(internalKey, \"Blowfish\")",
+      "explanation": "vulnerable Blowfish; can use AES",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 175,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "encode",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(..., \"Blowfish\")"
+        }
+      ]
+    },
+    {
+      "index": 60,
+      "project": "deltaspike",
+      "type": "CipherAlgo",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesEncrypt",
+      "line": 98,
+      "snippet": "Cipher.getInstance(\"AES\")",
+      "explanation": "Secure crypto algo AES used",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 154,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "aesEncrypt",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "표 대조로 확정",
+          "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")"
+        }
+      ]
+    },
+    {
+      "index": 61,
+      "project": "deltaspike",
+      "type": "CipherAlgo",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesDecrypt",
+      "line": 110,
+      "snippet": "Cipher.getInstance(\"AES\")",
+      "explanation": "Secure crypto algo AES used",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 173,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "aesDecrypt",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "표 대조로 확정",
+          "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")"
+        }
+      ]
+    },
+    {
+      "index": 62,
+      "project": "deltaspike",
+      "type": "CipherAlgo",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "getSecretKeySpec",
+      "line": 189,
+      "snippet": "SecretKeySpec(key, \"AES\")",
+      "explanation": "Secure crypto algo AES used",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 189,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "getSecretKeySpec",
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "role": "표 대조로 확정",
+          "api": "new SecretKeySpec(..., \"AES\")"
+        }
+      ]
+    },
+    {
+      "index": 63,
+      "project": "deltaspike",
+      "type": "ModeofOperation",
+      "positive": true,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesEncrypt",
+      "line": 98,
+      "snippet": "Cipher.getInstance(\"AES\")",
+      "explanation": "AES algorithm specified only in Cipher API. Default is mode is ECB",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 154,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "aesEncrypt",
+          "rule": "CRYPTO-MODE-ECB",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"AES\") — 운영모드 미지정, 기본값 ECB"
+        }
+      ]
+    },
+    {
+      "index": 64,
+      "project": "deltaspike",
+      "type": "ModeofOperation",
+      "positive": true,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesDecrypt",
+      "line": 110,
+      "snippet": "Cipher.getInstance(\"AES\")",
+      "explanation": "AES algorithm specified only in Cipher API. Default is mode is ECB",
+      "outcome": "FN",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 173,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "aesDecrypt",
+          "rule": "CRYPTO-MODE-ECB",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "Cipher.getInstance(\"AES\") — 운영모드 미지정, 기본값 ECB"
+        }
+      ]
+    },
+    {
+      "index": 65,
+      "project": "directoryserver",
+      "type": "static IV",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "line": 163,
+      "snippet": "IvParameterSpec(Des3CbcSha1KdEncryption.iv)",
+      "explanation": "static iv = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 } used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 276,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new IvParameterSpec(iv)"
+        }
+      ]
+    },
+    {
+      "index": 66,
+      "project": "directoryserver",
+      "type": "static IV",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "line": 91,
+      "snippet": "IvParameterSpec(DesCbcCrcEncryption.iv)",
+      "explanation": "static iv = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 } used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+          "line": 161,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new IvParameterSpec(iv)"
+        }
+      ]
+    },
+    {
+      "index": 67,
+      "project": "directoryserver",
+      "type": "static IV",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "line": 94,
+      "snippet": "IvParameterSpec(DesCbcCrcEncryption.iv)",
+      "explanation": "static iv = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 } used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+          "line": 161,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new IvParameterSpec(iv)"
+        }
+      ]
+    },
+    {
+      "index": 68,
+      "project": "directoryserver",
+      "type": "static IV",
+      "positive": true,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "line": 103,
+      "snippet": "IvParameterSpec(AesCtsSha1Encryption.iv)",
+      "explanation": "staticiv = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+          "line": 178,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new IvParameterSpec(iv)"
+        }
+      ]
+    },
+    {
+      "index": 69,
+      "project": "manifold",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "line": 430,
+      "snippet": "SecretKeySpec(secretKey.getEncoded(), \"AES\");",
+      "explanation": "constant key,OBFUSCATION_PASSCODE = \"NowIsTheTime\";",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 441,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(passCode.toCharArray())"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 444,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(secretKey.getEncoded())"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 731,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(passCode.toCharArray())"
+        }
+      ]
+    },
+    {
+      "index": 70,
+      "project": "meecrowave",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "line": 2714,
+      "snippet": "SecretKeySpec(new byte[] { 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, 119, 57, 25 }, \"DESede\")",
+      "explanation": "constant key",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "meecrowave",
+          "file": "org/apache/meecrowave/Meecrowave.java",
+          "line": 2014,
+          "class": "org.apache.meecrowave.Meecrowave",
+          "method": "apply",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(new byte[]{ (byte) 0x76, (byte) 0x6F, (byte) 0xBA, (byte) 0x)"
+        }
+      ]
+    },
+    {
+      "index": 71,
+      "project": "tomee",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "<clinit>",
+      "line": 54,
+      "snippet": "SecretKeySpec(_3desData, \"DESede\");",
+      "explanation": "static byte array used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "tomee",
+          "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+          "line": 39,
+          "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+          "method": null,
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(_3desData)"
+        }
+      ]
+    },
+    {
+      "index": 72,
+      "project": "activemq",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "line": 124,
+      "snippet": "SecretKeySpec(this.internalKey, \"Blowfish\")",
+      "explanation": "constant string \"clusterpassword\" used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 145,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "decode",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(internalKey)"
+        }
+      ]
+    },
+    {
+      "index": 73,
+      "project": "activemq",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "line": 151,
+      "snippet": "SecretKeySpec(this.internalKey, \"Blowfish\")",
+      "explanation": "constant string \"clusterpassword\" used",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 175,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "encode",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(internalKey)"
+        },
+        {
+          "project": "activemq",
+          "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+          "line": 217,
+          "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+          "method": "encode",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(chars)"
+        }
+      ]
+    },
+    {
+      "index": 74,
+      "project": "deltaspike",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesDecrypt",
+      "line": 174,
+      "snippet": "cipher.init(1, secretKeySpec)",
+      "explanation": "varible key from argument",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 75,
+      "project": "deltaspike",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "getSecretKeySpec",
+      "line": 189,
+      "snippet": "SecretKeySpec(key, \"AES\")",
+      "explanation": "varible key from argument",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "deltaspike",
+          "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+          "line": 189,
+          "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+          "method": "getSecretKeySpec",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(key)"
+        }
+      ]
+    },
+    {
+      "index": 76,
+      "project": "deltaspike",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesEncrypt",
+      "line": 155,
+      "snippet": "cipher.init(1, secretKeySpec)",
+      "explanation": "varible key from argument",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 77,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "line": 25,
+      "snippet": "SecretKeySpec(key, \"ARCFOUR\");",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+          "line": 48,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(key)"
+        }
+      ]
+    },
+    {
+      "index": 78,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "line": 62,
+      "snippet": "SecretKeySpec(keyBytes, \"ARCFOUR\")",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+          "line": 103,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 79,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "line": 64,
+      "snippet": "cipher.init(1, key)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+          "line": 103,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 80,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "line": 162,
+      "snippet": "SecretKeySpec(keyBytes, \"DESede\")",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 274,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 81,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "line": 165,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 274,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 82,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "line": 180,
+      "snippet": "SecretKeySpec(key, \"DESede\")",
+      "explanation": "Random key used",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+          "line": 301,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+          "method": "processChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(key)"
+        }
+      ]
+    },
+    {
+      "index": 83,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "line": 93,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 84,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "line": 90,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 85,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "line": 96,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 86,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "line": 93,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+          "line": 159,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 87,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 128,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 267,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 88,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 128,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 267,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 89,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 126,
+      "snippet": "SecretKeySpec(keyBytes, \"DES\")",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 267,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 90,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "line": 127,
+      "snippet": "IvParameterSpec(keyBytes)",
+      "explanation": "Encrypted Key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+          "line": 267,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+          "method": "calculateChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 91,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "line": 102,
+      "snippet": "SecretKeySpec(keyBytes, \"AES\")",
+      "explanation": "Encrypted key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+          "line": 176,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 92,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "line": 105,
+      "snippet": "cipher.init(1, key, paramSpec)",
+      "explanation": "Encrypted key",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+          "line": 176,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+          "method": "processCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(keyBytes)"
+        }
+      ]
+    },
+    {
+      "index": 93,
+      "project": "directoryserver",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processChecksum",
+      "line": 88,
+      "snippet": "SecretKeySpec(key, \"AES\")",
+      "explanation": "Random key used",
+      "outcome": "review_neg",
+      "hits": [
+        {
+          "project": "directoryserver",
+          "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+          "line": 156,
+          "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+          "method": "processChecksum",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(key)"
+        }
+      ]
+    },
+    {
+      "index": 94,
+      "project": "traverna",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 96,
+      "snippet": "keyFactory.generateSecret(keySpec)",
+      "explanation": "key from \"user.home\"",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 51,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(PBE_PASSWORD.toCharArray())"
+        }
+      ]
+    },
+    {
+      "index": 95,
+      "project": "traverna",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 76,
+      "snippet": "cipher.init(mode, key, paramSpec)",
+      "explanation": "key from \"user.home\"",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 51,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(PBE_PASSWORD.toCharArray())"
+        }
+      ]
+    },
+    {
+      "index": 96,
+      "project": "manifold",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "line": 432,
+      "snippet": "cipher.init(mode, key, parameterSpec)",
+      "explanation": "constant key,OBFUSCATION_PASSCODE = \"NowIsTheTime\";",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 441,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(passCode.toCharArray())"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 444,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new SecretKeySpec(secretKey.getEncoded())"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 731,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "clean",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(passCode.toCharArray())"
+        }
+      ]
+    },
+    {
+      "index": 97,
+      "project": "tika",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.tika.parser.CryptoParser",
+      "method": "parse",
+      "line": 72,
+      "snippet": "cipher.init(2, key, ..)",
+      "explanation": "Key from java.security.key",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 98,
+      "project": "tomee",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "encrypt",
+      "line": 27,
+      "snippet": "cipher.init(1, KEY)",
+      "explanation": "key generated from static byte array",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 99,
+      "project": "tomee",
+      "type": "Constantkey",
+      "positive": true,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "decrypt",
+      "line": 44,
+      "snippet": "cipher.init(2, KEY)",
+      "explanation": "key generated from static byte array",
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 100,
+      "project": "wicket",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "createCipher",
+      "line": 100,
+      "snippet": "cipher.init(mode, key, spec);",
+      "explanation": "no constant key used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 101,
+      "project": "wicket",
+      "type": "Constantkey",
+      "positive": false,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "generateSecretKey",
+      "line": 121,
+      "snippet": "keyFactory.generateSecret(spec)",
+      "explanation": "no constant key used",
+      "outcome": "TN",
+      "hits": []
+    },
+    {
+      "index": 107,
+      "project": "traverna",
+      "type": "PBESalt",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 74,
+      "snippet": "PBEParameterSpec(salt, 20)",
+      "explanation": "not randomized, from hostname or constant string",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 62,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-SALT-STATIC",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEParameterSpec(salt)"
+        }
+      ]
+    },
+    {
+      "index": 108,
+      "project": "manifold",
+      "type": "PBESalt",
+      "positive": true,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "line": 731,
+      "snippet": "PBEKeySpec(passCode.toCharArray(), ..., 1024, 128)",
+      "explanation": "contant salt; OBFUSCATION_SALT = \"Salty\";",
+      "outcome": "review_pos",
+      "hits": [
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 441,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-SALT-STATIC",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(saltValue.getBytes(StandardCharsets.UTF_8))"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 731,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-SALT-STATIC",
+          "decision": "undetermined",
+          "role": "crypto_operation",
+          "api": "new PBEKeySpec(saltValue.getBytes(StandardCharsets.UTF_8))"
+        }
+      ]
+    },
+    {
+      "index": 109,
+      "project": "wicket",
+      "type": "PBESalt",
+      "positive": true,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "<clinit>",
+      "line": 56,
+      "snippet": "PBEParameterSpec(SunJceCrypt.SALT, 17)",
+      "explanation": "constant salt",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "wicket",
+          "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+          "line": 56,
+          "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+          "method": null,
+          "rule": "CRYPTO-SALT-STATIC",
+          "decision": "violation",
+          "role": "config_value",
+          "api": "new PBEParameterSpec(SALT)"
+        }
+      ]
+    },
+    {
+      "index": 110,
+      "project": "traverna",
+      "type": "PBEIteration",
+      "positive": true,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "line": 74,
+      "snippet": "PBEParameterSpec(salt, 20)",
+      "explanation": "PBE count < 1000",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "traverna",
+          "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+          "line": 62,
+          "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+          "method": "doEncryption",
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "violation",
+          "role": "crypto_operation",
+          "api": "new PBEParameterSpec(20)"
+        }
+      ]
+    },
+    {
+      "index": 111,
+      "project": "manifold",
+      "type": "PBEIteration",
+      "positive": false,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "line": 427,
+      "snippet": "PBEKeySpec(... , 1024, 128)",
+      "explanation": "PBE iteration > 1000",
+      "outcome": "TN",
+      "hits": [
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 441,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "role": "출처 판별로 확정",
+          "api": "new PBEKeySpec(1024)"
+        },
+        {
+          "project": "manifold",
+          "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+          "line": 731,
+          "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+          "method": "getCipher",
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "role": "출처 판별로 확정",
+          "api": "new PBEKeySpec(1024)"
+        }
+      ]
+    },
+    {
+      "index": 112,
+      "project": "wicket",
+      "type": "PBEIteration",
+      "positive": true,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "<clinit>",
+      "line": 56,
+      "snippet": "PBEParameterSpec(SunJceCrypt.SALT, 17)",
+      "explanation": "PBE iteration <1000",
+      "outcome": "TP",
+      "hits": [
+        {
+          "project": "wicket",
+          "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+          "line": 56,
+          "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+          "method": null,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "violation",
+          "role": "config_value",
+          "api": "new PBEParameterSpec(COUNT)"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 145,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"Blowfish\")"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 145,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(internalKey)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 166,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"Blowfish\")"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 166,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "decode",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"Blowfish\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 175,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"Blowfish\")"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 175,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(internalKey)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 177,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"Blowfish\")"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 177,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"Blowfish\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 196,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "<init>",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "SecretKeyFactory.getInstance(sceretKeyAlgorithm=\"PBKDF2WithHmacSHA1\")"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 217,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "role": "출처 판별로 확정",
+      "api": "new PBEKeySpec(iterations)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 217,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(chars)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 217,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "encode",
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(salt)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 233,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "verify",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(originalIterations)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 233,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "verify",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(plainChars)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/DefaultSensitiveStringCodec.java",
+      "line": 233,
+      "class": "org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec",
+      "method": "verify",
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(salt)"
+    },
+    {
+      "project": "activemq",
+      "file": "org/apache/activemq/artemis/utils/RandomUtil.java",
+      "line": 29,
+      "class": "org.apache.activemq.artemis.utils.RandomUtil",
+      "method": null,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 136,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "secureHash",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "MessageDigest.getInstance(HASH_ALGORITHM=\"SHA-256\")"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 154,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesEncrypt",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 154,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesEncrypt",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"AES\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 173,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesDecrypt",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 173,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "aesDecrypt",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"AES\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 189,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "getSecretKeySpec",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "new SecretKeySpec(..., \"AES\")"
+    },
+    {
+      "project": "deltaspike",
+      "file": "org/apache/deltaspike/core/impl/crypto/DefaultCipherService.java",
+      "line": 189,
+      "class": "org.apache.deltaspike.core.impl.crypto.DefaultCipherService",
+      "method": "getSecretKeySpec",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(key)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+      "line": 48,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"ARCFOUR\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+      "line": 48,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(key)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum.java",
+      "line": 50,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.HmacMd5Checksum",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Mac.getInstance(\"HmacMD5\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum.java",
+      "line": 46,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.checksum.RsaMd5Checksum",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 156,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "new SecretKeySpec(..., \"AES\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 156,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(key)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 158,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Mac.getInstance(\"HmacSHA1\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 175,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Cipher.getInstance(\"AES/CTS/NoPadding\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 176,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "new SecretKeySpec(..., \"AES\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 176,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption.java",
+      "line": 178,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.AesCtsSha1Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+      "line": 88,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "calculateIntegrity",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Mac.getInstance(\"HmacMD5\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+      "line": 102,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"ARCFOUR\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+      "line": 103,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"ARCFOUR\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption.java",
+      "line": 103,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.ArcFourHmacMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 273,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DESede/CBC/NoPadding\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 274,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DESede\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 274,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 276,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 301,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DESede\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 301,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(key)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption.java",
+      "line": 303,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.Des3CbcSha1KdEncryption",
+      "method": "processChecksum",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Mac.getInstance(\"HmacSHA1\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+      "line": 158,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+      "line": 159,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DES\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+      "line": 159,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption.java",
+      "line": 161,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcCrcEncryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+      "line": 80,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "calculateIntegrity",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+      "line": 158,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+      "line": 159,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DES\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+      "line": 159,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption.java",
+      "line": 161,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesCbcMd5Encryption",
+      "method": "processCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+      "line": 266,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DES/CBC/NoPadding\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+      "line": 267,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DES\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+      "line": 267,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey.java",
+      "line": 269,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.DesStringToKey",
+      "method": "calculateChecksum",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(keyBytes)"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/KerberosKeyFactory.java",
+      "line": 54,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.KerberosKeyFactory",
+      "method": null,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "map.put(\"DESede\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/RandomKeyFactory.java",
+      "line": 56,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.RandomKeyFactory",
+      "method": null,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "map.put(\"DESede\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/server/kerberos/shared/crypto/encryption/RandomKeyFactory.java",
+      "line": 57,
+      "class": "org.apache.directory.server.kerberos.shared.crypto.encryption.RandomKeyFactory",
+      "method": null,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "map.put(\"RC4\")"
+    },
+    {
+      "project": "directoryserver",
+      "file": "org/apache/directory/shared/kerberos/KerberosUtils.java",
+      "line": 106,
+      "class": "org.apache.directory.shared.kerberos.KerberosUtils",
+      "method": null,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "cipherAlgoMap.put(\"DESede\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/connectorpool/ConnectorPool.java",
+      "line": 27,
+      "class": "org.apache.manifoldcf.core.connectorpool.ConnectorPool",
+      "method": null,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/database/Database.java",
+      "line": 62,
+      "class": "org.apache.manifoldcf.core.database.Database",
+      "method": null,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 392,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "startHash",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"SHA\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 440,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 441,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "role": "출처 판별로 확정",
+      "api": "new PBEKeySpec(1024)"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 441,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(passCode.toCharArray())"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 441,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(saltValue.getBytes(StandardCharsets.UTF_8))"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 443,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Cipher.getInstance(\"AES/CBC/PKCS5Padding\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 444,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "new SecretKeySpec(..., \"AES\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 444,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(secretKey.getEncoded())"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 445,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/connectorpool/ConnectorPool.java",
+      "line": 60,
+      "class": "org.apache.manifoldcf.core.connectorpool.ConnectorPool",
+      "method": null,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/database/Database.java",
+      "line": 59,
+      "class": "org.apache.manifoldcf.core.database.Database",
+      "method": null,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 658,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "startHash",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"SHA\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 730,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 731,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "role": "출처 판별로 확정",
+      "api": "new PBEKeySpec(1024)"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 731,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(passCode.toCharArray())"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 731,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(saltValue.getBytes(StandardCharsets.UTF_8))"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 734,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "Cipher.getInstance(\"AES/CBC/PKCS5Padding\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 735,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "role": "표 대조로 확정",
+      "api": "new SecretKeySpec(..., \"AES\")"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 735,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(secretKey.getEncoded())"
+    },
+    {
+      "project": "manifold",
+      "file": "mcf-core-2.9-SNAPSHOT-sources/org/apache/manifoldcf/core/system/ManifoldCF.java",
+      "line": 736,
+      "class": "org.apache.manifoldcf.core.system.ManifoldCF",
+      "method": "getCipher",
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new IvParameterSpec(iv)"
+    },
+    {
+      "project": "meecrowave",
+      "file": "org/apache/meecrowave/Meecrowave.java",
+      "line": 2014,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(..., \"DESede\")"
+    },
+    {
+      "project": "meecrowave",
+      "file": "org/apache/meecrowave/Meecrowave.java",
+      "line": 2014,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(new byte[]{ (byte) 0x76, (byte) 0x6F, (byte) 0xBA, (byte) 0x)"
+    },
+    {
+      "project": "meecrowave",
+      "file": "org/apache/meecrowave/Meecrowave.java",
+      "line": 2031,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DESede\")"
+    },
+    {
+      "project": "meecrowave",
+      "file": "org/apache/meecrowave/Meecrowave.java",
+      "line": 2031,
+      "class": "org.apache.meecrowave.Meecrowave",
+      "method": "apply",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DESede\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/client/util/DigestAuthentication.java",
+      "line": 164,
+      "class": "org.eclipse.jetty.client.util.DigestAuthentication",
+      "method": "getMessageDigest",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/client/util/DigestAuthentication.java",
+      "line": 265,
+      "class": "org.eclipse.jetty.client.util.DigestAuthentication",
+      "method": "newClientNonce",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new Random"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/client/util/MultiPartContentProvider.java",
+      "line": 101,
+      "class": "org.eclipse.jetty.client.util.MultiPartContentProvider",
+      "method": "makeBoundary",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "new Random"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/security/authentication/DigestAuthenticator.java",
+      "line": 339,
+      "class": "org.eclipse.jetty.security.authentication.DigestAuthenticator",
+      "method": "check",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"MD5\")"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/server/ShutdownMonitor.java",
+      "line": 285,
+      "class": "org.eclipse.jetty.server.ShutdownMonitor",
+      "method": "listen",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "Math.random"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/server/session/AbstractSessionIdManager.java",
+      "line": 175,
+      "class": "org.eclipse.jetty.server.session.AbstractSessionIdManager",
+      "method": "newSessionId",
+      "rule": "CRYPTO-SEED-PREDICTABLE",
+      "decision": "clean",
+      "role": "출처 판별로 확정",
+      "api": "SecureRandom.setSeed(secure.generateSeed(8))"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/server/session/AbstractSessionIdManager.java",
+      "line": 237,
+      "class": "org.eclipse.jetty.server.session.AbstractSessionIdManager",
+      "method": "initRandom",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/util/security/CertificateUtils.java",
+      "line": 52,
+      "class": "org.eclipse.jetty.util.security.CertificateUtils",
+      "method": "getKeyStore",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "KeyStore.load(storePassword == null ? null : storePassword.toCharArray())"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/util/security/Credential.java",
+      "line": 184,
+      "class": "org.eclipse.jetty.util.security.Credential",
+      "method": "check",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"MD5\")"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/util/security/Credential.java",
+      "line": 226,
+      "class": "org.eclipse.jetty.util.security.Credential",
+      "method": "digest",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"MD5\")"
+    },
+    {
+      "project": "spark",
+      "file": "org/eclipse/jetty/util/ssl/SslContextFactory.java",
+      "line": 1087,
+      "class": "org.eclipse.jetty.util.ssl.SslContextFactory",
+      "method": "getKeyManagers",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "KeyManagerFactory.init(_keyManagerPassword == null ? (_keyStorePassword == null ? n)"
+    },
+    {
+      "project": "tika",
+      "file": "org/apache/tika/parser/CryptoParser.java",
+      "line": 79,
+      "class": "org.apache.tika.parser.CryptoParser",
+      "method": "parse",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance"
+    },
+    {
+      "project": "tika",
+      "file": "org/apache/tika/parser/CryptoParser.java",
+      "line": 81,
+      "class": "org.apache.tika.parser.CryptoParser",
+      "method": "parse",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance"
+    },
+    {
+      "project": "tika",
+      "file": "org/apache/tika/parser/digest/InputStreamDigester.java",
+      "line": 76,
+      "class": "org.apache.tika.parser.digest.InputStreamDigester",
+      "method": "newMessageDigest",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "tika",
+      "file": "org/apache/tika/parser/digest/InputStreamDigester.java",
+      "line": 78,
+      "class": "org.apache.tika.parser.digest.InputStreamDigester",
+      "method": "newMessageDigest",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 39,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": null,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "new SecretKeySpec(..., \"DESede\")"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 39,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": null,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new SecretKeySpec(_3desData)"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 58,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "encrypt",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "Cipher.getInstance(TRANSFORMATION=\"DESede\")"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 58,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "encrypt",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DESede\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 85,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "decrypt",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "Cipher.getInstance(TRANSFORMATION=\"DESede\")"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/cipher/StaticDESPasswordCipher.java",
+      "line": 85,
+      "class": "org.apache.openejb.cipher.StaticDESPasswordCipher",
+      "method": "decrypt",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"DESede\") — 운영모드 미지정, 기본값 ECB"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/config/OutputGeneratedDescriptors.java",
+      "line": 120,
+      "class": "org.apache.openejb.config.OutputGeneratedDescriptors",
+      "method": "tempFile",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "clean",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/core/security/jaas/SQLLoginModule.java",
+      "line": 124,
+      "class": "org.apache.openejb.core.security.jaas.SQLLoginModule",
+      "method": "initialize",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "undetermined",
+      "role": "config_value",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "tomee",
+      "file": "org/apache/openejb/core/security/jaas/SQLLoginModule.java",
+      "line": 377,
+      "class": "org.apache.openejb.core.security.jaas.SQLLoginModule",
+      "method": "checkPassword",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 50,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "SecretKeyFactory.getInstance(\"PBEWithMD5AndDES\")"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 51,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(PBE_PASSWORD.toCharArray())"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 53,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "MessageDigest.getInstance(\"MD5\")"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 62,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "new PBEParameterSpec(20)"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 62,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEParameterSpec(salt)"
+    },
+    {
+      "project": "traverna",
+      "file": "taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT/org/apache/taverna/ui/perspectives/myexperiment/model/Util.java",
+      "line": 63,
+      "class": "org.apache.taverna.ui.perspectives.myexperiment.model.Util",
+      "method": "doEncryption",
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance(\"PBEWithMD5AndDES\")"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+      "line": 56,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": null,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "new PBEParameterSpec(COUNT)"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+      "line": 56,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": null,
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "violation",
+      "role": "config_value",
+      "api": "new PBEParameterSpec(SALT)"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+      "line": 116,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "createCipher",
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "Cipher.getInstance"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+      "line": 136,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "generateSecretKey",
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "undetermined",
+      "role": "config_value",
+      "api": "SecretKeyFactory.getInstance"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/crypt/SunJceCrypt.java",
+      "line": 154,
+      "class": "org.apache.wicket.util.crypt.SunJceCrypt",
+      "method": "createKeySpec",
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "role": "crypto_operation",
+      "api": "new PBEKeySpec(getKey().toCharArray())"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/diff/Diff.java",
+      "line": 307,
+      "class": "org.apache.wicket.util.diff.Diff",
+      "method": "randomEdit",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "undetermined",
+      "role": "non_security",
+      "api": "new Random"
+    },
+    {
+      "project": "wicket",
+      "file": "org/apache/wicket/util/diff/Diff.java",
+      "line": 381,
+      "class": "org.apache.wicket.util.diff.Diff",
+      "method": "randomSequence",
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "undetermined",
+      "role": "non_security",
+      "api": "new Random"
+    }
+  ]
+}
