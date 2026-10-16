@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence_registry.schema.json",
+  "title": "evidence_registry 한 행",
+  "description": "표준·가이드라인 근거의 원문 위치와 검수 상태. 설계 문서 6.1절. verified=true인 행만 승인 데이터의 gold evidence가 된다.",
+  "type": "object",
+  "required": ["evidence_id", "authority_type", "publisher", "title", "document_id", "revision",
+               "document_sha256", "section_path", "clause_id", "table_id", "page_start", "page_end",
+               "quote", "quote_hash", "normative_relation", "misuse_ids", "cwe_ids",
+               "verified", "verified_by", "verified_at"],
+  "properties": {
+    "evidence_id": {"type": "string", "pattern": "^EVID-[A-Z0-9.-]+$"},
+    "authority_type": {"enum": ["standard", "guideline", "cwe", "cve"]},
+    "publisher": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "document_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "string"},
+    "source_uri": {"type": ["string", "null"]},
+    "local_path": {"type": ["string", "null"]},
+    "document_sha256": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "section_path": {"type": "array", "items": {"type": "string"}},
+    "clause_id": {"type": ["string", "null"]},
+    "table_id": {"type": ["string", "null"]},
+    "page_start": {"type": ["integer", "null"], "minimum": 1},
+    "page_end": {"type": ["integer", "null"], "minimum": 1},
+    "page_basis": {"enum": ["parsed_pdf_page", "printed_page", null]},
+    "quote": {"type": "string"},
+    "quote_hash": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "normative_relation": {"enum": ["prohibits", "requires", "recommends", "describes"]},
+    "misuse_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^MISUSE-[A-Z-]+$"}},
+    "cwe_ids": {"type": "array", "items": {"type": "string", "pattern": "^CWE-[0-9]+$"}},
+    "machine_source": {"type": ["string", "null"]},
+    "verified": {"type": "boolean"},
+    "verified_by": {"type": ["string", "null"]},
+    "verified_at": {"type": ["string", "null"]},
+    "verification_note": {"type": "string"},
+    "license_note": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "description": "clause_id나 table_id 중 하나는 있어야 한다",
+      "anyOf": [
+        {"properties": {"clause_id": {"type": "string"}}},
+        {"properties": {"table_id": {"type": "string"}}}
+      ]
+    },
+    {
+      "description": "검수된 근거는 원문 문서 해시와 인용문이 있어야 한다",
+      "if": {"properties": {"verified": {"const": true}}},
+      "then": {"properties": {"document_sha256": {"type": "string"}, "quote": {"minLength": 1}}}
+    }
+  ],
+  "additionalProperties": false
+}

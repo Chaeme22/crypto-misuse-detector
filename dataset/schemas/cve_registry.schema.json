@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cve_registry.schema.json",
+  "title": "cve_registry 한 행",
+  "description": "특정 제품·버전의 공개 취약점 사례. 설계 문서 6.2절. CVE는 표준 근거를 대체하지 않는다. CVE가 없는 일반 패턴 샘플은 cve_refs가 빈 배열이며 그것은 누락이 아니다.",
+  "type": "object",
+  "required": ["cve_id", "source_uri", "affected_product", "affected_versions", "cwe_ids",
+               "misuse_ids", "relation", "code_reference", "verified", "notes"],
+  "properties": {
+    "cve_id": {"type": "string", "pattern": "^CVE-[0-9]{4}-[0-9]{4,}$"},
+    "source_uri": {"type": "string", "pattern": "^https://"},
+    "affected_product": {"type": "string", "minLength": 1},
+    "affected_versions": {"type": "array", "items": {"type": "string"}},
+    "cwe_ids": {"type": "array", "items": {"type": "string", "pattern": "^CWE-[0-9]+$"}},
+    "misuse_ids": {"type": "array", "items": {"type": "string", "pattern": "^MISUSE-[A-Z-]+$"}},
+    "relation": {"enum": ["derived_from", "contains_pattern", "reproduces", "not_applicable"]},
+    "code_reference": {
+      "type": ["object", "null"],
+      "required": ["repository", "commit", "path"],
+      "properties": {
+        "repository": {"type": "string"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{7,40}$"},
+        "path": {"type": "string"},
+        "function": {"type": ["string", "null"]}
+      }
+    },
+    "verified": {"type": "boolean"},
+    "verified_by": {"type": ["string", "null"]},
+    "verified_at": {"type": ["string", "null"]},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}

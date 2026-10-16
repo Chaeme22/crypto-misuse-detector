@@ -56,6 +56,10 @@ $ python -m rag_app.cli analyze https://github.com/javamelody/javamelody --out r
    속 단어에는 반응하지 않는다
 2. **값 역추적** — 인자가 변수면 선언·필드·다른 파일의 호출자까지 거꾸로 따라가
    실제 값을 확정한다. 못 찾으면 추측하지 않고 "확인 필요"로 남긴다
+   - 키·IV·솔트·비밀번호·시드는 **출처**를 판별한다(`analysis/provenance.py`). 코드에 박힌
+     상수면 위반, `SecureRandom`으로 만든 값이면 정상, 외부 입력이거나 경로마다 다르면
+     확인 필요다. 조건문 안에서만 난수로 채우는 경우처럼 상수가 남을 수 있으면 정상으로
+     닫지 않는다
 3. **표와 비교** — 찾은 값을 기준표와 비교한다. 안전하면 여기서 종료(LLM 호출 없음)
 4. **LLM 역할 판정(선택)** — 표로 안 갈리는 자리만, 이 줄이 실제 암호 연산인지 /
    알고리즘 이름 목록인지 / 테스트 데이터인지를 판정한다. **숫자 비교·위치·규칙
@@ -65,15 +69,39 @@ $ python -m rag_app.cli analyze https://github.com/javamelody/javamelody --out r
 
 ## 정확도
 
-공개 벤치마크 CryptoAPI-Bench(자바 오용 155건) 기준:
+값을 확인하지 못한 자리는 위반으로 단정하지 않고 "확인 요청"으로 사람에게 넘긴다. 아래 재현율은
+확인 요청을 **놓침으로 센** 엄격한 값이다.
 
-| 판정 경로 | 확정 경보 | 오탐 | 확인 요청 | 정밀도 |
-|---|---|---|---|---|
-| 정적 (LLM 없음) | 44 | 0 | 58 | 1.000 |
-| LLM 판정 포함 | 48 | 0 | 46 | 1.000 |
+### 최종 확인 세트 (개발 중 한 번도 보지 않은 세트, 2026-10-12)
 
-값을 확인하지 못한 자리는 위반으로 단정하지 않고 "확인 요청"으로 사람에게 넘긴다.
-놓친 53건 중 51건은 아직 규칙이 없는 유형(솔트·시드·PBE 반복 횟수 등)이다.
+정답과 채점 기준을 결과를 보기 전에 `training/eval/final/`에 고정했고, 결과를 본 뒤 도구를 고치지 않았다.
+채점기: `tools/final_bench.py`.
+
+| 세트 | 정적 (LLM 없음) | LLM(v2) 포함 |
+|---|---|---|
+| MASC 최소 예제 (오용 25 · 정상 1) | 탐지 14 · 확인 요청 11 · 놓침 0 · 오탐 0 (재현율 .56) | 탐지 12 · 확인 요청 13 · 놓침 0 · 오탐 0 (.48) |
+| MASC 변형 앱 — 안드로이드 10개 (오용 2,298) | 재현율 **1.00** (확인 요청 1) | 측정 예정 |
+| MASC 변형 앱 — qpid (오용 17,550) | 재현율 **.99** (확인 요청 124, 놓침 16) | 측정 예정 |
+| 변형 전 원본 앱의 오탐 | 0 | 측정 예정 |
+| GitHub 보안 권고(GHSA) 수정 커밋 22건 | 넓은 기준 9건(.41) · 엄격 기준 7건(.32) · 확인 요청 4 | 정적과 동일 |
+
+- MASC 변형 앱은 같은 오용(`"DES"`)을 코드의 모든 위치에 넣은 세트라 "빠짐없이 보는가"를 잰다(테스트 경로 블록은 따로 셈).
+- GHSA는 저장소 전체가 아니라 수정 커밋이 고친 파일만 검사한다. 22건에는 라이브러리 내부 구현(Bouncy Castle)·프로토콜
+  설정처럼 이 도구가 다루지 않는 종류가 섞여 있으나, 결과를 본 뒤 빼지 않고 그대로 셌다.
+- 1차 측정이 큰 메서드에서 너무 느려 판정에 영향이 없는 속도 수정 후 다시 쟀다. 연습용 36개 코퍼스에서 모든 판정이
+  수정 전과 같음을 확인했다(36/36).
+
+### 연습용 세트 (개발 중 보며 개선한 세트 — 일반화 수치가 아님)
+
+| 세트 | 정적 | 비고 |
+|---|---|---|
+| CryptoAPI-Bench (오용 155) | 탐지 142, 재현율 .916, 정밀도 .986 | 오탐 2는 벤치 라벨 모순 |
+| ApacheCryptoAPI-Bench | 정밀도 .941, 재현율 .857 | v2 정밀도 .960 |
+| 실제 GitHub 오용(개발자 확인) | 재현율 .667 | v2 .704 |
+| NIST Juliet (5 CWE) | F1 .955 | |
+| CamBench | F1 .891 | |
+
+수치와 사례 목록은 `baseline/`, `eval/`에 있다.
 
 ## 실행
 
@@ -84,6 +112,11 @@ export PYTHONPATH=$PWD/src
 
 # 검사 (LLM 없이 — 빠름)
 python -m rag_app.cli analyze <URL 또는 경로> --out report.sarif
+#   → report.sarif(GitHub 보안 탭·VS Code용) + report.md(사람이 읽는 보고서)
+#   --report pdf 로 PDF 보고서(한글 TTF 글꼴 필요, 환경 변수 CRYPTO_REPORT_FONT로 지정 가능), --report none 으로 끔
+
+# 이미 만든 SARIF를 보고서로 변환
+python -m rag_app.cli report report.sarif --format pdf
 
 # 검사 (LLM 판정 포함 — GPU 필요)
 python -m rag_app.cli analyze <경로> --out report.sarif \
@@ -104,5 +137,19 @@ python tools/benchmark.py /path/to/CryptoAPI-Bench
 ## 더 읽을 것
 
 - `development_document/인수인계.md` — 폴더·파일 지도, 실행법, 설계 원칙, 남은 일
+- `baseline/README.md` — 파인튜닝 전 기준선과 다시 만드는 법
+- `dataset/` — 오용 분류(`misuse_taxonomy.json`), 근거 레지스트리, 스키마. 검증: `python tools/validate_dataset.py`
 - `development_document/판정-근거.md` — 판정 설계의 상세 근거 (왜 표가 관문인가,
   왜 확신도 점수를 없앴는가, 왜 값을 못 보면 판정하지 않는가)
+
+## 라이선스
+
+소스 코드는 [MIT License](LICENSE)를 따른다.
+
+`data/`의 파싱 결과물과 검색 색인, `config/tier1_thresholds.json`의 기준값은 한국인터넷진흥원(KISA)과
+미국 국립표준기술연구소(NIST)가 공개 배포하는 문서에서 가져왔다. 원 문서의 저작권은 각 발행 기관에 있으며
+MIT License의 대상이 아니다. 원문은 [KISA 암호이용활성화](https://seed.kisa.or.kr)와
+[NIST CSRC](https://csrc.nist.gov/publications)에서 받을 수 있다.
+
+학습한 어댑터(`adapters/qwen7b-v2`)는 [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct)
+(Apache License 2.0)를 기반으로 한다.

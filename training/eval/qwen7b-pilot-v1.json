@@ -1,0 +1,4678 @@
+{
+  "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "backend": "hf",
+  "adapter": "runs/qwen7b-pilot-v1",
+  "data": "test.jsonl",
+  "seconds": 1466,
+  "examples": 330,
+  "format_ok": 1.0,
+  "decision_accuracy": 1.0,
+  "macro_f1": 1.0,
+  "per_decision": {
+    "violation": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 142
+    },
+    "clean": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 68
+    },
+    "undetermined": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 120
+    }
+  },
+  "role_accuracy": 1.0,
+  "guessed_when_undetermined": 0.0,
+  "accuracy_by_rule": {
+    "CRYPTO-CIPHER-OBSOLETE": 1.0,
+    "CRYPTO-HASH-WEAK": 1.0,
+    "CRYPTO-IV-STATIC": 1.0,
+    "CRYPTO-KDF-WEAK": 1.0,
+    "CRYPTO-KEY-HARDCODED": 1.0,
+    "CRYPTO-KEYSIZE-SHORT": 1.0,
+    "CRYPTO-MODE-ECB": 1.0,
+    "CRYPTO-PASSWORD-HARDCODED": 1.0,
+    "CRYPTO-RNG-INSECURE": 1.0,
+    "CRYPTO-SALT-STATIC": 1.0,
+    "CRYPTO-SEED-PREDICTABLE": 1.0
+  },
+  "accuracy_by_depth": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0
+  },
+  "confusion": {
+    "violation->violation": 142,
+    "clean->clean": 68,
+    "undetermined->undetermined": 120
+  },
+  "records": [
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000145",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000146",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000147",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000148",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000149",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000150",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000151",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000152",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000153",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MessageDigest.getInstance(\"MD4\")다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000154",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000155",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000156",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000157",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000158",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000159",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000160",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000161",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000162",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000163",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000164",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000165",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000166",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000167",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000168",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000169",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000170",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000171",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000172",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 MD4다. MD4는 기준표에 없다.\nfix: SHA-256 이상 또는 SHA3-256, LSH-256으로 교체한다. 국내 표준을 따르려면 LSH 계열도 가능하다."
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000173",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000174",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000175",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000176",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000177",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000178",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000179",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-HASH-WEAK-000180",
+      "rule_id": "CRYPTO-HASH-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000145",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평가표준 계열이고, ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000146",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평가표준 계열이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000147",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평가표준 계열이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000148",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000149",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000150",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000151",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평가표준 계열이고, ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000152",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평균 sécurité 레벨이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000153",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"LEA/ECB/PKCS5Padding\")다. LEA는 국비표준 이상 기준이 없는 평균 sécurité 레벨이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000154",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000155",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000156",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000157",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000158",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000159",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000160",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000161",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000162",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000163",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준 이상 기준으로 인증받은 알고리즘이다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000164",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000165",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000166",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. 국산 LEA 암호가 아니고 ECB 운영모드다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000167",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000168",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000169",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000170",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000171",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000172",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 LEA/ECB/PKCS5Padding다. LEA는 국비표준アル고리즘이고 ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다.\nfix: CBC에 임의 IV를 쓰거나, 인증 암호가 필요하면 GCM 또는 CCM으로 바꾼다."
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000173",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000174",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000175",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000176",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000177",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000178",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000179",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-MODE-ECB-000180",
+      "rule_id": "CRYPTO-MODE-ECB",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000081",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000082",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000083",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000084",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000085",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000086",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000087",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000088",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000089",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 Cipher.getInstance(\"DES\")다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000090",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000091",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000092",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000093",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000094",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000095",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000096",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000097",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000098",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000099",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000100",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 DES다. DES는 기준표에 없다.\nfix: AES-128 이상 또는 SEED, ARIA-128 이상, LEA-128 이상으로 교체한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000065",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000066",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000067",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000068",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000069",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000070",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000071",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000072",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000073",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000074",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000075",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000076",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000077",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000078",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000079",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-KEYSIZE-SHORT-000080",
+      "rule_id": "CRYPTO-KEYSIZE-SHORT",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 RSA-2047다. RSA 2047비트는 기준표의 최소 길이에 못 미친다.\nfix: RSA는 2048비트 이상, 대칭키는 128비트 이상으로 올린다. 양자내성이 필요하면 대칭키 256비트 이상."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000037",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000038",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000039",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000040",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000041",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000042",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000043",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000044",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000045",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고 값은 new Random다. java.util.Random 출력을 키 바이트로 쓴다.\nfix: Python은 secrets 또는 os.urandom, Java는 SecureRandom을 쓴다. 표준은 KS X ISO IEC 18031을 따른다."
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000046",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000047",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-RNG-INSECURE-000048",
+      "rule_id": "CRYPTO-RNG-INSECURE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000097",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000098",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000099",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000100",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000101",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000102",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000103",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000104",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000105",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000106",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000107",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000108",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000109",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000110",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000111",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000112",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000113",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000114",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000115",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 시드가 상수다(코드에 적힌 값 `0L`).\nfix: 시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다."
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000116",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000117",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000118",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000119",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SEED-PREDICTABLE-000120",
+      "rule_id": "CRYPTO-SEED-PREDICTABLE",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000145",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000146",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000147",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000148",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000149",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000150",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000151",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000152",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000153",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000154",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000155",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000156",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000157",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000158",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000159",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000160",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000161",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000162",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000163",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000164",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000165",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000166",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000167",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000168",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000169",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000170",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000171",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000172",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(코드에 적힌 값 `\"k3y-material-0000\"`).\nfix: 키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다."
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000173",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000174",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000175",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000176",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000177",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000178",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000179",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KEY-HARDCODED-000180",
+      "rule_id": "CRYPTO-KEY-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000145",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000146",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000147",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000148",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000149",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000150",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000151",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000152",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000153",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000154",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000155",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000156",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000157",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000158",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000159",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000160",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000161",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000162",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000163",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000164",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000165",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000166",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000167",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000168",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000169",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000170",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000171",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000172",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[12]`를 채우지 않아 0으로 고정된 값).\nfix: IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다."
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000173",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000174",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000175",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000176",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000177",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000178",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000179",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-IV-STATIC-000180",
+      "rule_id": "CRYPTO-IV-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000145",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000146",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000147",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000148",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000149",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000150",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000151",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000152",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000153",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000154",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000155",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000156",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000157",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000158",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000159",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000160",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000161",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000162",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000163",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000164",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000165",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000166",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000167",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000168",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000169",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000170",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000171",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000172",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"password123\"`).\nfix: 비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다."
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000173",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000174",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000175",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000176",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000177",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000178",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000179",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-PASSWORD-HARDCODED-000180",
+      "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000145",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000146",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000147",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000148",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000149",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000150",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000151",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000152",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000153",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000154",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000155",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000156",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000157",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000158",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000159",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000160",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000161",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000162",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000163",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000164",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000165",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000166",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000167",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000168",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000169",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000170",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000171",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000172",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{1, 2, 3, 4, 5, 6, 7, 8}`).\nfix: 솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다."
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000173",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000174",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000175",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000176",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000177",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000178",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000179",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-SALT-STATIC-000180",
+      "rule_id": "CRYPTO-SALT-STATIC",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000145",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000146",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000147",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000148",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000149",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000150",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000151",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000152",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000153",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000154",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000155",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000156",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "test_fixture"
+      },
+      "answer": "role: test_fixture\ndecision: clean\nreasoning: 테스트 소스에 둔 고정값이다. 운영 코드에서 쓰이는 값이 아니다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000157",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000158",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000159",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `value`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000160",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000161",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000162",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `material`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000163",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000164",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000165",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `DEFAULT_VALUE`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000166",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000167",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000168",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `SECRET`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000169",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000170",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000171",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000172",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "violation",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: violation\nreasoning: 화살표 줄은 실제로 호출되는 암호 API이고, 반복 횟수 999회가 최소 1,000회에 못 미친다(반복 횟수 999회가 최소 기준 1000회에 못 미친다).\nfix: PBKDF2, scrypt, Argon2를 쓰고 솔트를 난수로 만든다. 국내 표준은 TTAK.KO-12.0241을 참고한다."
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000173",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000174",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000175",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000176",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000177",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `input`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000178",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 2,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000179",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 1,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-KDF-WEAK-000180",
+      "rule_id": "CRYPTO-KDF-WEAK",
+      "depth": 0,
+      "gold": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "predicted": {
+        "decision": "undetermined",
+        "role": "crypto_operation"
+      },
+      "answer": "role: crypto_operation\ndecision: undetermined\nreasoning: `given`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000107",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000108",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000109",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000110",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 2,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000111",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 1,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    },
+    {
+      "example_id": "EX-JAVA-CIPHER-OBSOLETE-000112",
+      "rule_id": "CRYPTO-CIPHER-OBSOLETE",
+      "depth": 0,
+      "gold": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "predicted": {
+        "decision": "clean",
+        "role": "name_list"
+      },
+      "answer": "role: name_list\ndecision: clean\nreasoning: 알고리즘 이름을 목록에서 찾거나 비교할 뿐 그 이름으로 암호 연산을 하지 않는다.\nfix:"
+    }
+  ]
+}

@@ -79,6 +79,7 @@ _PURPOSE_BY_CALL = {
     "Crypto.Hash.MD5.new": "hash_signature",
     "Crypto.Hash.SHA1.new": "hash_signature",
     "Cipher.getInstance": "symmetric_cipher",
+    "new SecretKeySpec": "symmetric_cipher",          # 두 번째 인자가 그 키의 알고리즘
     "KeyGenerator.getInstance": "symmetric_cipher",
     "AES.new": "symmetric_cipher",
     "DES.new": "symmetric_cipher",
@@ -112,6 +113,9 @@ _ALIAS_NOTES = {
 # 대칭키 이름이 목적을 되돌리는 경우. `HmacSHA1`은 호출이 무엇이든 메시지인증용이다.
 _MAC_PREFIX = re.compile(r"^(HMAC|PBKDF2WITHHMAC|PBEWITHHMAC)", re.IGNORECASE)
 _PBE_PREFIX = re.compile(r"^PBEWITH(?:MD5|SHA1?|SHA\d+)AND", re.IGNORECASE)
+# 서명 알고리즘 이름. `SHA1withRSA`에서 표와 견줄 것은 해시 부분이다. 공개키 쪽은 키 길이로 따로 잰다.
+_SIGNATURE_NAME = re.compile(r"^(.+?)WITH(?:RSA|DSA|ECDSA|PLAIN-ECDSA|CVC-ECDSA|EDDSA|SM2)",
+                             re.IGNORECASE)
 
 
 def canonical(spec: str) -> str:
@@ -129,6 +133,9 @@ def canonical(spec: str) -> str:
     text = text.strip()
     text = _MAC_PREFIX.sub("", text)
     text = _PBE_PREFIX.sub("", text)
+    signature = _SIGNATURE_NAME.match(text)
+    if signature:
+        text = signature.group(1)
     upper = text.upper().replace("_", "")
     return _ALIASES.get(upper, upper)
 
@@ -148,6 +155,13 @@ def purpose_for_call(call: str, spec: str = "") -> str | None:
     if _MAC_PREFIX.match(text):
         return "hash_mac"
     purpose = _PURPOSE_BY_CALL.get(call)
+    if call == "SecretKeyFactory.getInstance" and text and not re.match(r"^(PBKDF|PBE)", text,
+                                                                         re.IGNORECASE):
+        # `SecretKeyFactory.getInstance("ARIA")`·`("DESede")`는 키 유도가 아니라 대칭키 객체를 만든다
+        purpose = "symmetric_cipher"
+    if _PBE_PREFIX.match(text):
+        # `PBEWithSHA1AndDESede`·`PBEWithMD5AndDES`(PBES1): 유도한 키로 뒤쪽 암호를 쓴다. 강도는 그 암호가 정한다
+        purpose = "symmetric_cipher"
     if purpose == "symmetric_cipher" and canonical(text) in _ASYMMETRIC:
         return "public_key"
     return purpose
@@ -231,6 +245,10 @@ class ThresholdTable:
         """
         purpose = purpose_of(site)
         if purpose is None:
+            return None
+        if site.call == "new SecretKeySpec" and not site.algorithm_spec:
+            # 키 객체의 알고리즘 인자를 따로 재는 지점만 표와 견준다. 키 바이트의 출처를 보는
+            # 지점(하드코딩 키 규칙)은 표로 답할 질문이 아니다.
             return None
         if purpose == "public_key":
             return self._measure_public_key(site)

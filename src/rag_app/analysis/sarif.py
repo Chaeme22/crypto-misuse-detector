@@ -46,9 +46,11 @@ def _level_of(finding: Finding) -> str:
     """
     if finding.verdict.needs_human:
         return "note"
+    if finding.verdict.decision is Decision.WARNING:
+        return "warning"
     measurement = finding.measurement
     if measurement is not None and measurement.outcome.value == "expiring":
-        return "note"
+        return "warning"
     return finding.rule.level.value
 
 
@@ -110,7 +112,8 @@ def _result_object(finding: Finding) -> dict:
 
 def build(findings: list[Finding], root: str, tool_version: str = "0.1.0",
           provenance: dict | None = None,
-          dependencies: list[dict] | None = None) -> dict:
+          dependencies: list[dict] | None = None,
+          verdict_info: dict | None = None) -> dict:
     """
     판정 목록을 SARIF 문서로 만든다.
 
@@ -147,6 +150,10 @@ def build(findings: list[Finding], root: str, tool_version: str = "0.1.0",
     # 알 수 있어야 한다. 전이 의존성은 빌드를 돌려야 나오므로 여기서 다루지 않는다.
     if dependencies:
         run["properties"] = {"declaredDependencies": dependencies}
+    # 이 보고서가 정적 판정만으로 나왔는지, 어떤 AI 판정 모델을 함께 썼는지. 같은 코드라도 판정 방식에
+    # 따라 결과가 다르므로 보고서만 보고 알 수 있어야 한다.
+    if verdict_info:
+        run.setdefault("properties", {})["verdict"] = verdict_info
     return {
         "$schema": SCHEMA,
         "version": VERSION,
@@ -156,8 +163,8 @@ def build(findings: list[Finding], root: str, tool_version: str = "0.1.0",
 
 def write(findings: list[Finding], root: str, out_path: Path,
           tool_version: str = "0.1.0", provenance: dict | None = None,
-          dependencies: list[dict] | None = None) -> dict:
-    document = build(findings, root, tool_version, provenance, dependencies)
+          dependencies: list[dict] | None = None, verdict_info: dict | None = None) -> dict:
+    document = build(findings, root, tool_version, provenance, dependencies, verdict_info)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n",
                         encoding="utf-8")

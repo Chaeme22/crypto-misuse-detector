@@ -130,10 +130,12 @@ def collect(root: Path, rules: list[Rule],
     """
     out: list[tuple[UsageSite, Rule]] = []
 
-    repo_calls = None
+    repo_calls = project = None
     if any(path.suffix == ".java" for path in root.rglob("*.java")):
-        from . import call_index
+        from . import call_index, project_index
         repo_calls = call_index.build(root)
+        # 출처 판별이 다른 파일의 호출 자리·상수·반환값을 따라갈 때 쓴다
+        project = project_index.Project.build(root)
 
     for path in sorted(root.rglob("*")):
         if path.is_dir() or path.suffix not in SUFFIXES:
@@ -146,12 +148,13 @@ def collect(root: Path, rules: list[Rule],
             source = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        relative = str(path.relative_to(root))
+        # 보고서·학습 데이터가 OS에 따라 달라지지 않게 늘 / 로 쓴다. SARIF URI도 / 다.
+        relative = path.relative_to(root).as_posix()
         if path.suffix == ".java":
             from . import extract_java
             try:
                 out.extend(extract_java.collect_file(path, relative, rules, source,
-                                                     repo_calls))
+                                                     repo_calls, project))
             except Exception as e:
                 # 파서가 못 읽은 파일을 조용히 건너뛰지 않는다. 검사에서 빠진 파일이 있다는
                 # 사실을 알아야 커버리지를 말할 수 있다.

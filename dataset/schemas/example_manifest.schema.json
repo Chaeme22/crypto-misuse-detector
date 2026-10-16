@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "example_manifest.schema.json",
+  "title": "example_manifest 한 행",
+  "description": "개별 코드 샘플과 라벨·근거·출처·검증 결과의 매핑. 설계 문서 7.1절. 모델 입력에 직접 쓰지 않는다.",
+  "type": "object",
+  "required": [
+    "example_id",
+    "source_type",
+    "source_uri",
+    "source_revision",
+    "license",
+    "language",
+    "file_path",
+    "code_sha256",
+    "context_depth_available",
+    "context_depth_required",
+    "ast_format",
+    "ir_version",
+    "provenance",
+    "role",
+    "decision",
+    "rule_id",
+    "misuse_id",
+    "cwe_ids",
+    "standard_evidence_ids",
+    "cve_refs",
+    "generator",
+    "lineage_group",
+    "validation",
+    "split"
+  ],
+  "properties": {
+    "example_id": {
+      "type": "string",
+      "pattern": "^EX-(JAVA|PYTHON|C|CPP|JS)-[A-Z0-9-]+-[0-9]{6}$"
+    },
+    "source_type": {
+      "enum": [
+        "real_code",
+        "synthetic",
+        "mutation",
+        "benchmark"
+      ]
+    },
+    "source_uri": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "enum": [
+        "java",
+        "python",
+        "c",
+        "cpp",
+        "javascript"
+      ]
+    },
+    "file_path": {
+      "type": "string"
+    },
+    "code_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "context_depth_available": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "context_depth_required": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "ast_format": {
+      "const": "tree-sitter"
+    },
+    "ir_version": {
+      "const": "crypto-ir-v1"
+    },
+    "ir": {
+      "$ref": "crypto_ir_v1.schema.json"
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "crypto_ir_v1.schema.json#/$defs/source"
+      }
+    },
+    "role": {
+      "enum": [
+        "crypto_operation",
+        "name_list",
+        "config_value",
+        "test_fixture",
+        "documentation",
+        "non_security"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "violation",
+        "clean",
+        "undetermined"
+      ]
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^CRYPTO-[A-Z-]+$"
+    },
+    "misuse_id": {
+      "type": "string",
+      "pattern": "^MISUSE-[A-Z-]+$"
+    },
+    "cwe_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^CWE-[0-9]+$"
+      }
+    },
+    "standard_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^EVID-"
+      }
+    },
+    "cve_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CVE-[0-9]{4}-[0-9]{4,}$"
+      },
+      "description": "빈 배열은 누락이 아니라 CVE와 연결되지 않은 일반 패턴이라는 뜻이다"
+    },
+    "generator": {
+      "type": "object",
+      "required": [
+        "kind",
+        "seed",
+        "parent_example_id"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "llm",
+            "template",
+            "real_code",
+            "manual"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "seed": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "parent_example_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineage_group": {
+      "type": "string",
+      "minLength": 1,
+      "description": "같은 원본·변형쌍·템플릿·CVE를 묶는 키. split은 이 단위로 나눈다"
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "parse",
+        "compile_or_lint",
+        "rule_engine",
+        "semgrep",
+        "codeql",
+        "secrets_scan",
+        "human_reviewers",
+        "status"
+      ],
+      "properties": {
+        "parse": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "compile_or_lint": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run"
+          ]
+        },
+        "rule_engine": {
+          "enum": [
+            "pass",
+            "disagree",
+            "not_applicable"
+          ]
+        },
+        "semgrep": {
+          "enum": [
+            "pass",
+            "disagree",
+            "not_run"
+          ]
+        },
+        "codeql": {
+          "enum": [
+            "pass",
+            "disagree",
+            "not_run"
+          ]
+        },
+        "secrets_scan": {
+          "enum": [
+            "pass",
+            "masked",
+            "fail",
+            "not_run"
+          ]
+        },
+        "human_reviewers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "rejected",
+            "needs_review"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test",
+        "external_holdout",
+        "unassigned"
+      ]
+    }
+  },
+  "$comment": "필드끼리 비교하는 규칙(문맥 깊이 부족 → undetermined, CWE가 분류와 같음, 근거 ID 존재)은 JSON Schema로 표현할 수 없어 tools/validate_dataset.py가 검사한다.",
+  "allOf": [
+    {
+      "description": "승인된 샘플은 사람 검토와 표준 근거가 있어야 한다",
+      "if": {
+        "properties": {
+          "validation": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "standard_evidence_ids": {
+            "minItems": 1
+          },
+          "validation": {
+            "properties": {
+              "human_reviewers": {
+                "minimum": 1
+              },
+              "parse": {
+                "const": "pass"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "위반이 될 수 없는 역할(name_list, test_fixture, documentation, non_security)",
+      "if": {
+        "properties": {
+          "role": {
+            "enum": [
+              "name_list",
+              "test_fixture",
+              "documentation",
+              "non_security"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "clean",
+              "undetermined"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,290 @@
+{
+  "meta": {
+    "detector_commit": "",
+    "detector_dirty": false,
+    "rules_sha256": "4a71fedc49cb5c4512027058552bed2075e38efc83795d115dce7176f9380a61"
+  },
+  "languages": {
+    "java": {
+      "extensions": [
+        ".java"
+      ],
+      "value_tracing": true,
+      "cross_file_tracing": true,
+      "table_comparison": true
+    },
+    "python": {
+      "extensions": [
+        ".py"
+      ],
+      "value_tracing": false,
+      "cross_file_tracing": false,
+      "table_comparison": false
+    }
+  },
+  "rules": {
+    "CRYPTO-HASH-WEAK": {
+      "cwe": "CWE-328",
+      "level": "error",
+      "table_decides": true,
+      "table_measures": true,
+      "api_triggers": {
+        "java": [
+          "MessageDigest.getInstance"
+        ],
+        "python": [
+          "hashlib.md5",
+          "hashlib.sha1",
+          "Crypto.Hash.MD5.new",
+          "Crypto.Hash.SHA1.new"
+        ],
+        "unsupported": [
+          "crypto.createHash"
+        ]
+      },
+      "literal_triggers": [
+        "MD5",
+        "SHA-1",
+        "SHA1",
+        "md5",
+        "sha1"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ]
+    },
+    "CRYPTO-MODE-ECB": {
+      "cwe": "CWE-327",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "Cipher.getInstance",
+          "AES.new",
+          "DES.new",
+          "ARC4.new"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [
+        "MODE_ECB",
+        "AES/ECB",
+        "DES/ECB",
+        "SEED/ECB",
+        "ARIA/ECB",
+        "/ECB/"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ]
+    },
+    "CRYPTO-CIPHER-OBSOLETE": {
+      "cwe": "CWE-327",
+      "level": "error",
+      "table_decides": true,
+      "table_measures": true,
+      "api_triggers": {
+        "java": [
+          "DES.new",
+          "DES3.new",
+          "ARC4.new",
+          "Blowfish.new"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [
+        "DES/",
+        "DESede",
+        "TripleDES",
+        "3DES",
+        "Blowfish",
+        "RC4",
+        "ARCFOUR",
+        "DESede/",
+        "Blowfish/"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ]
+    },
+    "CRYPTO-KEYSIZE-SHORT": {
+      "cwe": "CWE-326",
+      "level": "error",
+      "table_decides": true,
+      "table_measures": true,
+      "api_triggers": {
+        "java": [
+          "RSA.generate",
+          "rsa.generate_private_key",
+          "KeyPairGenerator.getInstance",
+          "dsa.generate_private_key"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [
+        "RSA-1024",
+        "RSA-512",
+        "DH-1024"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ]
+    },
+    "CRYPTO-RNG-INSECURE": {
+      "cwe": "CWE-338",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "Math.random",
+          "Random",
+          "new Random"
+        ],
+        "python": [
+          "random.random",
+          "random.randint",
+          "random.choice",
+          "random.randrange",
+          "random.getrandbits",
+          "random.sample",
+          "random.shuffle"
+        ],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java",
+        "python"
+      ]
+    },
+    "CRYPTO-SEED-PREDICTABLE": {
+      "cwe": "CWE-337",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "SecureRandom.setSeed",
+          "new SecureRandom"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java"
+      ]
+    },
+    "CRYPTO-KEY-HARDCODED": {
+      "cwe": "CWE-321",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "new SecretKeySpec"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java"
+      ]
+    },
+    "CRYPTO-IV-STATIC": {
+      "cwe": "CWE-329",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "new IvParameterSpec"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java"
+      ]
+    },
+    "CRYPTO-PASSWORD-HARDCODED": {
+      "cwe": "CWE-259",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "new PBEKeySpec",
+          "KeyStore.load",
+          "KeyStore.store",
+          "KeyStore.getKey",
+          "KeyManagerFactory.init"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java"
+      ]
+    },
+    "CRYPTO-SALT-STATIC": {
+      "cwe": "CWE-760",
+      "level": "error",
+      "table_decides": false,
+      "table_measures": false,
+      "api_triggers": {
+        "java": [
+          "new PBEParameterSpec",
+          "new PBEKeySpec"
+        ],
+        "python": [],
+        "unsupported": []
+      },
+      "literal_triggers": [],
+      "languages": [
+        "java"
+      ]
+    },
+    "CRYPTO-KDF-WEAK": {
+      "cwe": "CWE-916",
+      "level": "warning",
+      "table_decides": false,
+      "table_measures": true,
+      "api_triggers": {
+        "java": [
+          "SecretKeyFactory.getInstance",
+          "new PBEParameterSpec",
+          "new PBEKeySpec"
+        ],
+        "python": [
+          "hashlib.pbkdf2_hmac"
+        ],
+        "unsupported": []
+      },
+      "literal_triggers": [
+        "PBKDF2WithHmacMD5"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ]
+    }
+  },
+  "not_supported": [
+    "c",
+    "cpp",
+    "javascript"
+  ]
+}

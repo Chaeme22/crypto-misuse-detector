@@ -20,7 +20,7 @@ from pathlib import Path
 from ..config.schema import AppConfig
 from ..domain.models import SearchQuery
 from ..observability.logging import get_logger
-from . import extract, repo_info, rules as tier1, sarif
+from . import extract, provenance, repo_info, rules as tier1, sarif
 from .findings import Citation, Decision, Finding, Rule, UsageSite, Verdict
 from .thresholds import Measurement, Outcome, ThresholdTable
 from .verdict import StaticVerdict, VerdictProvider
@@ -38,6 +38,8 @@ class AnalysisState:
     thresholds: ThresholdTable | None = None
     # 표 대조만으로 닫힌 건수. 모델을 부르지 않고 끝난 자리다.
     closed_by_table: int = 0
+    # 출처 판별만으로 정상이 확정된 건수. SecureRandom이 만든 키처럼 구조로 답이 선 자리다.
+    closed_by_provenance: int = 0
     # 검사 대상의 신원. 보고서가 어느 시점의 어떤 코드에 대한 것인지 증명한다.
     provenance: dict | None = None
     dependencies: list[dict] = field(default_factory=list)
@@ -198,6 +200,17 @@ def judge_sites(state: AnalysisState, provider: VerdictProvider,
     """
     clause_cache: dict[str, tuple[Citation, ...]] = {}
     for site, rule in state.sites:
+        # 출처가 안전한 난수이거나 반복 횟수가 기준을 만족하면 구조로 답이 섰다. 표가
+        # 만족이라고 답한 자리와 같은 이유로 모델을 부르지 않는다.
+        if site.provenance in provenance.CLEAN:
+            state.closed_by_provenance += 1
+            state.findings.append(Finding(
+                site=site, rule=rule,
+                verdict=Verdict(decision=Decision.CLEAN,
+                                reasoning=site.provenance_note,
+                                role="출처 판별로 확정")))
+            continue
+
         measurement = measure(state, site, rule)
 
         if (measurement is not None and rule.table_decides
@@ -208,6 +221,20 @@ def judge_sites(state: AnalysisState, provider: VerdictProvider,
                 citations=(measurement.citation,) if measurement.citation else (),
                 verdict=Verdict(decision=Decision.CLEAN,
                                 reasoning=measurement.sentence(),
+                                role="표 대조로 확정")))
+            continue
+
+        if (measurement is not None and rule.table_decides
+                and measurement.outcome is Outcome.EXPIRING):
+            # 최소 기준은 만족하고 권장에 못 미친다. 위반이 아니라 경고로 따로 낸다. 테스트 소스는
+            # 위반과 같은 이유로 보고하지 않는다.
+            state.closed_by_table += 1
+            decision = Decision.CLEAN if site.is_test else Decision.WARNING
+            state.findings.append(Finding(
+                site=site, rule=rule, measurement=measurement,
+                citations=(measurement.citation,) if measurement.citation else (),
+                verdict=Verdict(decision=decision, reasoning=measurement.sentence(),
+                                suggested_fix=rule.remediation,
                                 role="표 대조로 확정")))
             continue
 
@@ -230,15 +257,17 @@ def judge_sites(state: AnalysisState, provider: VerdictProvider,
     return state
 
 
-def report(state: AnalysisState, out_path: Path) -> dict:
+def report(state: AnalysisState, out_path: Path, verdict_info: dict | None = None) -> dict:
     return sarif.write(state.findings, root=str(state.root), out_path=out_path,
                        provenance=state.provenance,
-                       dependencies=state.dependencies)
+                       dependencies=state.dependencies,
+                       verdict_info=verdict_info)
 
 
 def run(target: str, out_path: Path, config: AppConfig,
         provider: VerdictProvider | None = None,
-        with_clauses: bool = True) -> tuple[dict, AnalysisState]:
+        with_clauses: bool = True,
+        verdict_info: dict | None = None) -> tuple[dict, AnalysisState]:
     """종단 실행. 상태를 함께 돌려주므로 호출한 쪽에서 중간 결과를 볼 수 있다."""
     import shutil
 
@@ -250,7 +279,7 @@ def run(target: str, out_path: Path, config: AppConfig,
         state = extract_sites(state)
         finder = ClauseFinder(config) if with_clauses else None
         state = judge_sites(state, provider or StaticVerdict(), finder)
-        document = report(state, out_path)
+        document = report(state, out_path, verdict_info or {"mode": getattr(provider, "name", "static")})
         return document, state
     finally:
         if state.cleanup is not None:

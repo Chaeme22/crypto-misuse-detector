@@ -17,6 +17,7 @@ import re
 from typing import Protocol, runtime_checkable
 
 from ..observability.logging import get_logger
+from . import provenance
 from .findings import Citation, Decision, Rule, UsageSite, Verdict
 
 logger = get_logger(__name__)
@@ -50,7 +51,7 @@ class StaticVerdict:
               measurement=None) -> Verdict:
         # 표 대조가 결론을 냈고 그 규칙의 질문이 표로 끝나면 그 결과를 그대로 쓴다.
         if (measurement is not None and rule.table_decides
-                and measurement.outcome.value in ("below", "not_listed", "expiring")):
+                and measurement.outcome.value in ("below", "not_listed")):
             return Verdict(decision=Decision.VIOLATION,
                            reasoning=measurement.sentence(),
                            suggested_fix=rule.remediation,
@@ -65,6 +66,19 @@ class StaticVerdict:
                 reasoning=(f"문자열 `{site.api}`만 발견했다. 알고리즘 이름이 적힌 목록인지 "
                            f"실제 사용인지 정적 신호로는 가릴 수 없어 판정을 보류한다."),
                 role="unknown",
+            )
+        # 출처를 판별한 자리는 그 사실이 판정 근거다. 호출만 보고 위반이라 하지 않는다.
+        # 위반 출처가 아니면 여기서 보류한다. enforce가 다시 막지만 거기에만 기대지 않는다.
+        if site.provenance and site.provenance not in provenance.VIOLATING:
+            return Verdict(decision=Decision.UNDETERMINED,
+                           reasoning=(f"{site.provenance_note}. 출처가 확정되지 않아 "
+                                      f"판정을 보류한다."),
+                           role="unknown")
+        if site.provenance:
+            return Verdict(
+                decision=Decision.VIOLATION,
+                reasoning=f"{site.provenance_note}. {rule.summary}에 해당한다.",
+                suggested_fix=rule.remediation,
             )
         return Verdict(
             decision=Decision.VIOLATION,
@@ -105,6 +119,8 @@ PROMPT = """당신은 코드를 읽고 암호 오용인지 판정한다. 규칙�
 - config_value: 설정 값으로 알고리즘을 지정한다. 그 설정이 실제로 쓰이면 위반이다.
 - test_fixture: 테스트 데이터나 더미 값이다.
 - documentation: 주석, 문서 문자열, 설명문이다.
+- non_security: 실제로 실행되지만 보안과 무관한 용도다. 셔플·표본추출·지터·통계용 난수,
+  캐시 키·중복 제거·파일 식별용 해시처럼 결과가 비밀이나 인증을 지키지 않는다.
 
 그다음 판정하라. 답은 셋이다.
 - violation: 위반이다.
@@ -114,11 +130,11 @@ PROMPT = """당신은 코드를 읽고 암호 오용인지 판정한다. 규칙�
   것이 지어낸 답보다 낫다.
 
 `crypto_operation`과 `config_value`만 위반이 될 수 있다. `name_list`, `test_fixture`,
-`documentation`은 위반이 아니다. 테스트 소스인지는 아래 [사실]에 적혀 있으니 경로를 보고
-추측하지 마라. 코드가 무엇을 하는지만 보라. 규칙 설명을 되풀이하지 마라.
+`documentation`, `non_security`는 위반이 아니다. 테스트 소스인지는 아래 [사실]에 적혀 있으니
+경로를 보고 추측하지 마라. 코드가 무엇을 하는지만 보라. 규칙 설명을 되풀이하지 마라.
 
-아래 다섯 줄만 출력하라. 다른 말은 쓰지 마라. 값에 따옴표를 써도 된다.
-role: 위 다섯 중 하나
+아래 네 줄만 출력하라. 다른 말은 쓰지 마라. 값에 따옴표를 써도 된다.
+role: 위 여섯 중 하나
 decision: violation 또는 clean 또는 undetermined
 reasoning: 이 코드가 무엇을 하는지 근거로 두세 문장, 한 줄로
 fix: 위반일 때만 고치는 방법 한 문장, 아니면 비워라"""
@@ -142,15 +158,7 @@ class LlmVerdict:
     def judge(self, site: UsageSite, rule: Rule,
               citations: tuple[Citation, ...],
               measurement=None) -> Verdict:
-        clauses = "\n".join(f"- {c.label()}: {c.quote[:300]}" for c in citations) or "(없음)"
-        prompt = PROMPT.format(
-            rule_id=rule.rule_id, cwe=rule.cwe, summary=rule.summary, detail=rule.detail,
-            clauses=clauses, file_path=site.file_path,
-            api=site.api or "(문자열)", context=site.context or site.snippet,
-            value_note=_value_note(site),
-            test_note=("이 파일은 빌드 규약상 테스트 소스다."
-                       if site.is_test else "이 파일은 운영 소스다."),
-            table_note=_table_note(measurement))
+        prompt = build_prompt(site, rule, citations, measurement)
 
         for attempt in range(self.max_retries + 1):
             text = self._ask(prompt)
@@ -173,6 +181,37 @@ class LlmVerdict:
         return getattr(result, "answer", "") or ""
 
 
+# 위반이 될 수 없는 역할. 모델이 역할은 맞게 보고 판정만 규칙 설명에 끌려 위반이라 할 때 되돌린다.
+NON_VIOLATING_ROLES = ("name_list", "test_fixture", "documentation", "non_security")
+
+
+def build_prompt(site: UsageSite, rule: Rule, citations: tuple[Citation, ...] = (),
+                 measurement=None) -> str:
+    """
+    판정 프롬프트. 운영 판정과 학습 데이터가 같은 함수를 쓴다.
+
+    학습 데이터의 입력이 운영 프롬프트와 한 글자라도 다르면 모델은 운영에서 본 적 없는
+    입력을 받는다. 그래서 프롬프트를 만드는 곳을 하나로 둔다.
+    """
+    clauses = "\n".join(f"- {c.label()}: {c.quote[:300]}" for c in citations) or "(없음)"
+    return PROMPT.format(
+        rule_id=rule.rule_id, cwe=rule.cwe, summary=rule.summary, detail=rule.detail,
+        clauses=clauses, file_path=site.file_path,
+        api=site.api or "(문자열)", context=site.context or site.snippet,
+        value_note=_value_note(site),
+        test_note=("이 파일은 빌드 규약상 테스트 소스다."
+                   if site.is_test else "이 파일은 운영 소스다."),
+        table_note=_table_note(measurement))
+
+
+def format_answer(verdict: Verdict) -> str:
+    """판정을 parser가 읽는 네 줄로 쓴다. 학습 데이터의 정답 출력이 이 형식이다."""
+    one_line = lambda text: " ".join(str(text).split())  # noqa: E731
+    fix = one_line(verdict.suggested_fix) if verdict.decision is Decision.VIOLATION else ""
+    return (f"role: {verdict.role}\ndecision: {verdict.decision.value}\n"
+            f"reasoning: {one_line(verdict.reasoning)}\nfix: {fix}")
+
+
 def _parse(text: str) -> Verdict | None:
     """
     모델 출력에서 판정을 꺼낸다. 규격을 어기면 None.
@@ -189,7 +228,7 @@ def _parse(text: str) -> Verdict | None:
         decision = Decision(str(data["decision"]).strip().lower())
         # 역할이 위반이 될 수 없는 종류라면 판정을 내린다. 모델이 역할은 맞게 보고도
         # 규칙 설명에 끌려 위반이라고 답하는 경우가 있다.
-        if role in ("name_list", "test_fixture", "documentation"):
+        if role in NON_VIOLATING_ROLES:
             decision = Decision.CLEAN
         return Verdict(
             decision=decision,
@@ -245,6 +284,9 @@ def _table_note(measurement) -> str:
 
 def _value_note(site: UsageSite) -> str:
     """모델에게 값 확인 결과를 그대로 알려준다. 추측할 자리를 없앤다."""
+    if site.provenance:
+        return (f"값의 출처(코드가 구조로 판별): {site.provenance} — "
+                f"{site.provenance_note}. 이 사실로 판단하라.")
     if site.traced_values:
         values = ", ".join(f'"{value}"' for value in site.traced_values)
         return f"변수를 따라가 찾은 값: {values}. 이 값으로 판단하라."

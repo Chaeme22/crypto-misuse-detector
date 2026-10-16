@@ -12,6 +12,8 @@
       "hashlib.md5",
       "hashlib.sha1",
       "MessageDigest.getInstance",
+      "Signature.getInstance",
+      "Mac.getInstance",
       "crypto.createHash",
       "Crypto.Hash.MD5.new",
       "Crypto.Hash.SHA1.new"
@@ -43,7 +45,10 @@
       "Cipher.getInstance",
       "AES.new",
       "DES.new",
-      "ARC4.new"
+      "ARC4.new",
+      "KISA_SEED_ECB.SEED_ECB_Encrypt",
+      "KISA_SEED_ECB.SEED_ECB_Decrypt",
+      "new LEA.ECB"
     ],
     "literal_triggers": [
       "MODE_ECB",
@@ -142,18 +147,150 @@
     "table_purposes": []
   },
   {
+    "rule_id": "CRYPTO-SEED-PREDICTABLE",
+    "name": "PredictableSeed",
+    "cwe": "CWE-337",
+    "level": "error",
+    "summary": "난수발생기 시드가 예측 가능함",
+    "detail": "SecureRandom에 고정값이나 시각을 시드로 주면 출력이 예측 가능해진다. 구현에 따라 시드가 내부 상태를 대체해 같은 수열을 낸다.",
+    "remediation": "시드를 직접 주지 않는다. 필요하면 SecureRandom.generateSeed 등 안전한 엔트로피 원천만 쓴다.",
+    "clause_query": "난수발생기 시드의 생성과 보호 요구사항",
+    "api_triggers": [
+      "SecureRandom.setSeed",
+      "new SecureRandom"
+    ],
+    "material_args": {
+      "SecureRandom.setSeed": 0,
+      "new SecureRandom": 0
+    },
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": []
+  },
+  {
     "rule_id": "CRYPTO-KEY-HARDCODED",
     "name": "HardcodedKeyMaterial",
-    "cwe": "CWE-798",
+    "cwe": "CWE-321",
     "level": "error",
-    "summary": "키 또는 IV가 소스에 박혀 있음",
+    "summary": "암호 키가 소스에 박혀 있음",
     "detail": "소스에 박힌 키는 저장소를 읽을 수 있는 모든 사람에게 노출되고 교체가 불가능하다. 키는 생성·분배·보관 절차를 따라야 한다.",
-    "remediation": "키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다. IV는 매 암호화마다 새로 만든다.",
+    "remediation": "키는 안전한 난수발생기로 생성해 키 저장소나 환경 변수로 주입한다.",
     "clause_query": "저장중인 암호 키를 보호하기 위해 보장해야 하는 기능",
     "api_triggers": [
-      "SecretKeySpec",
-      "IvParameterSpec"
+      "new SecretKeySpec",
+      "new DESKeySpec",
+      "new DESedeKeySpec",
+      "KISA_SEED_CBC.SEED_CBC_Encrypt",
+      "KISA_SEED_CBC.SEED_CBC_Decrypt",
+      "KISA_SEED_ECB.SEED_ECB_Encrypt",
+      "KISA_SEED_ECB.SEED_ECB_Decrypt",
+      "KISA_SEED_CTR.SEED_CTR_Encrypt",
+      "KISA_SEED_CTR.SEED_CTR_Decrypt",
+      "KISA_SEED_CBC.SEED_CBC_init",
+      "new ARIAEngine",
+      "ARIAEngine.setKey",
+      "BlockCipherMode.init"
     ],
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": [],
+    "material_args": {
+      "new SecretKeySpec": 0,
+      "new DESKeySpec": 0,
+      "new DESedeKeySpec": 0,
+      "KISA_SEED_CBC.SEED_CBC_Encrypt": 0,
+      "KISA_SEED_CBC.SEED_CBC_Decrypt": 0,
+      "KISA_SEED_ECB.SEED_ECB_Encrypt": 0,
+      "KISA_SEED_ECB.SEED_ECB_Decrypt": 0,
+      "KISA_SEED_CTR.SEED_CTR_Encrypt": 0,
+      "KISA_SEED_CTR.SEED_CTR_Decrypt": 0,
+      "KISA_SEED_CBC.SEED_CBC_init": 2,
+      "new ARIAEngine": 1,
+      "ARIAEngine.setKey": 0,
+      "BlockCipherMode.init": 1
+    }
+  },
+  {
+    "rule_id": "CRYPTO-IV-STATIC",
+    "name": "StaticInitializationVector",
+    "cwe": "CWE-329",
+    "level": "error",
+    "summary": "IV가 고정값이라 예측 가능함",
+    "detail": "CBC 등 운영모드의 IV는 암호화마다 예측 불가능한 값이어야 한다. 소스에 박힌 IV는 매번 같은 값이 되어 같은 평문 앞부분이 같은 암호문을 낸다.",
+    "remediation": "IV는 매 암호화마다 안전한 난수발생기로 새로 만들고 암호문과 함께 전달한다.",
+    "clause_query": "CBC 운영모드에서 IV는 예측 불가능해야 한다는 IV 생성 요구사항",
+    "api_triggers": [
+      "new IvParameterSpec",
+      "new GCMParameterSpec",
+      "KISA_SEED_CBC.SEED_CBC_Encrypt",
+      "KISA_SEED_CBC.SEED_CBC_Decrypt",
+      "KISA_SEED_CTR.SEED_CTR_Encrypt",
+      "KISA_SEED_CTR.SEED_CTR_Decrypt",
+      "KISA_SEED_CBC.SEED_CBC_init",
+      "BlockCipherMode.init"
+    ],
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": [],
+    "material_args": {
+      "new IvParameterSpec": 0,
+      "new GCMParameterSpec": 1,
+      "KISA_SEED_CBC.SEED_CBC_Encrypt": 1,
+      "KISA_SEED_CBC.SEED_CBC_Decrypt": 1,
+      "KISA_SEED_CTR.SEED_CTR_Encrypt": 1,
+      "KISA_SEED_CTR.SEED_CTR_Decrypt": 1,
+      "KISA_SEED_CBC.SEED_CBC_init": 3,
+      "BlockCipherMode.init": 2
+    }
+  },
+  {
+    "rule_id": "CRYPTO-PASSWORD-HARDCODED",
+    "name": "HardcodedPassword",
+    "cwe": "CWE-259",
+    "level": "error",
+    "summary": "비밀번호가 소스에 박혀 있음",
+    "detail": "키 유도나 키 저장소 보호에 쓰는 비밀번호가 소스에 있으면 저장소를 읽을 수 있는 모든 사람이 키를 얻는다. 비밀번호는 키와 같은 수준으로 보호해야 한다.",
+    "remediation": "비밀번호는 사용자 입력, 키 관리 시스템, 환경 변수 등 실행 시점에 주입한다. 소스와 설정 파일에 평문으로 두지 않는다.",
+    "clause_query": "키 유도에 사용하는 패스워드의 생성과 보호 요구사항",
+    "api_triggers": [
+      "new PBEKeySpec",
+      "KeyStore.load",
+      "KeyStore.store",
+      "KeyStore.getKey",
+      "KeyManagerFactory.init"
+    ],
+    "material_args": {
+      "new PBEKeySpec": 0,
+      "KeyStore.load": 1,
+      "KeyStore.store": 1,
+      "KeyStore.getKey": 1,
+      "KeyManagerFactory.init": 1
+    },
+    "literal_triggers": [],
+    "table_decides": false,
+    "table_measures": false,
+    "table_purposes": []
+  },
+  {
+    "rule_id": "CRYPTO-SALT-STATIC",
+    "name": "StaticSalt",
+    "cwe": "CWE-760",
+    "level": "error",
+    "summary": "솔트가 고정값이라 예측 가능함",
+    "detail": "솔트가 고정되면 같은 비밀번호가 늘 같은 키·해시가 되어 사전 계산 공격을 막지 못한다. 솔트는 비밀번호마다 난수로 만들어야 한다.",
+    "remediation": "솔트는 안전한 난수발생기로 비밀번호마다 새로 만들고 해시·암호문과 함께 저장한다.",
+    "clause_query": "패스워드와 함께 사용하는 솔트의 생성과 저장 요구사항",
+    "api_triggers": [
+      "new PBEParameterSpec",
+      "new PBEKeySpec"
+    ],
+    "material_args": {
+      "new PBEParameterSpec": 0,
+      "new PBEKeySpec": 1
+    },
     "literal_triggers": [],
     "table_decides": false,
     "table_measures": false,
@@ -170,14 +307,21 @@
     "clause_query": "미리 공유된 키로부터 대칭키를 유도할 때 쓰는 키 유도 함수 표준",
     "api_triggers": [
       "hashlib.pbkdf2_hmac",
-      "SecretKeyFactory.getInstance"
+      "SecretKeyFactory.getInstance",
+      "new PBEParameterSpec",
+      "new PBEKeySpec"
     ],
     "literal_triggers": [
-      "PBKDF2WithHmacSHA1",
       "PBKDF2WithHmacMD5"
     ],
     "table_decides": false,
     "table_measures": true,
-    "table_purposes": []
+    "table_purposes": [],
+    "iteration_args": {
+      "new PBEParameterSpec": 1,
+      "new PBEKeySpec": 2
+    },
+    "min_iterations": 1000,
+    "min_iterations_source": "NIST SP 800-132 5.2절 (최소 1,000회 권고). 지식베이스 미수록 — 원문 추가 후 근거 검수 필요"
   }
 ]

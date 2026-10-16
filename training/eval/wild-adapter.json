@@ -1,0 +1,2146 @@
+{
+  "provider": "local:Qwen/Qwen2.5-Coder-7B-Instruct+qwen7b-v2",
+  "all_in_scope": {
+    "cases": 28,
+    "TP": 11,
+    "review": 3,
+    "FN": 14,
+    "recall": 0.393
+  },
+  "confirmed": {
+    "cases": 21,
+    "TP": 6,
+    "review": 3,
+    "FN": 12,
+    "recall": 0.286
+  },
+  "extra_violations_not_in_list": 16,
+  "out_of_scope_cases": 9,
+  "cases": [
+    {
+      "index": 1,
+      "owner": "netty",
+      "repo": "netty",
+      "filename": "JdkSslServerContext.java",
+      "date": "2024-12-16",
+      "issue": "https://github.com/netty/netty/issues/14026",
+      "status": "fixed",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-RNG-INSECURE",
+        "CRYPTO-SEED-PREDICTABLE"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 4,
+      "owner": "dbeaver",
+      "repo": "dbeaver",
+      "filename": "SecuredPasswordEncrypter.java",
+      "date": "2024-1-10",
+      "issue": "https://github.com/dbeaver/dbeaver/issues/29299",
+      "status": "fixed",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 5,
+      "owner": "dbeaver",
+      "repo": "dbeaver",
+      "filename": "SecuredPasswordEncrypter.java",
+      "date": "2024-1-10",
+      "issue": "",
+      "status": "fixed",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 7,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "CryptUtils.java",
+      "date": "2024-1-10",
+      "issue": "https://github.com/elastic/elasticsearch/issues/108156",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KDF-WEAK"
+      ],
+      "outcome": "FN",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 179,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEKeySpec(1024)",
+          "reasoning": "반복 횟수 1024회가 최소 기준 1000회를 만족한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 191,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEKeySpec(KDF_ITERATION_COUNT)",
+          "reasoning": "반복 횟수 10000회가 최소 기준 1000회를 만족한다"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "CryptUtils.java",
+      "date": "2024-1-10",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KDF-WEAK"
+      ],
+      "outcome": "FN",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 179,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEKeySpec(1024)",
+          "reasoning": "반복 횟수 1024회가 최소 기준 1000회를 만족한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 191,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEKeySpec(KDF_ITERATION_COUNT)",
+          "reasoning": "반복 횟수 10000회가 최소 기준 1000회를 만족한다"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "CryptUtils.java",
+      "date": "2024-1-10",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "FN",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 186,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 194,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 210,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "CryptUtils.java",
+      "date": "2024-1-10",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 179,
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "violation",
+          "api": "new PBEKeySpec(hashedPassphrase)",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 박힌 값에서 계산한 값 `Base64.getEncoder().encodeToString(digest)`)."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 186,
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "api": "new SecretKeySpec(intermediaryKey)",
+          "reasoning": "`intermediaryKey`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 191,
+          "rule": "CRYPTO-PASSWORD-HARDCODED",
+          "decision": "violation",
+          "api": "new PBEKeySpec(passPhrase)",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"elasticsearch-license\"`)."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "CryptUtils.java",
+          "line": 194,
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "api": "new SecretKeySpec(secretKey.getEncoded())",
+          "reasoning": "secretKey.getEncoded()의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "owner": "halo-dev",
+      "repo": "halo",
+      "filename": "DefaultTotpAuthService.java",
+      "date": "2024-1-15",
+      "issue": "https://github.com/halo-dev/halo/issues/5843",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 12,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "AesEncryptUtil.java",
+      "date": "2022-8-12",
+      "issue": "https://github.com/jeecgboot/jeecg-boot/issues/6202",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-IV-STATIC"
+      ],
+      "outcome": "review",
+      "hits": [
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 47,
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "undetermined",
+          "api": "new IvParameterSpec(iv.getBytes())",
+          "reasoning": "`iv`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 74,
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "undetermined",
+          "api": "new IvParameterSpec(iv.getBytes())",
+          "reasoning": "iv.getBytes()의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, IV가 문자열 상수다(IV가 고정값이라 예측 가능함)."
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "AesEncryptUtil.java",
+      "date": "2022-8-12",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "review",
+      "hits": [
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 46,
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "api": "new SecretKeySpec(key.getBytes())",
+          "reasoning": "`EncryptedString.key`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 73,
+          "rule": "CRYPTO-KEY-HARDCODED",
+          "decision": "undetermined",
+          "api": "new SecretKeySpec(key.getBytes())",
+          "reasoning": "`EncryptedString.key`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "AesEncryptUtil.java",
+      "date": "2022-8-12",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-IV-STATIC"
+      ],
+      "outcome": "review",
+      "hits": [
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 47,
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "undetermined",
+          "api": "new IvParameterSpec(iv.getBytes())",
+          "reasoning": "`iv`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "AesEncryptUtil.java",
+          "line": 74,
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "undetermined",
+          "api": "new IvParameterSpec(iv.getBytes())",
+          "reasoning": "iv.getBytes()의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, IV가 문자열 상수다(IV가 고정값이라 예측 가능함)."
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "PasswordUtil.java",
+      "date": "2022-8-12",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE",
+        "CRYPTO-HASH-WEAK",
+        "CRYPTO-KDF-WEAK"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "PasswordUtil.java",
+          "line": 68,
+          "rule": "CRYPTO-HASH-WEAK",
+          "decision": "violation",
+          "api": "SecretKeyFactory.getInstance(ALGORITHM=\"PBEWithMD5AndDES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithMD5AndDES`다. MD5는 기준표에 없다."
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "PasswordUtil.java",
+          "line": 97,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEParameterSpec(ITERATIONCOUNT)",
+          "reasoning": "반복 횟수 1000회가 최소 기준 1000회를 만족한다"
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "PasswordUtil.java",
+          "line": 99,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(ALGORITHM=\"PBEWithMD5AndDES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithMD5AndDES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "jeecgboot__jeecg-boot",
+          "file": "PasswordUtil.java",
+          "line": 126,
+          "rule": "CRYPTO-KDF-WEAK",
+          "decision": "clean",
+          "api": "new PBEParameterSpec(ITERATIONCOUNT)",
+          "reasoning": "반복 횟수 1000회가 최소 기준 1000회를 만족한다"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "SecurityTools.java",
+      "date": "2022-8-12",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-HASH-WEAK"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 17,
+      "owner": "jeecgboot",
+      "repo": "jeecg-boot",
+      "filename": "SecurityTools.java",
+      "date": "2022-8-12",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-MODE-ECB"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 18,
+      "owner": "Grasscutters",
+      "repo": "Grasscutter",
+      "filename": "Crypto.java",
+      "date": "2023-9-17",
+      "issue": "https://github.com/Grasscutters/Grasscutter/issues/2510",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-RNG-INSECURE",
+        "CRYPTO-SEED-PREDICTABLE"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 19,
+      "owner": "jenkinsci",
+      "repo": "jenkins",
+      "filename": "Connection.java",
+      "date": "2022-1-4",
+      "issue": "This report is through a private channel (email). \nReport: A review of the Jenkins codebase identified several outdated cryptographic practices, including the continued presence of SHA1 usage, an insufficient Diffie-Hellman key size (512 bits instead of the recommended 1024+ bits), and AES key derivation from MAC addresses.\n\nResponse: We reviewed the reported issues and confirmed that they exist in a deprecated part of the Jenkins codebase that has already been replaced and is no longer in active use. This legacy code belongs to the old Jenkins CLI, which was officially removed as noted in our 2019 blog post “Remoting CLI Removed.” We plan to review and possibly remove the remaining outdated code to ensure the repository continues to meet current security and maintenance standards.",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-HASH-WEAK"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 20,
+      "owner": "jenkinsci",
+      "repo": "jenkins",
+      "filename": "Connection.java",
+      "date": "2022-1-4",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEYSIZE-SHORT"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "jenkinsci__jenkins",
+          "file": "Connection.java",
+          "line": 166,
+          "rule": "CRYPTO-KEYSIZE-SHORT",
+          "decision": "violation",
+          "api": "DH-512",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DH`다. DH 키 길이는 2048비트 이상이어야 한다."
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "owner": "alibaba",
+      "repo": "druid",
+      "filename": "ConfigTools.java",
+      "date": "2023-11-7",
+      "issue": "https://github.com/alibaba/druid/issues/5875",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 23,
+      "owner": "alibaba",
+      "repo": "druid",
+      "filename": "ConfigTools.java",
+      "date": "2023-11-7",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-KEYSIZE-SHORT"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "alibaba__druid",
+          "file": "ConfigTools.java",
+          "line": 115,
+          "rule": "CRYPTO-KEYSIZE-SHORT",
+          "decision": "violation",
+          "api": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA/ECB/PKCS1Padding`다. RSA 키 길이는 2048비트 이상이어야 한다."
+        },
+        {
+          "repo": "alibaba__druid",
+          "file": "ConfigTools.java",
+          "line": 124,
+          "rule": "CRYPTO-KEYSIZE-SHORT",
+          "decision": "violation",
+          "api": "Cipher.getInstance(\"RSA\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+        },
+        {
+          "repo": "alibaba__druid",
+          "file": "ConfigTools.java",
+          "line": 156,
+          "rule": "CRYPTO-KEYSIZE-SHORT",
+          "decision": "violation",
+          "api": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA/ECB/PKCS1Padding`다. RSA 키 길이는 2048비트 이상이어야 한다."
+        },
+        {
+          "repo": "alibaba__druid",
+          "file": "ConfigTools.java",
+          "line": 164,
+          "rule": "CRYPTO-KEYSIZE-SHORT",
+          "decision": "violation",
+          "api": "Cipher.getInstance(\"RSA\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "PemUtils.java",
+      "date": "2022-3-22",
+      "issue": "https://github.com/elastic/elasticsearch/blob/main/libs/ssl-config/src/main/java/org/elasticsearch/common/ssl/PemUtils.java#L88",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 518,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 521,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DESede\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede는 2TDEA이며 최소 기준만 만족한다."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 524,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 527,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "owner": "elastic",
+      "repo": "elasticsearch",
+      "filename": "PemUtils.java",
+      "date": "2022-3-22",
+      "issue": "",
+      "status": "accept",
+      "confirmed": true,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 518,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 521,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DESede\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede는 2TDEA이며 최소 기준만 만족한다."
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 524,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        },
+        {
+          "repo": "elastic__elasticsearch",
+          "file": "PemUtils.java",
+          "line": 527,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "clean",
+          "api": "new SecretKeySpec(..., \"AES\")",
+          "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "owner": "signalapp",
+      "repo": "Signal-Android",
+      "filename": "ModernEncryptingPartOutputStream.java",
+      "date": "2020-12-6",
+      "issue": "",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-IV-STATIC"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "signalapp__Signal-Android",
+          "file": "ModernEncryptingPartOutputStream.java",
+          "line": 46,
+          "rule": "CRYPTO-IV-STATIC",
+          "decision": "violation",
+          "api": "new IvParameterSpec(iv)",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[16]`를 채우지 않아 0으로 고정된 값)."
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "owner": "alibaba",
+      "repo": "DataX",
+      "filename": "DESCipher.java",
+      "date": "2022-1-9",
+      "issue": "https://github.com/alibaba/DataX/issues/2119",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "alibaba__DataX",
+          "file": "DESCipher.java",
+          "line": 87,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(DES=\"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "DESCipher.java",
+          "line": 141,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(DES=\"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "DESCipher.java",
+          "line": 87,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(DES=\"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "DESCipher.java",
+          "line": 141,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(DES=\"DES\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "owner": "alibaba",
+      "repo": "DataX",
+      "filename": "DESCipher.java",
+      "date": "2022-1-9",
+      "issue": "",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-KEY-HARDCODED",
+        "CRYPTO-PASSWORD-HARDCODED"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 33,
+      "owner": "alibaba",
+      "repo": "DataX",
+      "filename": "SecretUtil.java",
+      "date": "2018-1-31",
+      "issue": "",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-CIPHER-OBSOLETE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "alibaba__DataX",
+          "file": "SecretUtil.java",
+          "line": 206,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DESede\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede 3TDEA 최소 기준만 만족한다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "SecretUtil.java",
+          "line": 209,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(CIPHER_ALGORITHM_3DES=\"DESede/ECB/PKCS5Padding\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DESede/ECB/PKCS5Padding`다. DESede는 3TDEA이며 ECB 패딩은 보안 강도를 떨어뜨린다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "SecretUtil.java",
+          "line": 230,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "new SecretKeySpec(..., \"DESede\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede는 2TDEA이며 보안 강도에 따른 대칭키 암호 알고리즘 표에 없다."
+        },
+        {
+          "repo": "alibaba__DataX",
+          "file": "SecretUtil.java",
+          "line": 233,
+          "rule": "CRYPTO-CIPHER-OBSOLETE",
+          "decision": "violation",
+          "api": "Cipher.getInstance(CIPHER_ALGORITHM_3DES=\"DESede/ECB/PKCS5Padding\")",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DESede/ECB/PKCS5Padding`다. DESede는 2TDEA이며 ECB 패딩은 보안 강도를 크게 줄인다."
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "owner": "justauth",
+      "repo": "JustAuth",
+      "filename": "GlobalAuthUtils.java",
+      "date": "2021-8-25",
+      "issue": "https://github.com/justauth/JustAuth/issues/205",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-RNG-INSECURE",
+        "CRYPTO-SEED-PREDICTABLE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "justauth__JustAuth",
+          "file": "GlobalAuthUtils.java",
+          "line": 187,
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "violation",
+          "api": "new Random",
+          "reasoning": "화살표 줄의 결과를 보면 java.util.Random 출력을 비밀번호 재설정 엑세스 토큰으로 쓴다. 보안 용도에 약한 알고리즘을 썼다."
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "owner": "keycloak",
+      "repo": "keycloak",
+      "filename": "BaseSAML2BindingBuilder.java",
+      "date": "2023-12-19",
+      "issue": "https://github.com/keycloak/keycloak/issues/29504",
+      "status": "",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-HASH-WEAK"
+      ],
+      "outcome": "FN",
+      "hits": []
+    },
+    {
+      "index": 37,
+      "owner": "yuliskov",
+      "repo": "SmartTube",
+      "filename": "CachedContentIndex.java",
+      "date": "2022-11-1",
+      "issue": "",
+      "status": "no reply",
+      "confirmed": false,
+      "rules": [
+        "CRYPTO-RNG-INSECURE",
+        "CRYPTO-SEED-PREDICTABLE"
+      ],
+      "outcome": "TP",
+      "hits": [
+        {
+          "repo": "yuliskov__SmartTube",
+          "file": "CachedContentIndex.java",
+          "line": 508,
+          "rule": "CRYPTO-RNG-INSECURE",
+          "decision": "violation",
+          "api": "new Random",
+          "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `encrypt ? new Random() : null`다. false 인 경우 null이 됨."
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "repo": "Grasscutters__Grasscutter",
+      "file": "Crypto.java",
+      "line": 104,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA/ECB/PKCS1Padding`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "Grasscutters__Grasscutter",
+      "file": "Crypto.java",
+      "line": 123,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "Signature.getInstance(\"SHA256withRSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `SHA256withRSA`다. RSA 서명용 알고리즘으로 SHA-2 계열을 쓴다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 128,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "인자의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 158,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA-ECB 운영모드는 같은 평문 블록이 같은 암호문이 된다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 177,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "?-1024",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `1024`다. RSA 2048비트 이하, 대칭키 128비트 이하로 국책표준을 깨었다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 206,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "new SecretKeySpec(..., \"DESede\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede 3TDEA 최소 기준만 만족한다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 206,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(build3DesKey(key))",
+      "reasoning": "build3DesKey(key)의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 209,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(CIPHER_ALGORITHM_3DES=\"DESede/ECB/PKCS5Padding\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DESede/ECB/PKCS5Padding`다. DESede는 3TDEA이며 ECB 패딩은 보안 강도를 떨어뜨린다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 230,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "new SecretKeySpec(..., \"DESede\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede는 2TDEA이며 보안 강도에 따른 대칭키 암호 알고리즘 표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 230,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(build3DesKey(key))",
+      "reasoning": "build3DesKey(key)의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "SecretUtil.java",
+      "line": 233,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(CIPHER_ALGORITHM_3DES=\"DESede/ECB/PKCS5Padding\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DESede/ECB/PKCS5Padding`다. DESede는 2TDEA이며 ECB 패딩은 보안 강도를 크게 줄인다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 81,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 87,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 87,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"DES\") — 운영모드 미지정, 기본값 ECB",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 ECB 운영모드다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 135,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 141,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 141,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"DES\") — 운영모드 미지정, 기본값 ECB",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 운영모드에 ECB가 기준이다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 81,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 87,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 87,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"DES\") — 운영모드 미지정, 기본값 ECB",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 ECB 운영모드다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 135,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 141,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(DES=\"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "alibaba__DataX",
+      "file": "DESCipher.java",
+      "line": 141,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"DES\") — 운영모드 미지정, 기본값 ECB",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 운영모드에 ECB가 기준이다."
+    },
+    {
+      "repo": "alibaba__canal",
+      "file": "AbstractRequest.java",
+      "line": 109,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"HmacSHA1\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-1 (128비트 보안강도), 표는 권장 128비트 보안강도 만족. `SHA`와 `SHA1`은 모두 SHA-1이다"
+    },
+    {
+      "repo": "alibaba__canal",
+      "file": "AbstractRequest.java",
+      "line": 109,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(data)",
+      "reasoning": "data의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "alibaba__druid",
+      "file": "ConfigTools.java",
+      "line": 115,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA/ECB/PKCS1Padding`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "alibaba__druid",
+      "file": "ConfigTools.java",
+      "line": 124,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "alibaba__druid",
+      "file": "ConfigTools.java",
+      "line": 156,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA/ECB/PKCS1Padding\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA/ECB/PKCS1Padding`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "alibaba__druid",
+      "file": "ConfigTools.java",
+      "line": 164,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "alibaba__druid",
+      "file": "ConfigTools.java",
+      "line": 178,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "undetermined",
+      "api": "KeyPairGenerator.getInstance(\"RSA\")",
+      "reasoning": "키 길이가 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "apache__incubator-seata",
+      "file": "ConfigTools.java",
+      "line": 36,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "clean",
+      "api": "RSA-2048",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 2048비트는 기준표의 최소 길이만 만족한다."
+    },
+    {
+      "repo": "apache__incubator-seata",
+      "file": "ConfigTools.java",
+      "line": 76,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "apache__incubator-seata",
+      "file": "ConfigTools.java",
+      "line": 85,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "apache__incubator-seata",
+      "file": "ConfigTools.java",
+      "line": 94,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "apache__incubator-seata",
+      "file": "ConfigTools.java",
+      "line": 103,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"RSA\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `RSA`다. RSA 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 44,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "key의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 46,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(enCodeFormat)",
+      "reasoning": "키 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 47,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "api": "Cipher.getInstance",
+      "reasoning": "화살표 줄의 결과는 `CBC` 운영모드에서 올바른 인자를 주면 보안 암호 연산이다. 이 코드가 운영 소스다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 48,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(key)",
+      "reasoning": "key의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, IV가 키와 동일하다(see `new IvParameterSpec(key)`). 키와 IV가 같으면 약한 IV가 된다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 64,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "key의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 66,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(enCodeFormat)",
+      "reasoning": "키 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 67,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "clean",
+      "api": "Cipher.getInstance",
+      "reasoning": "화살표 줄의 결과는 별개의 API 호출에서 쓰인다. 이 코드에서 보이는 값은 옳다."
+    },
+    {
+      "repo": "baomidou__mybatis-plus",
+      "file": "AES.java",
+      "line": 68,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(key)",
+      "reasoning": "key의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, IV가 키와 동일하다(see `new IvParameterSpec(key)`). 키와 IV가 같으면 약한 IV가 된다."
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "DefaultValueEncryptor.java",
+      "line": 52,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(CIPHER_NAME=\"AES/CBC/PKCS5Padding\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "DefaultValueEncryptor.java",
+      "line": 70,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "DefaultValueEncryptor.java",
+      "line": 70,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(passBytes)",
+      "reasoning": "`password`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "DefaultValueEncryptor.java",
+      "line": 106,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(fileIv)",
+      "reasoning": "fileIv의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, `fileIv`은 입력 스트림에서 읽어 채운다. 이 값이 정해지는 곳에서 보안 관련 값인지 확인할 수 없다."
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "SecuredPasswordEncrypter.java",
+      "line": 65,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "undetermined",
+      "api": "SecretKeyFactory.getInstance",
+      "reasoning": "`encryptionScheme`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "dbeaver__dbeaver",
+      "file": "SecuredPasswordEncrypter.java",
+      "line": 66,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`encryptionScheme`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 398,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "undetermined",
+      "api": "SecretKeyFactory.getInstance",
+      "reasoning": "`algorithm`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 399,
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "api": "new PBEKeySpec(keyPassword)",
+      "reasoning": "`keyPassword`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 400,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`algorithm`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 518,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "new SecretKeySpec(..., \"DES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 518,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "key의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 521,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "new SecretKeySpec(..., \"DESede\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"DESede\")`다. DESede는 2TDEA이며 최소 기준만 만족한다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 521,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "key의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 524,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 524,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "키의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 527,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 527,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "key의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 530,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 530,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "키의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 535,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`transformation`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 536,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(iv)",
+      "reasoning": "iv의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 548,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SslUtil.messageDigest(\"md5\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `md5`다. MD5는 서명 용도로 쓸 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "PemUtils.java",
+      "line": 609,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "undetermined",
+      "api": "KeyPairGenerator.getInstance(\"EC\")",
+      "reasoning": "이 코드에서 ECC 키의 길이가 몇 비트인지 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 177,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "MessageDigest.getInstance(\"SHA-512\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-512 (256비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 179,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "api": "new PBEKeySpec(1024)",
+      "reasoning": "반복 횟수 1024회가 최소 기준 1000회를 만족한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 179,
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "violation",
+      "api": "new PBEKeySpec(hashedPassphrase)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 박힌 값에서 계산한 값 `Base64.getEncoder().encodeToString(digest)`)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 179,
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "violation",
+      "api": "new PBEKeySpec(salt)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{ (byte) 0xA9, (byte) 0xA2, ...`)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 180,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(\"PBEWithSHA1AndDESede\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithSHA1AndDESede`다. SHA-1과 3TDEA는 기준표에 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 186,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 186,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(intermediaryKey)",
+      "reasoning": "`intermediaryKey`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 191,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "api": "new PBEKeySpec(KDF_ITERATION_COUNT)",
+      "reasoning": "반복 횟수 10000회가 최소 기준 1000회를 만족한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 191,
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "violation",
+      "api": "new PBEKeySpec(passPhrase)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 비밀번호가 상수다(코드에 적힌 값 `\"elasticsearch-license\"`)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 191,
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "violation",
+      "api": "new PBEKeySpec(SALT)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 솔트가 상수 배열이다(코드에 적힌 배열 `{ (byte) 0x74, (byte) 0x68, (byte) 0x69, (byte) 0x73, (by...`."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 193,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "SecretKeyFactory.getInstance(KDF_ALGORITHM=\"PBKDF2WithHmacSHA512\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-512 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 194,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 194,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(secretKey.getEncoded())",
+      "reasoning": "secretKey.getEncoded()의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, 키가 문자열 상수다(상수 배열)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 210,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(CIPHER_ALGORITHM=\"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptUtils.java",
+      "line": 210,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "violation",
+      "api": "Cipher.getInstance(\"AES\") — 운영모드 미지정, 기본값 ECB",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `Cipher.getInstance(\"AES\")`다. 운영 모드가 ECB다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "XPackSettings.java",
+      "line": 249,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "SecretKeyFactory.getInstance(\"PBKDF2withHMACSHA512\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-512 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 117,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"HmacSHA512\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-512 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 117,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "api": "new SecretKeySpec(keyBytes)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 키가 0으로 채워져 있다(`new byte[keySizeBytes]`를 채우지 않아 0으로 고정된 값)."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 199,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`encryptionAlgorithm`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 200,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(initializationVector)",
+      "reasoning": "initializationVector의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 213,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "MessageDigest.getInstance(\"SHA-256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (128비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "elastic__elasticsearch",
+      "file": "CryptoService.java",
+      "line": 222,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(truncatedDigest)",
+      "reasoning": "키 값의 원천을 이 코드에서 볼 수 없다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "halo-dev__halo",
+      "file": "DefaultTotpAuthService.java",
+      "line": 65,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "KeyGenerator.getInstance(\"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 68,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "SecretKeyFactory.getInstance(ALGORITHM=\"PBEWithMD5AndDES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithMD5AndDES`다. MD5는 기준표에 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 70,
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "api": "new PBEKeySpec(password.toCharArray())",
+      "reasoning": "`password`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 97,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "api": "new PBEParameterSpec(ITERATIONCOUNT)",
+      "reasoning": "반복 횟수 1000회가 최소 기준 1000회를 만족한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 97,
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "api": "new PBEParameterSpec(salt.getBytes())",
+      "reasoning": "`salt`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 99,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(ALGORITHM=\"PBEWithMD5AndDES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithMD5AndDES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 126,
+      "rule": "CRYPTO-KDF-WEAK",
+      "decision": "clean",
+      "api": "new PBEParameterSpec(ITERATIONCOUNT)",
+      "reasoning": "반복 횟수 1000회가 최소 기준 1000회를 만족한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 126,
+      "rule": "CRYPTO-SALT-STATIC",
+      "decision": "undetermined",
+      "api": "new PBEParameterSpec(salt.getBytes())",
+      "reasoning": "`salt`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "PasswordUtil.java",
+      "line": 128,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "Cipher.getInstance(ALGORITHM=\"PBEWithMD5AndDES\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `PBEWithMD5AndDES`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 34,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CBC/NoPadding\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 46,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 46,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key.getBytes())",
+      "reasoning": "`EncryptedString.key`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 47,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(iv.getBytes())",
+      "reasoning": "`iv`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 72,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CBC/NoPadding\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 73,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 73,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key.getBytes())",
+      "reasoning": "`EncryptedString.key`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jeecgboot__jeecg-boot",
+      "file": "AesEncryptUtil.java",
+      "line": 74,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(iv.getBytes())",
+      "reasoning": "iv.getBytes()의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, IV가 문자열 상수다(IV가 고정값이라 예측 가능함)."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "Connection.java",
+      "line": 166,
+      "rule": "CRYPTO-KEYSIZE-SHORT",
+      "decision": "violation",
+      "api": "DH-512",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `DH`다. DH 키 길이는 2048비트 이상이어야 한다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "Connection.java",
+      "line": 200,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`algorithm`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "Connection.java",
+      "line": 204,
+      "rule": "CRYPTO-MODE-ECB",
+      "decision": "undetermined",
+      "api": "Cipher.getInstance",
+      "reasoning": "`algorithm`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "Connection.java",
+      "line": 212,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(sessionKey.getEncoded())",
+      "reasoning": "`sessionKey`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "EncryptedSlaveAgentJnlpFile.java",
+      "line": 97,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "violation",
+      "api": "new SecretKeySpec(..., \"0\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `new SecretKeySpec(..., \"AES\")`다. DES는 기준표에 없다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "EncryptedSlaveAgentJnlpFile.java",
+      "line": 97,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(jnlpMac)",
+      "reasoning": "`jnlpMac`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "jenkinsci__jenkins",
+      "file": "EncryptedSlaveAgentJnlpFile.java",
+      "line": 101,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "clean",
+      "api": "new IvParameterSpec(iv)",
+      "reasoning": "`iv`을 SecureRandom.nextBytes로 채운다"
+    },
+    {
+      "repo": "justauth__JustAuth",
+      "file": "GlobalAuthUtils.java",
+      "line": 52,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"HmacSHA256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "justauth__JustAuth",
+      "file": "GlobalAuthUtils.java",
+      "line": 52,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "`secretKey`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "justauth__JustAuth",
+      "file": "GlobalAuthUtils.java",
+      "line": 187,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "violation",
+      "api": "new Random",
+      "reasoning": "화살표 줄의 결과를 보면 java.util.Random 출력을 비밀번호 재설정 엑세스 토큰으로 쓴다. 보안 용도에 약한 알고리즘을 썼다."
+    },
+    {
+      "repo": "justauth__JustAuth",
+      "file": "GlobalAuthUtils.java",
+      "line": 243,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "MessageDigest.getInstance(\"MD5\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `MD5`다. MD5는 서명용 기준표에 없다."
+    },
+    {
+      "repo": "justauth__JustAuth",
+      "file": "GlobalAuthUtils.java",
+      "line": 292,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "violation",
+      "api": "MessageDigest.getInstance(\"MD5\")",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `MD5`다. MD5는 기준표에 없다."
+    },
+    {
+      "repo": "keycloak__keycloak",
+      "file": "BaseSAML2BindingBuilder.java",
+      "line": 288,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "keycloak__keycloak",
+      "file": "BaseSAML2BindingBuilder.java",
+      "line": 288,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(secret)",
+      "reasoning": "`secret`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "netty__netty",
+      "file": "JdkSslServerContext.java",
+      "line": 82,
+      "rule": "CRYPTO-PASSWORD-HARDCODED",
+      "decision": "undetermined",
+      "api": "KeyManagerFactory.init(keyStorePassword)",
+      "reasoning": "`keyStorePassword(null)`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 44,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "Mac.getInstance(\"HmacSHA256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 45,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"HmacSHA256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 45,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(attachmentSecret.getModernKey())",
+      "reasoning": "`attachmentSecret.getModernKey()`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 52,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CTR/NoPadding\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 53,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 53,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "api": "new IvParameterSpec(iv)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[16]`를 채우지 않아 0으로 고정된 값)."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernDecryptingPartInputStream.java",
+      "line": 53,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "violation",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 키가 상수다(코드에 박힌 값에서 계산한 값 `mac.doFinal(random)`)."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 38,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "Mac.getInstance(\"HmacSHA256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 39,
+      "rule": "CRYPTO-HASH-WEAK",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"HmacSHA256\")",
+      "reasoning": "표 기준 만족: 코드는 SHA-256 (192비트 보안강도), 표는 권장 128비트 보안강도 만족"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 39,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(attachmentSecret.getModernKey())",
+      "reasoning": "`attachmentSecret.getModernKey()`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 45,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CTR/NoPadding\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 46,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 46,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "violation",
+      "api": "new IvParameterSpec(iv)",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고, 채우지 않은 0 IV다(`new byte[16]`를 채우지 않아 0으로 고정된 값)."
+    },
+    {
+      "repo": "signalapp__Signal-Android",
+      "file": "ModernEncryptingPartOutputStream.java",
+      "line": 46,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "clean",
+      "api": "new SecretKeySpec(key)",
+      "reasoning": "`random`을 SecureRandom.nextBytes로 채운다"
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 324,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CBC/PKCS5PADDING\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 329,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "Cipher.getInstance(\"AES/CBC/PKCS5PADDING\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 498,
+      "rule": "CRYPTO-CIPHER-OBSOLETE",
+      "decision": "clean",
+      "api": "new SecretKeySpec(..., \"AES\")",
+      "reasoning": "표 기준 만족: 코드는 AES (키 길이가 코드에 없음), 표는 권장 128비트 보안강도 만족. 표에 AES-128, AES-192, AES-256가 있다. 키 길이에 따라 보안강도가 128~256비트로 갈리므로 실제 키 길이를 확인해야 한다"
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 498,
+      "rule": "CRYPTO-KEY-HARDCODED",
+      "decision": "undetermined",
+      "api": "new SecretKeySpec(secretKey)",
+      "reasoning": "`legacyStorageSecretKey`의 값이 이 코드에서 보이지 않는다. 값이 정해지는 곳을 볼 수 없어 위반인지 확인할 수 없다."
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 508,
+      "rule": "CRYPTO-RNG-INSECURE",
+      "decision": "violation",
+      "api": "new Random",
+      "reasoning": "화살표 줄은 실제로 호출되는 암호 API이고 값은 `encrypt ? new Random() : null`다. false 인 경우 null이 됨."
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 584,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(initializationVector)",
+      "reasoning": "initializationVector의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, `initializationVector`은 입력 스트림에서 읽어 채운다(external_input). static_iv 값이 false이면 이 값이 정해지는 곳을 볼 수 없어 위반인지 확"
+    },
+    {
+      "repo": "yuliskov__SmartTube",
+      "file": "CachedContentIndex.java",
+      "line": 637,
+      "rule": "CRYPTO-IV-STATIC",
+      "decision": "undetermined",
+      "api": "new IvParameterSpec(initializationVector)",
+      "reasoning": "initializationVector의 값을 코드에서 확인하지 못해 판정을 채택하지 않는다. 모델 판단(violation): 화살표 줄은 실제로 호출되는 암호 API이고, `initializationVector`을 Random.nextBytes로 채운다(weak_random). 이 값이 static_iv다."
+    }
+  ]
+}
